@@ -1,0 +1,6 @@
+.buildpath
+.project
+.settings
+.vagrant
+node_modules
+
