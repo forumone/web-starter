@@ -1,0 +1,3 @@
+class forumone::webserver::nginx() {
+  
+}
