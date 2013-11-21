@@ -10,9 +10,6 @@
 [submodule "puppet/modules/firewall"]
 	path = puppet/modules/firewall
 	url = https://github.com/puppetlabs/puppetlabs-firewall.git
-[submodule "puppet/modules/mysql"]
-	path = puppet/modules/mysql
-	url = https://github.com/puppetlabs/puppetlabs-mysql.git
 [submodule "puppet/modules/nodejs"]
 	path = puppet/modules/nodejs
 	url = https://github.com/puppetlabs/puppetlabs-nodejs.git
