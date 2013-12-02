@@ -7,7 +7,8 @@ define forumone::database ($username = 'drupal', $password = 'drupal') {
     server             => true,
     percona_version    => $::forumone::percona_version,
     manage_repo        => $::forumone::percona_manage_repo,
-    config_include_dir => '/etc/mysql/conf.d'
+    config_include_dir => '/etc/mysql/conf.d',
+    configuration => { 'mysqld/log_bin' => 'absent' }
   }
   
   percona::database { $name:
@@ -23,11 +24,11 @@ define forumone::database ($username = 'drupal', $password = 'drupal') {
     host     => 'localhost'
   }
 
-  percona::rights { "${username}@10.%/${name}":
+  percona::rights { "${username}@%/${name}":
     priv     => 'all',
     user     => $username,
     database => $name,
     password => $password,
-    host     => '10.%'
+    host     => '%'
   }
 }
