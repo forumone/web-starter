@@ -1,8 +1,14 @@
 define forumone::solr::collection ($order = 10, $files = undef) {
   if $::forumone::solr_install == true {
-    file { "${::forumone::solr::path}/${name}": ensure => 'directory', }
+    file { "${::forumone::solr::path}/${name}":
+      ensure  => 'directory',
+      require => Exec["forumone::solr::extract"]
+    }
 
-    file { "${::forumone::solr::path}/${name}/conf": ensure => 'directory', }
+    file { "${::forumone::solr::path}/${name}/conf":
+      ensure  => 'directory',
+      require => File[ "${::forumone::solr::path}/${name}" ]
+    }
 
     concat::fragment { "solr_collection_${name}":
       target  => "${::forumone::solr::path}/solr.xml",
