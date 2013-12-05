@@ -1,7 +1,7 @@
-define forumone::webserver::vhost ($path = undef, $allow_override = ['All']) {
+define forumone::webserver::vhost ($path = undef, $allow_override = ['All'], $source = undef, $fastcgi_pass = '127.0.0.1:9000') {
   if $path {
     if $::forumone::webserver == 'apache' {
-      apache::vhost { 'localhost':
+      apache::vhost { $name:
         port        => '80',
         docroot     => $path,
         directories => [{
@@ -11,7 +11,11 @@ define forumone::webserver::vhost ($path = undef, $allow_override = ['All']) {
           ]
       }
     } elsif $::forumone::webserver == 'nginx' {
+      if empty($source) {
+        nginx::file { "${name}.conf": content => template('forumone/webserver/nginx/vhost.erb') }
+      } else {
+        nginx::file { 'localhost': source => $source }
+      }
     }
-
   }
 }

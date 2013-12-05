@@ -4,6 +4,7 @@ class forumone::params (
   $percona_manage_repo        = true,
   $percona_version            = "5.5",
   $webserver     = "nginx",
+  $webserver_port = 80,
   # Apache configuration
   $apache_startservers        = 8,
   $apache_minspareservers     = 5,
@@ -13,6 +14,7 @@ class forumone::params (
   $apache_maxrequestsperchild = 200,
   # nginx conf
   $nginx_conf    = ['client_max_body_size 200m', 'client_body_buffer_size 2m'],
+  $nginx_worker_processes     = 1,
   # PHP configuration
   $php_modules   = ['xml', 'gd', 'pdo', 'mbstring', 'mysql'],
   $drush_install = true,
