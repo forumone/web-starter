@@ -2,7 +2,7 @@ define forumone::webserver::vhost ($path = undef, $allow_override = ['All'], $so
   if $path {
     if $::forumone::webserver == 'apache' {
       apache::vhost { $name:
-        port        => '80',
+        port        => $::forumone::webserver_port,
         docroot     => $path,
         directories => [{
             path           => $path,
