@@ -11,6 +11,8 @@ class forumone::params (
   $apache_serverlimit         = 16,
   $apache_maxclients          = 16,
   $apache_maxrequestsperchild = 200,
+  # nginx conf
+  $nginx_conf    = ['client_max_body_size 200m', 'client_body_buffer_size 2m'],
   # PHP configuration
   $php_modules   = ['xml', 'gd', 'pdo', 'mbstring', 'mysql'],
   $drush_install = true,

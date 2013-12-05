@@ -4,6 +4,7 @@ class forumone (
   $percona_version     = $forumone::params::percona_version,
   $webserver           = $forumone::params::webserver,
   $php_modules         = $forumone::params::php_modules,
+  $nginx_conf          = $forumone::params::nginx_conf,
   $node_install        = $forumone::params::node_install,
   $node_modules        = $forumone::params::node_modules,
   $ruby_install        = $forumone::params::ruby_install,
@@ -29,7 +30,14 @@ class forumone (
     class { "forumone::webserver::nginx": }
   }
 
-  php::module { $php_modules: notify => Service[$service] }
+  package { 'php-fpm': ensure => present }
+
+  service { 'php-fpm':
+    ensure  => running,
+    require => Package['php-fpm']
+  }
+
+  php::module { $php_modules: notify => Service[$service, 'php-fpm'] }
 
   if $node_install == true {
     class { "forumone::nodejs": }
@@ -42,6 +50,7 @@ class forumone (
   if $drush_install == true {
     class { "forumone::drush": }
   }
-  
-  class { "forumone::solr": }
+
+  class { "forumone::solr":
+  }
 }

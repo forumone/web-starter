@@ -1,5 +1,3 @@
-class forumone::webserver::nginx() {
-  class { '::nginx': } 
-  
-  package { 'php-fpm': }
+class forumone::webserver::nginx () {
+  class { '::nginx': http_raw_lines => $::forumone::nginx_conf }
 }

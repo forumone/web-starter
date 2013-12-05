@@ -25,3 +25,6 @@
 [submodule "puppet/modules/stdlib"]
 	path = puppet/modules/stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/modules/nginx"]
+	path = puppet/modules/nginx
+	url = https://github.com/forumone/puppet-nginx.git

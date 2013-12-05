@@ -10,43 +10,43 @@ node default {
   }
 
   class { "forumone":
-    webserver => 'apache'
+    webserver => 'nginx'
   }
 
-  forumone::solr::collection { "drupal": }
+  #forumone::solr::collection { "drupal": }
 
-  forumone::webserver::vhost { "vagrant": path => "/vagrant/public" }
+  #forumone::webserver::vhost { "vagrant": path => "/vagrant/public" }
 
-  forumone::database { "drupal": }
+  #forumone::database { "drupal": }
 
-  php::ini { '/etc/php.ini':
-    display_errors      => 'On',
-    memory_limit        => '256M',
-    upload_max_filesize => '50M',
-    post_max_size       => '100M'
-  }
+  #php::ini { '/etc/php.ini':
+  #  display_errors      => 'On',
+  #  memory_limit        => '256M',
+  #  upload_max_filesize => '50M',
+  #  post_max_size       => '100M'
+  #}
 
-  percona::conf {
-    'innodb_file_per_table':
-      content => "[mysqld]\ninnodb_file_per_table";
+  #percona::conf {
+  #  'innodb_file_per_table':
+  #    content => "[mysqld]\ninnodb_file_per_table";
 
-    'query_cache_size':
-      content => "[mysqld]\nquery_cache_size = 128M";
+  #  'query_cache_size':
+  #    content => "[mysqld]\nquery_cache_size = 128M";
 
-    'table_open_cache':
-      content => "[mysqld]\ntable_open_cache = 2048";
+  #  'table_open_cache':
+  #    content => "[mysqld]\ntable_open_cache = 2048";
 
-    'table_cache':
-      content => "[mysqld]\ntable_cache = 1024";
+  #  'table_cache':
+  #    content => "[mysqld]\ntable_cache = 1024";
 
-    'memory_buffers':
-      content => "[mysqld]\ntmp_table_size = 128\nmax_heap_table_size = 128M\njoin_buffer_size = 1M\nmyisam_sort_buffer_size = 8M\nsort_buffer_size = 2M"
-    ;
+  #  'memory_buffers':
+  #    content => "[mysqld]\ntmp_table_size = 128\nmax_heap_table_size = 128M\njoin_buffer_size = 1M\nmyisam_sort_buffer_size = 8M\nsort_buffer_size = 2M"
+  #  ;
 
-    'thread_cache':
-      content => "[mysqld]\nthread_cache_size = 4";
+  #  'thread_cache':
+  #    content => "[mysqld]\nthread_cache_size = 4";
 
-    'max_allowed_packets':
-      content => "[mysqld]\nmax_allowed_packet=100M";
-  }
+  #  'max_allowed_packets':
+  #    content => "[mysqld]\nmax_allowed_packet=100M";
+  #}
 }
