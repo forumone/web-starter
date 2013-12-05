@@ -43,7 +43,7 @@ MEMLOCK=82000
 # one content server selected by the vcl file, based on the request.  Use a 1GB
 # fixed-size cache file.
 #
-DAEMON_OPTS="-a <%= scope.lookupvar('forumone::varnish_port') %> \
+DAEMON_OPTS="-a <%= scope.lookupvar('forumone::varnish_bind') %> \
              -T localhost:6082 \
              -f /etc/varnish/default.vcl \
              -S /etc/varnish/secret \

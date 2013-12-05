@@ -12,9 +12,12 @@ class forumone::varnish () {
   }
 
   service { "varnish":
-    ensure  => running,
+    ensure => running,
     enable  => true,
-    require => Package['varnish']
+    hasrestart => true,
+    hasstatus => true,
+    status => '/usr/sbin/service  varnish status | grep "is running"',
+    require => Package["varnish"],
   }
 
   package { "varnish":
@@ -35,8 +38,7 @@ class forumone::varnish () {
     mode    => "644",
     content => template("forumone/varnish/etc_default.erb"),
     require => Package["varnish"],
-    before  => Service["varnish"],
-    notify  => Exec["varnish-restart"],
+    notify  => Service["varnish"],
   }
 
   file { "/etc/varnish/default.vcl":

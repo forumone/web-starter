@@ -12,9 +12,15 @@ define forumone::webserver::vhost ($path = undef, $allow_override = ['All'], $so
       }
     } elsif $::forumone::webserver == 'nginx' {
       if empty($source) {
-        nginx::file { "${name}.conf": content => template('forumone/webserver/nginx/vhost.erb') }
+        nginx::file { "${name}.conf":
+          content => template('forumone/webserver/nginx/vhost.erb'),
+          notify  => Service['nginx']
+        }
       } else {
-        nginx::file { 'localhost': source => $source }
+        nginx::file { 'localhost':
+          source => $source,
+          notify => Service['nginx']
+        }
       }
     }
   }

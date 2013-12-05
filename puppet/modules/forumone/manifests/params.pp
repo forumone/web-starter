@@ -4,7 +4,7 @@ class forumone::params (
   $percona_manage_repo        = true,
   $percona_version = "5.5",
   $webserver       = "nginx",
-  $webserver_port  = "80",
+  $webserver_port  = "8080",
   # Apache configuration
   $apache_startservers        = 8,
   $apache_minspareservers     = 5,
@@ -30,7 +30,7 @@ class forumone::params (
   $solr_version    = "3.6.2",
   # Varnish configuration
   $varnish_install = true,
-  $varnish_backend_port       = "80",
-  $varnish_port    = ":8080",
+  $varnish_backend_port       = "8080",
+  $varnish_bind    = "*:80",
   $varnish_cache_size         = "256M") {
 }

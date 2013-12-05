@@ -17,7 +17,7 @@ class forumone (
   $solr_version         = $forumone::params::solr_version,
   $varnish_install      = $forumone::params::varnish_install,
   $varnish_backend_port = $forumone::params::varnish_backend_port,
-  $varnish_port         = $forumone::params::varnish_port,
+  $varnish_bind         = $forumone::params::varnish_bind,
   $varnish_cache_size   = $forumone::params::varnish_cache_size) inherits forumone::params {
   case $::operatingsystem {
     /(?i:redhat|centos)/ : {
