@@ -13,7 +13,7 @@ node default {
     webserver => 'nginx'
   }
 
-  # forumone::solr::collection { "drupal": }
+  forumone::solr::collection { "drupal": }
 
   forumone::webserver::vhost { "vagrant": path => "/vagrant/public" }
 
