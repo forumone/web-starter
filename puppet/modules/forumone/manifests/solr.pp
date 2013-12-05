@@ -5,9 +5,11 @@ class forumone::solr () {
 
   if $major_version == "4" {
     $filename = "solr-${::forumone::solr_version}"
+    $initd_script = "solr_jetty_7.erb"
     $path = "/opt/${filename}/example"
   } else {
     $filename = "apache-solr-${::forumone::solr_version}"
+    $initd_script = "solr_jetty_6.erb"
     $path = "/opt/${filename}/example/multicore"
   }
 
@@ -47,8 +49,20 @@ class forumone::solr () {
     owner   => "root",
     group   => "root",
     mode    => "755",
-    content => template("forumone/solr/solr.erb"),
+    content => template("forumone/solr/${initd_script}"),
     require => Exec["forumone::solr::extract"],
+  }
+
+  if $major_version == 3 {
+    file { "/opt/${filename}/example/etc/jetty-logging.xml":
+      ensure  => present,
+      owner   => "root",
+      group   => "root",
+      mode    => "755",
+      content => template("forumone/solr/jetty_logging.erb"),
+      require => Exec["forumone::solr::extract"],
+      notify => Service['solr']
+    }
   }
 
   service { 'solr':
@@ -65,10 +79,10 @@ class forumone::solr () {
   }
 
   concat { "${path}/solr.xml":
-    owner => "root",
-    group => "root",
-    mode  => 644,
-    notify  => Service['solr']
+    owner  => "root",
+    group  => "root",
+    mode   => 644,
+    notify => Service['solr']
   }
 
   concat::fragment { "solr_header":
@@ -76,7 +90,7 @@ class forumone::solr () {
     content => "<solr persistent='false'><cores adminPath='/admin/cores'>",
     order   => 01
   }
-  
+
   concat::fragment { "solr_footer":
     target  => "${path}/solr.xml",
     content => "</cores></solr>",
