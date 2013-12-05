@@ -1,0 +1,13 @@
+backend web1 {
+  .host = "localhost";
+  .port = "<%= scope.lookupvar('forumone::varnish_backend_port') %>";
+  .connect_timeout = 600s;
+  .first_byte_timeout = 600s;
+  .between_bytes_timeout = 600s;
+}
+
+director default round-robin {
+  {
+    .backend = web1;
+  }
+}
