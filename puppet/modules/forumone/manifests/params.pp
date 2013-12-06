@@ -16,7 +16,7 @@ class forumone::params (
   $nginx_conf      = ['client_max_body_size 200m', 'client_body_buffer_size 2m'],
   $nginx_worker_processes     = 1,
   # PHP configuration
-  $php_modules     = ['xml', 'gd', 'pdo', 'mbstring', 'mysql'],
+  $php_modules     = ['xml', 'gd', 'pdo', 'mbstring', 'mysql', 'pecl-memcached'],
   $drush_install   = true,
   # Node configuration
   $node_install    = true,
@@ -32,5 +32,10 @@ class forumone::params (
   $varnish_install = true,
   $varnish_backend_port       = "8080",
   $varnish_bind    = "*:80",
-  $varnish_cache_size         = "256M") {
+  $varnish_cache_size         = "256M",
+  # Memcached configuration
+  $memcached_install          = true,
+  $memcached_port  = "11219",
+  $memcached_maxconn          = 8192,
+  $memcached_cachesize        = 2048) {
 }

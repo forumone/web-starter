@@ -18,7 +18,11 @@ class forumone (
   $varnish_install      = $forumone::params::varnish_install,
   $varnish_backend_port = $forumone::params::varnish_backend_port,
   $varnish_bind         = $forumone::params::varnish_bind,
-  $varnish_cache_size   = $forumone::params::varnish_cache_size) inherits forumone::params {
+  $varnish_cache_size   = $forumone::params::varnish_cache_size,
+  $memcached_install    = $forumone::params::memcached_install,
+  $memcached_port       = $forumone::params::memcached_port,
+  $memcached_maxconn    = $forumone::params::memcached_maxconn,
+  $memcached_cachesize  = $forumone::params::memcached_cachesize) inherits forumone::params {
   case $::operatingsystem {
     /(?i:redhat|centos)/ : {
       class { 'forumone::os::fedora::project': }
@@ -60,6 +64,11 @@ class forumone (
     class { "forumone::varnish": }
   }
 
-  class { "forumone::solr":
+  if $solr_install == true {
+    class { "forumone::solr": }
+  }
+
+  if $memcached_install == true {
+    class { "forumone::memcached": }
   }
 }

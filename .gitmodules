@@ -28,3 +28,6 @@
 [submodule "puppet/modules/nginx"]
 	path = puppet/modules/nginx
 	url = https://github.com/forumone/puppet-nginx.git
+[submodule "puppet/modules/memcached"]
+	path = puppet/modules/memcached
+	url = https://github.com/thias/puppet-memcached.git
