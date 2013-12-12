@@ -1,0 +1,35 @@
+namespace :drush do
+  task :dbbackup do 
+    on roles :all do
+      unless test " [ -f #{release_path/db.sql} ]"
+        execute :sudo, "su - #{fetch(:site_user)} -c \"", :drush, "-y >> #{release_path}/db.sql", "\""
+      end
+    end
+  end
+  
+  task :rollback_db do
+    on roles :all do
+      info "test #{release_path}"
+    end
+  end
+  
+  task :updatedb do
+    on roles :all do
+      execute :drush, "-y -p -r #{current_path}/public", 'updatedb'
+    end
+  end
+
+  task :cache do
+    on roles :all do
+      execute :drush, "-y -p -r #{current_path}/public", 'cc all'
+    end
+  end
+  
+  namespace :features do
+    task :revert do
+      on roles :all do
+        execute :drush, "-y -p -r #{current_path}/public", 'fra'
+      end
+    end
+  end
+end
