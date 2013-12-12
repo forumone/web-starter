@@ -71,4 +71,19 @@ class forumone (
   if $memcached_install == true {
     class { "forumone::memcached": }
   }
+  
+  file { "/home/vagrant/.bashrc":
+    ensure  => present,
+    owner   => "vagrant",
+    group   => "vagrant",
+    mode    => "644",
+    content => template("forumone/bashrc.erb"),
+  }
+  
+  file { "/home/vagrant/.ssh/config" :
+    ensure  => present,
+    content => template("forumone/ssh_config.erb"),
+    owner   => "vagrant",
+    mode    => 600
+  }
 }

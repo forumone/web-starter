@@ -23,7 +23,7 @@ class forumone::params (
   $node_modules    = ["grunt-cli"],
   # Ruby configuration
   $ruby_install    = true,
-  $ruby_version    = "1.9.3-p448",
+  $ruby_version    = "1.9.3-p484",
   $ruby_user       = "vagrant",
   $ruby_group      = "vagrant",
   $solr_install    = true,
