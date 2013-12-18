@@ -1,0 +1,8 @@
+APP_NAME="Mailcatcher"
+APP_FILENAME="mailcatcher"
+APP_PID="/var/run/$APP_FILENAME.pid"
+APP_PATH="<%= scope.lookupvar('forumone::mailcatcher_path') %>"
+APP_FILE="mailcatcher"
+APP_LOGS="/var/log/mailcatcher"
+APP_PRE_OPTION=""
+APP_POST_OPTION="<%= @options.join(' ') %> -f"
