@@ -24,6 +24,7 @@ node default {
     memory_limit        => '256M',
     upload_max_filesize => '50M',
     post_max_size       => '100M',
+    sendmail_path       => "/usr/bin/env catchmail",
     notify              => Service['php-fpm']
   }
 
