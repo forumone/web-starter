@@ -2,9 +2,11 @@ define forumone::webserver::vhost ($path = undef, $allow_override = ['All'], $so
   if $path {
     if $::forumone::webserver == 'apache' {
       apache::vhost { $name:
-        port        => $::forumone::webserver_port,
-        docroot     => $path,
-        directories => [{
+        port          => $::forumone::webserver_port,
+        docroot       => $path,
+        docroot_group => 'games',
+        docroot_owner => 'vagrant',
+        directories   => [{
             path           => $path,
             allow_override => $allow_override
           }
