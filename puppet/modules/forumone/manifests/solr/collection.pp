@@ -18,7 +18,7 @@ define forumone::solr::collection ($order = 10, $files = undef) {
 
     if $files == undef {
       if $::forumone::solr::major_version == "4" {
-        $solr_file = [
+        $solr_files = [
           "elevate.xml",
           "protwords.txt",
           "mapping-ISOLatin1Accent.txt",
