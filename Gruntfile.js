@@ -7,7 +7,8 @@ module.exports = function(grunt) {
             options : { // Target options
               basePath: 'public/sites/all/themes/mcc_theme/',
               outputStyle: 'expanded',
-              noLineComments: false
+              noLineComments: false,
+              bundleExec: true
             }
           },
           staging : { // Target
@@ -15,7 +16,8 @@ module.exports = function(grunt) {
               basePath: 'public/sites/all/themes/mcc_theme/',
               outputStyle: 'compressed',
               noLineComments: true,
-              force: true
+              force: true,
+              bundleExec: true
             }
           },
         },
