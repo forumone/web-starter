@@ -4,8 +4,8 @@ define forumone::webserver::vhost ($path = undef, $allow_override = ['All'], $so
       apache::vhost { $name:
         port          => $::forumone::webserver_port,
         docroot       => $path,
-        docroot_group => 'games',
-        docroot_owner => 'vagrant',
+        docroot_group => $host_gid,
+        docroot_owner => $host_uid,
         directories   => [{
             path           => $path,
             allow_override => $allow_override
