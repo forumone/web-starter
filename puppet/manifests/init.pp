@@ -10,7 +10,8 @@ node default {
   }
 
   class { "forumone":
-    webserver => 'nginx'
+    webserver => 'nginx',
+    memcached_cachesize => 8192
   }
 
   forumone::solr::collection { "drupal": }
@@ -25,7 +26,13 @@ node default {
     upload_max_filesize => '50M',
     post_max_size       => '100M',
     sendmail_path       => "/usr/bin/env catchmail",
-    notify              => Service['php-fpm']
+    notify              => [ Service['php-fpm'] ]
+  }
+
+  php::module::ini { 'xcache': 
+    settings => {
+      'xcache.size' => '96M'
+    }
   }
 
   percona::conf {
