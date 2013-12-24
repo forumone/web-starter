@@ -27,7 +27,9 @@ define forumone::solr::collection ($order = 10, $files = undef) {
           "schema.xml",
           "solrconfig_extra.xml",
           "solrconfig.xml",
-          "solrcore.properties"]
+          "solrcore.properties",
+          "stopwords.txt",
+          "synonyms.txt"]
       } elsif $::forumone::solr::major_version == "3" {
         $solr_files = [
           "elevate.xml",
