@@ -16,7 +16,7 @@ class forumone::params (
   $nginx_conf   = ['client_max_body_size 200m', 'client_body_buffer_size 2m'],
   $nginx_worker_processes     = 1,
   # PHP configuration
-  $php_modules  = ['xml', 'gd', 'pdo', 'mbstring', 'mysql', 'pecl-memcached'],
+  $php_modules  = ['xml', 'gd', 'pdo', 'mbstring', 'mysql', 'pecl-memcached', 'xcache'],
   $drush_install              = true,
   # Node configuration
   $node_install = true,
