@@ -34,6 +34,15 @@ node default {
       'xcache.size' => '96M'
     }
   }
+  
+  php::module::ini { 'xdebug':
+    pkgname => 'pecl-xdebug',
+    settings => {
+      'xdebug.remote_enable' => 1,
+      'xdebug.remote_connect_back' => 1,
+      'xdebug.remote_handler' => 'dbgp'
+    }
+  }
 
   percona::conf {
     'innodb_file_per_table':
