@@ -1,4 +1,8 @@
-define forumone::webserver::vhost ($path = undef, $allow_override = ['All'], $source = undef, $fastcgi_pass = '127.0.0.1:9000') {
+define forumone::webserver::vhost (
+  $path           = undef,
+  $allow_override = ['All'],
+  $source         = undef,
+  $fastcgi_pass   = "unix:${forumone::php_fpm_listen}") {
   if $path {
     if $::forumone::webserver == 'apache' {
       apache::vhost { $name:

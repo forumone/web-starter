@@ -13,10 +13,11 @@ class forumone::params (
   $apache_maxclients          = 16,
   $apache_maxrequestsperchild = 200,
   # nginx conf
-  $nginx_conf   = ['client_max_body_size 200m', 'client_body_buffer_size 2m'],
+  $nginx_conf   = ["client_max_body_size 200m", "client_body_buffer_size 2m", "set_real_ip_from 127.0.0.1", "real_ip_header X-Forwarded-For"],
   $nginx_worker_processes     = 1,
   # PHP configuration
-  $php_modules  = ['xml', 'gd', 'pdo', 'mbstring', 'mysql', 'pecl-memcached', 'xcache'],
+  $php_modules  = ["xml", "gd", "pdo", "mbstring", "mysql", "pecl-memcached", "xcache", "pecl-xdebug"],
+  $php_fpm_listen = "/var/run/php-fpm.sock",
   $drush_install              = true,
   # Node configuration
   $node_install = true,

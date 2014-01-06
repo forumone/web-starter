@@ -5,6 +5,7 @@ class forumone (
   $webserver             = $forumone::params::webserver,
   $webserver_port        = $forumone::params::webserver_port,
   $php_modules           = $forumone::params::php_modules,
+  $php_fpm_listen        = $forumone::params::php_fpm_listen,
   $nginx_conf            = $forumone::params::nginx_conf,
   $node_install          = $forumone::params::node_install,
   $node_modules          = $forumone::params::node_modules,
@@ -47,8 +48,17 @@ class forumone (
 
   package { 'php-fpm': ensure => present }
 
+  file { '/etc/php-fpm.d/www.conf':
+    ensure  => present,
+    owner   => "root",
+    group   => "root",
+    content => template("forumone/fpm_pool.erb"),
+    notify  => Service["php-fpm"]
+  }
+
   service { 'php-fpm':
     ensure  => running,
+    enable  => true,
     require => Package['php-fpm']
   }
 
