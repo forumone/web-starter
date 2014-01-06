@@ -47,19 +47,20 @@ class forumone (
   }
 
   package { 'php-fpm': ensure => present }
-
+   
+  service { 'php-fpm':
+    ensure  => running,
+    enable  => true,
+    require => Package["php-fpm"]
+  }
+  
   file { '/etc/php-fpm.d/www.conf':
     ensure  => present,
     owner   => "root",
     group   => "root",
     content => template("forumone/fpm_pool.erb"),
-    notify  => Service["php-fpm"]
-  }
-
-  service { 'php-fpm':
-    ensure  => running,
-    enable  => true,
-    require => Package['php-fpm']
+    notify  => Service["php-fpm"],
+    require => Package["php-fpm"]
   }
 
   php::module { $php_modules: notify => Service[$service, 'php-fpm'] }
