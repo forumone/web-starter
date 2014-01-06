@@ -50,6 +50,7 @@ server {
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                 fastcgi_intercept_errors on;
                 fastcgi_pass <%= fastcgi_pass %>;
+                fastcgi_read_timeout 600;
         }
  
         # Fighting with ImageCache? This little gem is amazing.
