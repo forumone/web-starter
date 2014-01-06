@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "centos64-64"
+  config.vm.box = "f1-centos64-64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 18983
   config.vm.network :forwarded_port, guest: 3306, host: 13306
   config.vm.network :forwarded_port, guest: 1080, host: 1080
-
+  
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: "10.11.12.14"
