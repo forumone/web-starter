@@ -37,6 +37,7 @@ node default {
   
   php::module::ini { 'xdebug':
     pkgname => 'pecl-xdebug',
+    zend => '/usr/lib64/php/modules',
     settings => {
       'xdebug.remote_enable' => 1,
       'xdebug.remote_connect_back' => 1,
