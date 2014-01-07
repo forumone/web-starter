@@ -86,6 +86,16 @@ if (req.url ~ "^/nginx_status") {
     }
   }
 
+  ## From default below ##
+  if (req.restarts == 0) {
+    if (req.http.x-forwarded-for) {
+      set req.http.X-Forwarded-For =
+      req.http.X-Forwarded-For + ", " + client.ip;
+    } else {
+      set req.http.X-Forwarded-For = client.ip;
+    }
+  }
+  
   # Remove all cookies that Drupal doesn't need to know about. ANY remaining
   # cookie will cause the request to pass-through to a backend. For the most part
   # we always set the NO_CACHE cookie after any POST request, disabling the
@@ -120,15 +130,6 @@ if (req.url ~ "^/nginx_status") {
     }
   }
 
-  ## From default below ##
-  if (req.restarts == 0) {
-    if (req.http.x-forwarded-for) {
-      set req.http.X-Forwarded-For =
-      req.http.X-Forwarded-For + ", " + client.ip;
-    } else {
-      set req.http.X-Forwarded-For = client.ip;
-    }
-  }
   if (req.request != "GET" &&
     req.request != "HEAD" &&
     req.request != "PUT" &&

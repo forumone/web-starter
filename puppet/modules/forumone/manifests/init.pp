@@ -1,10 +1,12 @@
 class forumone (
   $ports                 = $forumone::params::ports,
+  $percona_install       = $forumone::params::percona_install,
   $percona_manage_repo   = $forumone::params::percona_manage_repo,
   $percona_version       = $forumone::params::percona_version,
   $webserver             = $forumone::params::webserver,
   $webserver_port        = $forumone::params::webserver_port,
   $php_modules           = $forumone::params::php_modules,
+  $php_fpm_listen        = $forumone::params::php_fpm_listen,
   $nginx_conf            = $forumone::params::nginx_conf,
   $node_install          = $forumone::params::node_install,
   $node_modules          = $forumone::params::node_modules,
@@ -49,7 +51,17 @@ class forumone (
 
   service { 'php-fpm':
     ensure  => running,
-    require => Package['php-fpm']
+    enable  => true,
+    require => Package["php-fpm"]
+  }
+
+  file { '/etc/php-fpm.d/www.conf':
+    ensure  => present,
+    owner   => "root",
+    group   => "root",
+    content => template("forumone/fpm_pool.erb"),
+    notify  => Service["php-fpm"],
+    require => Package["php-fpm"]
   }
 
   php::module { $php_modules: notify => Service[$service, 'php-fpm'] }
@@ -95,5 +107,21 @@ class forumone (
 
   if $mailcatcher_install == true {
     class { 'forumone::mailcatcher': }
+  }
+
+  if $percona_install == true {
+    file { '/etc/mysql': ensure => 'directory', }
+
+    file { '/etc/mysql/conf.d': ensure => 'directory', }
+
+    class { 'percona':
+      server             => true,
+      percona_version    => $percona_version,
+      manage_repo        => $percona_manage_repo,
+      config_include_dir => '/etc/mysql/conf.d',
+      configuration      => {
+        'mysqld/log_bin' => 'absent'
+      }
+    }
   }
 }
