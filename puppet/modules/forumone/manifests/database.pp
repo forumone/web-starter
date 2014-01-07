@@ -1,16 +1,4 @@
 define forumone::database ($username = 'drupal', $password = 'drupal') {
-  file { '/etc/mysql': ensure => 'directory', }
-
-  file { '/etc/mysql/conf.d': ensure => 'directory', }
-
-  class { 'percona':
-    server             => true,
-    percona_version    => $::forumone::percona_version,
-    manage_repo        => $::forumone::percona_manage_repo,
-    config_include_dir => '/etc/mysql/conf.d',
-    configuration => { 'mysqld/log_bin' => 'absent' }
-  }
-  
   percona::database { $name:
     ensure  => present,
     require => Service['mysql']

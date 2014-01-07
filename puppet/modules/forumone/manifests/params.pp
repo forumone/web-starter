@@ -1,6 +1,7 @@
 class forumone::params (
   $ports        = [80, 443, 8080, 8081, 18983, 8983, 3306, 13306, 1080],
   # Percona configuration
+  $percona_install            = true,
   $percona_manage_repo        = true,
   $percona_version            = "5.5",
   $webserver    = "nginx",
