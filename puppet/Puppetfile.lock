@@ -1,0 +1,72 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    alup/rbenv (1.2.0)
+    puppetlabs/apache (0.9.0)
+      puppetlabs/concat (>= 1.0.0)
+      puppetlabs/stdlib (>= 2.4.0)
+    puppetlabs/apt (1.4.0)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/concat (1.1.0-rc1)
+      puppetlabs/stdlib (>= 3.0.0)
+    puppetlabs/firewall (0.4.2)
+    puppetlabs/nodejs (0.4.0)
+      puppetlabs/apt (>= 0.0.3)
+      puppetlabs/stdlib (>= 2.0.0)
+    puppetlabs/stdlib (4.1.0)
+    stahnma/epel (0.0.5)
+    thias/memcached (0.1.0)
+    thias/php (0.3.8)
+
+GIT
+  remote: git@code.forumone.com:f1/puppet-forumone.git
+  ref: 1.0.0
+  sha: 47e5b69ec42a379a345445383322ede59f4aaa3d
+  specs:
+    forumone (0.0.1)
+
+GIT
+  remote: https://github.com/arioch/puppet-percona.git
+  ref: master
+  sha: ca514218d8c34971d21208d402596c56452ca49d
+  specs:
+    percona (0.0.1)
+
+GIT
+  remote: https://github.com/forumone/puppet-pear.git
+  ref: master
+  sha: f2dafbbf8f5da7663d784e1f61b3e26d2ebc5e77
+  specs:
+    pear (0.0.1)
+
+GIT
+  remote: https://github.com/puppetlabs/puppetlabs-mysql.git
+  ref: 0.9.0
+  sha: 11ab036fed3b252492f5400bf8fd69698d510482
+  specs:
+    mysql (0.9.0)
+      puppetlabs/stdlib (>= 2.2.1)
+
+GIT
+  remote: https://github.com/thias/puppet-nginx.git
+  ref: master
+  sha: 21b7fff35891b9089394add3c5b84d4616467aba
+  specs:
+    nginx (0.1.8)
+
+DEPENDENCIES
+  alup/rbenv (~> 1.2)
+  forumone (>= 0)
+  mysql (>= 0)
+  nginx (>= 0)
+  pear (>= 0)
+  percona (>= 0)
+  puppetlabs/apache (~> 0.9)
+  puppetlabs/apt (~> 1.1)
+  puppetlabs/concat (~> 1.0)
+  puppetlabs/firewall (~> 0.4)
+  puppetlabs/nodejs (~> 0.4)
+  stahnma/epel (= 0.0.5)
+  thias/memcached (~> 0.1)
+  thias/php (~> 0.3)
+
