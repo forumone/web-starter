@@ -61,10 +61,14 @@ Vagrant.configure("2") do |config|
   # the file centos64-64.pp in the manifests_path directory.
   config.vm.provision :puppet do |puppet|
     puppet.options = "--verbose"
-    puppet.facter = { "host_uid" => config.nfs.map_uid, "host_gid" => config.nfs.map_gid, "vagrant_user" => ENV['USER'] }
+    puppet.facter = { 
+      "host_uid" => config.nfs.map_uid, 
+      "host_gid" => config.nfs.map_gid, 
+      "vagrant_user" => ENV['USER'] }
     
     puppet.manifests_path = "puppet/manifests"
     puppet.module_path = "puppet/modules"
     puppet.manifest_file = "init.pp"
+    puppet.hiera_config_path = "puppet/manifests/hiera.yaml"
   end
 end
