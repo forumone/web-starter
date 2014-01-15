@@ -1,0 +1,15 @@
+---
+:backends:
+  - yaml
+  
+:yaml:
+  :datadir: /vagrant/puppet/manifests/hieradata
+  
+:json:
+  :datadir: /vagrant/puppet/manifests/hieradata
+  
+:hierarchy:
+  - sites/%{::fqdn}
+  - platforms/%{::platform}
+  - hosts/%{::host}
+  - common

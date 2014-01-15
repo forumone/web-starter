@@ -1,0 +1,22 @@
+---
+classes: 
+  - forumone::solr
+  - forumone::varnish
+  - forumone::nodejs
+  - forumone::ruby
+  - memcached
+
+forumone::webserver: nginx
+
+forumone::php::modules:
+  - pecl-memcached
+  - xcache
+  
+forumone::solr::collections:  
+  drupal: 
+    order: 1
+    
+php::modules: 
+  xcache: 
+    settings: 
+      xcache.size: "96M"

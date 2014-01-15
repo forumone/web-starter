@@ -1,0 +1,14 @@
+---
+platform: "drupal"
+
+forumone::databases: 
+  drupal: 
+    username: drupal
+  
+forumone::webserver::vhosts:  
+  vagrant: 
+    path: "/vagrant/public"
+    
+forumone::solr::collections:  
+  drupal: 
+    order: 1
