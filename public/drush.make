@@ -287,11 +287,11 @@ projects[tao][type] = "theme"
 projects[rubik][version] = "4"
 projects[rubik][type] = "theme"
 
-projects[f1omega][download][type] = "git"
-projects[f1omega][download][url] = "git@code.forumone.com:f1ux/f1omega.git"
-projects[f1omega][download][branch] = "4.x"
-projects[f1omega][directory_name] = "f1omega"
-projects[f1omega][type] = "theme"
+projects[f1ux][download][type] = "git"
+projects[f1ux][download][url] = "git@code.forumone.com:f1ux/f1ux-theme.git"
+projects[f1ux][download][branch] = "master"
+projects[f1ux][directory_name] = "f1ux"
+projects[f1ux][type] = "theme"
 
 ; ## Libraries ##
 
