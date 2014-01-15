@@ -22,4 +22,4 @@ mod "pear",
   :git => "https://github.com/forumone/puppet-pear.git"
 mod "forumone",
   :git => "git@code.forumone.com:f1/puppet-forumone.git",
-  :ref => "hiera"
+  :ref => "1.1.x"
