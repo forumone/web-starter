@@ -20,8 +20,8 @@ FORGE
 
 GIT
   remote: git@code.forumone.com:f1/puppet-forumone.git
-  ref: 1.0.0
-  sha: 47e5b69ec42a379a345445383322ede59f4aaa3d
+  ref: hiera
+  sha: 85d0a79a9ff84ae3a95b158c85a906f88af52258
   specs:
     forumone (0.0.1)
 
