@@ -1,6 +1,4 @@
 ---
-platform: "drupal"
-
 forumone::databases: 
   drupal: 
     username: drupal
@@ -8,6 +6,7 @@ forumone::databases:
 forumone::webserver::vhosts:  
   vagrant: 
     path: "/vagrant/public"
+    platform: "drupal"
     
 forumone::solr::collections:  
   drupal: 

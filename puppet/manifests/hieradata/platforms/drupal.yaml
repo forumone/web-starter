@@ -12,7 +12,7 @@ forumone::php::modules:
   - mbstring
   - mysql
   - pecl-xdebug
-  
+  - gd
 
 php::ini: 
   display_errors: "On"

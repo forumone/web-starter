@@ -6,6 +6,7 @@ mod "puppetlabs/concat", "~>1.0"
 mod "stahnma/epel", "0.0.5"
 mod "puppetlabs/firewall", "~>0.4"
 mod "thias/memcached", "~>0.1"
+mod "fsalum/redis", "~>0.0.9"
 mod "mysql", 
   :git => "https://github.com/puppetlabs/puppetlabs-mysql.git",
   :ref => "0.9.0"

@@ -11,6 +11,7 @@ forumone::webserver: nginx
 forumone::php::modules:
   - pecl-memcached
   - xcache
+  - gd
   
 forumone::solr::collections:  
   drupal: 
