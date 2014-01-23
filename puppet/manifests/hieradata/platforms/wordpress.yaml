@@ -1,0 +1,29 @@
+---
+classes: 
+  - forumone::database
+  - forumone::webserver
+  - forumone::php
+  - forumone::mailcatcher
+
+forumone::php::modules:
+  - xml
+  - mbstring
+  - mysql
+  - pecl-xdebug
+  
+
+php::ini: 
+  display_errors: "On"
+  memory_limit: "256M"
+  upload_max_filesize: "50M"
+  post_max_size: "100M"
+  sendmail_path: "/usr/bin/env catchmail"
+
+php::modules: 
+  xdebug: 
+    pkgname: "pecl-xdebug"
+    zend: "/usr/lib64/php/modules"
+    settings: 
+      xdebug.remote_enable: 1
+      xdebug.remote_connect_back: 1
+      xdebug.remote_handler: "dbgp"
