@@ -17,12 +17,12 @@ FORGE
     puppetlabs/stdlib (4.1.0)
     stahnma/epel (0.0.5)
     thias/memcached (0.1.0)
-    thias/php (0.3.8)
+    thias/php (0.3.9)
 
 GIT
   remote: git@code.forumone.com:f1/puppet-forumone.git
-  ref: 1.1.x
-  sha: aab9bb738946375ec8122411444ba53c37aee356
+  ref: 1.1.0
+  sha: b2877c2d490c98917dbac6d70d353eb2e2706f1b
   specs:
     forumone (0.0.1)
 
