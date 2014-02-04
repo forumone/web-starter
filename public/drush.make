@@ -281,16 +281,10 @@ projects[webform][version] = "3"
 projects[webform][subdir] = "contrib"
 
 ; ## Themes ##
-projects[tao][version] = "3"
-projects[tao][type] = "theme"
-
-projects[rubik][version] = "4"
-projects[rubik][type] = "theme"
-
 projects[f1omega][download][type] = "git"
-projects[f1omega][download][url] = "git@code.forumone.com:f1ux/f1omega.git"
-projects[f1omega][download][branch] = "4.x"
-projects[f1omega][directory_name] = "f1omega"
+projects[f1omega][download][url] = "git@code.forumone.com:f1ux/f1ux-theme.git"
+projects[f1omega][download][branch] = "master"
+projects[f1omega][directory_name] = "f1ux-theme"
 projects[f1omega][type] = "theme"
 
 ; ## Libraries ##
