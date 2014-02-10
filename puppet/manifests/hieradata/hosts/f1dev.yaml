@@ -1,22 +1,17 @@
 ---
 classes: 
-  - forumone::solr
   - forumone::varnish
   - forumone::nodejs
   - forumone::ruby
   - memcached
 
-forumone::webserver: nginx
+forumone::webserver::webserver: nginx
 
 forumone::php::modules:
   - pecl-memcached
   - xcache
   - gd
   
-forumone::solr::collections:  
-  drupal: 
-    order: 1
-    
 php::modules: 
   xcache: 
     settings: 
