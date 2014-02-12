@@ -1,8 +1,10 @@
 namespace :drush do
   task :dbbackup do 
     on roles :all do
-      unless test " [ -f #{release_path/db.sql} ]"
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :drush, "-y >> #{release_path}/db.sql", "\""
+      unless test " [ -f #{release_path}/db.sql ]"
+        within "#{release_path}/public" do
+          execute :drush, "-l #{fetch(:site_url)} sql-dump -y >> #{release_path}/db.sql"
+        end
       end
     end
   end
@@ -15,20 +17,33 @@ namespace :drush do
   
   task :updatedb do
     on roles :all do
-      execute :drush, "-y -p -r #{current_path}/public", 'updatedb'
+      within "#{release_path}/public" do
+        execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'updatedb'
+      end
     end
   end
 
-  task :cache do
+  task :cache_clear do
     on roles :all do
-      execute :drush, "-y -p -r #{current_path}/public", 'cc all'
+      within "#{release_path}/public" do
+        execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'cc all'
+      end
     end
+  end
+
+  task :run_updates do
+    invoke 'drush:updatedb'
+    invoke 'drush:cache_clear'
+    invoke 'drush:features:revert'
+    invoke 'drush:cache_clear'
   end
   
   namespace :features do
     task :revert do
       on roles :all do
-        execute :drush, "-y -p -r #{current_path}/public", 'fra'
+        within "#{release_path}/public" do
+          execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'fra'
+        end
       end
     end
   end
