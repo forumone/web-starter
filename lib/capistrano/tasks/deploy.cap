@@ -1,159 +1,48 @@
-Rake::Task['deploy:updating'].clear
-Rake::Task['deploy:check'].clear
-Rake::Task['deploy:reverting'].clear
-Rake::Task['deploy:publishing'].clear
-Rake::Task['deploy:check:directories'].clear
-Rake::Task['deploy:check:linked_dirs'].clear
-Rake::Task['deploy:symlink:release'].clear
-Rake::Task['deploy:symlink:shared'].clear
-Rake::Task['deploy:symlink:linked_dirs'].clear
-Rake::Task['deploy:symlink:linked_files'].clear
 Rake::Task['deploy:cleanup'].clear
 Rake::Task['deploy:cleanup_rollback'].clear
 
 namespace :deploy do
-  task :updating => :new_release_path do
-    invoke "shared_#{scm}:create_release"
-    invoke 'deploy:symlink:shared'
-  end
-  
-  task :publishing do
-    invoke 'deploy:symlink:release'
-    invoke 'deploy:symlink:drupal'
-    invoke 'deploy:symlink:settings'
-    invoke 'drush:dbbackup'
-    invoke 'deploy:restart'
-  end
-  
-  task :reverting do
-    invoke 'deploy:revert_release'
-    invoke 'deploy:revert_database'
-  end
-  
-  desc 'Check required files and directories exist'
-  task :check do
-    invoke "shared_#{scm}:check"
-    invoke 'deploy:check:directories'
-    invoke 'deploy:check:linked_dirs'
-    invoke 'deploy:check:linked_files'
-  end
-  
-  namespace :check do
-    desc 'Check shared and release directories exist'
-    task :directories do
+  namespace :restarting do
+    task :varnish do
       on roles :all do
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :mkdir, '-pv', shared_path, releases_path, "\""
-      end
-    end
-
-    desc 'Check directories to be linked exist in shared'
-    task :linked_dirs do
-      next unless any? :linked_dirs
-      on roles :app do
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :mkdir, '-pv', linked_dirs(shared_path), "\""
-      end
-    end
-
-    desc 'Check files to be linked exist in shared'
-    task :linked_files do
-      next unless any? :linked_files
-      on roles :app do |host|
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :mkdir, '-pv', linked_file_dirs(shared_path), "\""
-        linked_files(shared_path).each do |file|
-          unless test "[ -f #{file} ]"
-            error t(:linked_file_does_not_exist, file: file, host: host)
-            exit 1
-          end
-        end
+        execute :varnishadm, "'ban req.http.host ~ #{fetch(:site_user)}.dev.forumone.com'"
       end
     end
   end
-
+  
+  task :restart do
+#    invoke 'deploy:restarting:varnish'
+  end
+  
   namespace :symlink do
-    desc 'Symlink release to current'
-    task :release do
-      on roles :all do
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', current_path, "\""
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :ln, '-s', release_path, current_path, "\""
-      end
-    end
-
-    desc 'Symlink files and directories from shared to release'
-    task :shared do
-      invoke 'deploy:symlink:linked_files'
-      invoke 'deploy:symlink:linked_dirs'
-    end
-
-    desc 'Symlink linked directories'
-    task :linked_dirs do
-      next unless any? :linked_dirs
-      on roles :app do
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :mkdir, '-pv', linked_dir_parents(release_path), "\""
-
-        fetch(:linked_dirs).each do |dir|
-          target = release_path.join(dir)
-          source = shared_path.join(dir)
-          unless test "[ -L #{target} ]"
-            if test "[ -d #{target} ]"
-              execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', target, "\""
-            end
-            execute :sudo, "su - #{fetch(:site_user)} -c \"", :ln, '-s', source, target, "\""
-          end
-        end
-      end
-    end
-
-    desc 'Symlink linked files'
-    task :linked_files do
-      next unless any? :linked_files
-      on roles :app do
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :mkdir, '-pv', linked_file_dirs(release_path), "\""
-
-        fetch(:linked_files).each do |file|
-          target = release_path.join(file)
-          source = shared_path.join(file)
-          unless test "[ -L #{target} ]"
-            if test "[ -f #{target} ]"
-              execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, target, "\""
-            end
-            execute :sudo, "su - #{fetch(:site_user)} -c \"", :ln, '-s', source, target, "\""
-          end
-        end
-      end
-    end
-    
-    desc 'Symlink public directory'
     task :drupal do
       on roles :all do
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', deploy_to + '/public', "\""
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :ln, '-s', "#{current_path}/public", deploy_to + '/public', "\""
+        execute :rm, '-rf', deploy_to + '/public'
+        execute :ln, '-s', "#{current_path}/public", deploy_to + '/public'
       end
     end
-    
-    desc 'Symlink settings file'
+
     task :settings do
       on roles :all do
-      	execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', "#{current_path}/public/sites/default/settings.php", "\""
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :ln, '-s', "#{current_path}/public/sites/default/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/default/settings.php", "\""
+      	unless test " [ -f #{current_path}/public/sites/#{fetch(:site_folder)}/settings.php ]"
+          execute :ln, '-s', "#{current_path}/public/sites/#{fetch(:site_folder)}/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/#{fetch(:site_folder)}/settings.php"
+        end
         
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', "#{current_path}/public/.htaccess", "\""
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :ln, '-s', "#{current_path}/public/htaccess.#{fetch(:stage)}", "#{current_path}/public/.htaccess", "\""
-        
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', "#{current_path}/public/robots.txt", "\""
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :ln, '-s', "#{current_path}/public/robots.#{fetch(:stage)}.txt", "#{current_path}/public/robots.txt", "\""
+        unless test " [ -f #{current_path}/public/.htaccess ]"
+          execute :ln, '-s', "#{current_path}/public/htaccess.#{fetch(:stage)}", "#{current_path}/public/.htaccess"
+        end
       end
     end
   end
   
-  desc 'Revert to previous release timestamp'
   task :revert_database => :rollback_release_path do
     on roles :all do
-      within release_path do
-        execute :drush, "status"
+      within "#{release_path}/public" do
+      	execute :drush, "-y sql-drop &&", %{$(drush sql-connect) < #{release_path}/db.sql}
       end
     end
   end
-
+  
   desc 'Clean up old releases'
   task :cleanup do
     on roles :all do |host|
@@ -165,24 +54,26 @@ namespace :deploy do
           directories_str = directories.map do |release|
             releases_path.join(release)
           end.join(" ")
-          execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', directories_str, "\""
+          execute :chmod, '-R', 'u+rw', directories_str
+          execute :rm, '-rf', directories_str
         else
           info t(:no_old_releases, host: host.to_s, keep_releases: fetch(:keep_releases))
         end
       end
     end
   end
-
+  
   desc 'Remove and archive rolled-back release.'
   task :cleanup_rollback do
     on roles(:all) do
       last_release = capture(:ls, '-xr', releases_path).split.first
       last_release_path = releases_path.join(last_release)
       if test "[ `readlink #{current_path}` != #{last_release_path} ]"
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :tar, '-czf',
+        execute :tar, '-czf',
           deploy_path.join("rolled-back-release-#{last_release}.tar.gz"),
-        last_release_path, "\""
-        execute :sudo, "su - #{fetch(:site_user)} -c \"", :rm, '-rf', last_release_path, "\""
+        last_release_path
+        execute :chmod, '-R', 'u+rw', last_release_path
+        execute :rm, '-rf', last_release_path
       else
         debug 'Last release is the current release, skip cleanup_rollback.'
       end

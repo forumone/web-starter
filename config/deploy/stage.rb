@@ -1,18 +1,18 @@
-set :stage, :dev
-set :site_user, 'kholloway'
-set :vhost, "#{fetch(:site_user)}.dev"
-set :deploy_to, "/var/www/vhosts/#{fetch(:vhost)}"
+set :stage, :stage
+set :site_url, 'f1.stage.globalchange.gov'
+set :site_folder, 'globalchange'
+set :deploy_to, "/var/www/vhosts/globalchange.stage"
 set :tmp_dir, fetch(:deploy_to)
-set :branch, "master"
+set :branch, "stable"
 
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
-role :app, %w{mcc-dev@web1.mcc.forumone.com}, :primary => true
-role :web, %w{mcc-dev@web1.mcc.forumone.com}
-role :db,  %w{mcc-dev@web1.mcc.forumone.com}
+role :app, %w{nca-dev}, :primary => true
+role :web, %w{nca-dev}
+role :db,  %w{nca-dev}
 
 # Extended Server Syntax
 # ======================
