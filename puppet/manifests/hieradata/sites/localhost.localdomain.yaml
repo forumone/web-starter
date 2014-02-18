@@ -8,6 +8,8 @@ forumone::webserver::vhosts:
     path: "/vagrant/public"
     platform: "drupal"
 
+forumone::php::prefix: "php"
+
 forumone::solr::collections:  
   drupal: 
     order: 1
