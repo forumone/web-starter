@@ -6,7 +6,7 @@ classes:
   - forumone::ruby
   - redis
 
-forumone::webserver: nginx
+forumone::webserver::webserver: nginx
 
 forumone::php::modules:
   - pecl-apc
