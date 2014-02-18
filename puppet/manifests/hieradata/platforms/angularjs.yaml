@@ -1,0 +1,5 @@
+---
+classes: 
+  - forumone::webserver
+  - forumone::nodejs
+  - forumone::ruby
