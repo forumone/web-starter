@@ -13,4 +13,4 @@ mod "pear",
   :git => "https://github.com/forumone/puppet-pear.git"
 mod "forumone",
   :git => "git@github.com:forumone/puppet-forumone.git",
-  :ref => "master"
+  :ref => "1.1.x"

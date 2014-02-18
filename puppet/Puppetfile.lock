@@ -21,8 +21,8 @@ FORGE
 
 GIT
   remote: git@github.com:forumone/puppet-forumone.git
-  ref: master
-  sha: cf3d4dc6c66cc5303607dba617ef138db19caf41
+  ref: 1.1.x
+  sha: ab74435ed29b7bd7c70c65599911753f85c048de
   specs:
     forumone (1.1.3)
       alup/rbenv (~> 1.2)
