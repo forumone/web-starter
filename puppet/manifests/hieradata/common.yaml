@@ -1,3 +1,4 @@
 ---
 classes:
   - forumone
+  - forumone::ssh_config
