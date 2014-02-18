@@ -1,6 +1,5 @@
 ---
 classes: 
-  - forumone::database
   - forumone::webserver
   - forumone::php
   - forumone::mailcatcher
