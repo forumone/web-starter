@@ -8,7 +8,7 @@ forumone::webserver::vhosts:
     path: "/vagrant/public"
     platform: "drupal"
 
-forumone::php::prefix: "php"
+forumone::php::prefix: "php54"
 
 forumone::solr::collections:  
   drupal: 
