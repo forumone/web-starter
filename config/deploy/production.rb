@@ -1,11 +1,16 @@
 set :stage, :production
+set :site_url, 'example.com'
+set :site_folder, 'default'
+set :deploy_to, '/var/www/vhosts/example.com'
+set :tmp_dir, fetch(:deploy_to)
+set :branch, "live"
 
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
-role :app, %w{deploy@example.com}
+role :app, %w{deploy@example.com}, :primary => true
 role :web, %w{deploy@example.com}
 role :db,  %w{deploy@example.com}
 
