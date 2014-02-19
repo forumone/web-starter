@@ -1,5 +1,5 @@
-set :application, 'ucar_globalchange'
-set :repo_url, 'git@github.com:forumone/ucar-globalchange.git'
+set :application, 'app'
+set :repo_url, 'repo'
 
 set :scm, :git
 set :deploy_via, :remote_cache

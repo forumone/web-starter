@@ -1,6 +1,6 @@
 namespace :drush do
   task :dbbackup do 
-    on roles :all do
+    on roles(:app) do
       unless test " [ -f #{release_path}/db.sql ]"
         within "#{release_path}/public" do
           execute :drush, "-l #{fetch(:site_url)} sql-dump -y >> #{release_path}/db.sql"
@@ -9,14 +9,8 @@ namespace :drush do
     end
   end
   
-  task :rollback_db do
-    on roles :all do
-      info "test #{release_path}"
-    end
-  end
-  
   task :updatedb do
-    on roles :all do
+    on roles(:app) do
       within "#{release_path}/public" do
         execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'updatedb'
       end
@@ -24,7 +18,7 @@ namespace :drush do
   end
 
   task :cache_clear do
-    on roles :all do
+    on roles(:app) do
       within "#{release_path}/public" do
         execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'cc all'
       end
@@ -40,7 +34,7 @@ namespace :drush do
   
   namespace :features do
     task :revert do
-      on roles :all do
+      on roles(:app) do
         within "#{release_path}/public" do
           execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'fra'
         end
