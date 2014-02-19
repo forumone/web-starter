@@ -1,6 +1,7 @@
 set :stage, :production
 set :site_url, 'example.com'
 set :site_folder, 'default'
+set :webroot, 'public'
 set :deploy_to, '/var/www/vhosts/example.com'
 set :tmp_dir, fetch(:deploy_to)
 set :branch, "live"
