@@ -4,26 +4,26 @@ Rake::Task['deploy:cleanup_rollback'].clear
 namespace :deploy do
   namespace :restarting do
     task :varnish do
-      on roles :all do
-        execute :varnishadm, "'ban req.http.host ~ #{fetch(:site_user)}.dev.forumone.com'"
+      on roles(:web) do
+        execute :varnishadm, "'ban req.http.host ~ #{fetch(:site_url)}'"
       end
     end
   end
   
   task :restart do
-#    invoke 'deploy:restarting:varnish'
+    invoke 'deploy:restarting:varnish'
   end
   
   namespace :symlink do
     task :drupal do
-      on roles :all do
-        execute :rm, '-rf', deploy_to + '/public'
-        execute :ln, '-s', "#{current_path}/public", deploy_to + '/public'
+      on roles(:app) do
+        execute :rm, '-rf', deploy_to + "/#{fetch(:webroot)}"
+        execute :ln, '-s', "#{current_path}/public", deploy_to + "/#{fetch(:webroot)}"
       end
     end
 
     task :settings do
-      on roles :all do
+      on roles(:app) do
       	unless test " [ -f #{current_path}/public/sites/#{fetch(:site_folder)}/settings.php ]"
           execute :ln, '-s', "#{current_path}/public/sites/#{fetch(:site_folder)}/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/#{fetch(:site_folder)}/settings.php"
         end
@@ -36,7 +36,7 @@ namespace :deploy do
   end
   
   task :revert_database => :rollback_release_path do
-    on roles :all do
+    on roles(:app) do
       within "#{release_path}/public" do
       	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{release_path}/db.sql}
       end
