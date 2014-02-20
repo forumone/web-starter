@@ -13,6 +13,7 @@ set :linked_dirs, %w{public/sites/default/files}
 
 set :keep_releases, 3
 
+after "deploy:publishing", "deploy:restart"
 after "deploy:symlink:release", "deploy:symlink:drupal"
 after "deploy:symlink:drupal", "deploy:symlink:settings"
 after "deploy:symlink:settings", "drush:dbbackup"
