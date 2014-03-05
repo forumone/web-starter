@@ -10,5 +10,5 @@ mod "percona",
   :git => "https://github.com/arioch/puppet-percona.git",
   :ref => "master"
 mod "forumone",
-  :git => "git@github.com:forumone/puppet-forumone.git",
+  :git => "https://github.com/forumone/puppet-forumone.git",
   :ref => "1.1.8"
