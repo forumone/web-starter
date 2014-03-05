@@ -20,7 +20,7 @@ FORGE
     thias/php (0.3.9)
 
 GIT
-  remote: git@github.com:forumone/puppet-forumone.git
+  remote: https://github.com/forumone/puppet-forumone.git
   ref: 1.1.8
   sha: b56d8006d2ed895699082e4b9fe5baa8e43cba99
   specs:

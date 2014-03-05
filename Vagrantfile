@@ -55,6 +55,8 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you're using for more
   # information on available options.
 
+  config.vm.provision :shell, :path => "puppet/shell/librarian-puppet-install.sh"
+
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
@@ -67,7 +69,6 @@ Vagrant.configure("2") do |config|
       "vagrant_user" => ENV['USER'] }
     
     puppet.manifests_path = "puppet/manifests"
-    puppet.module_path = "puppet/modules"
     puppet.manifest_file = "init.pp"
     puppet.hiera_config_path = "puppet/manifests/hiera.yaml"
   end
