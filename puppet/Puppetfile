@@ -11,4 +11,4 @@ mod "percona",
   :ref => "master"
 mod "forumone",
   :git => "https://github.com/forumone/puppet-forumone.git",
-  :ref => "1.1.8"
+  :ref => "1.1.9"
