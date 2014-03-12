@@ -52,9 +52,10 @@ Vagrant.configure("2") do |config|
 
   config.ssh.forward_agent = true
 
-  # View the documentation for the provider you're using for more
-  # information on available options.
+  # Run any custom scripts before provisioning
+  config.vm.provision :shell, :path => "puppet/shell/pre-provision.sh"
 
+  # Install git and librarian-puppet and get puppet modules
   config.vm.provision :shell, :path => "puppet/shell/librarian-puppet-install.sh"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
@@ -72,4 +73,8 @@ Vagrant.configure("2") do |config|
     puppet.manifest_file = "init.pp"
     puppet.hiera_config_path = "puppet/manifests/hiera.yaml"
   end
+
+  # Run any custom scripts after provisioning
+  config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
+
 end
