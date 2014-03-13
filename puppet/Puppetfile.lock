@@ -2,8 +2,9 @@ FORGE
   remote: http://forge.puppetlabs.com
   specs:
     alup/rbenv (1.2.0)
-    fsalum/redis (0.0.9)
-    puppetlabs/apache (0.9.0)
+    fsalum/redis (0.0.11)
+      thias/sysctl (= 0.3.0)
+    puppetlabs/apache (1.0.1)
       puppetlabs/concat (>= 1.0.0)
       puppetlabs/stdlib (>= 2.4.0)
     puppetlabs/apt (1.4.2)
@@ -18,6 +19,7 @@ FORGE
     stahnma/epel (0.0.5)
     thias/memcached (0.1.0)
     thias/php (0.3.9)
+    thias/sysctl (0.3.0)
 
 GIT
   remote: https://github.com/arioch/puppet-percona.git
@@ -28,13 +30,13 @@ GIT
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
-  ref: 1.1.9
-  sha: 3424f999c7ae917f6575ad54435588acea02cac7
+  ref: 1.1.11
+  sha: 9c2930508fd270990d22ce6dc53570748de4138b
   specs:
-    forumone (1.1.3)
+    forumone (1.1.11)
       alup/rbenv (~> 1.2)
-      fsalum/redis (= 0.0.9)
-      puppetlabs/apache (~> 0.9)
+      fsalum/redis (= 0.0.11)
+      puppetlabs/apache (= 1.0.1)
       puppetlabs/apt (~> 1.1)
       puppetlabs/concat (~> 1.0)
       puppetlabs/firewall (~> 0.4)
