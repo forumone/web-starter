@@ -18,6 +18,6 @@ if [[ -f "${VAGRANT_CORE_FOLDER}/bower.json" ]]; then
 fi
 
 if [[ -f "${VAGRANT_CORE_FOLDER}/puppet/shell/custom/post-provision.sh" ]]; then
-  ${VAGRANT_CORE_FOLDER}/puppet/shell/custom/post-provision.sh
+  source ${VAGRANT_CORE_FOLDER}/puppet/shell/custom/post-provision.sh
 fi;
 
