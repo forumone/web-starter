@@ -1,7 +1,7 @@
 ---
 forumone::databases: 
-  drupal: 
-    username: drupal
+  web: 
+    username: web
 
 forumone::webserver::vhosts:  
   vagrant: 
