@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         compass : { // Task
           dev : { // Target
             options : { // Target options
-              basePath: 'public/sites/all/themes/mcc_theme/',
+              basePath: 'public/sites/all/themes/f1ux/',
               outputStyle: 'expanded',
               noLineComments: false,
               bundleExec: true
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
           },
           staging : { // Target
             options : { // Target options
-              basePath: 'public/sites/all/themes/mcc_theme/',
+              basePath: 'public/sites/all/themes/f1ux/',
               outputStyle: 'compressed',
               noLineComments: true,
               force: true,
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
         },
         watch : {
           compass : {
-            files : [ 'public/sites/all/themes/mcc_theme/sass/*.scss', 'public/sites/all/themes/mcc_theme/sass/**/*.scss' ],
+            files : [ 'public/sites/all/themes/f1ux/sass/*.scss', 'public/sites/all/themes/f1ux/sass/**/*.scss' ],
             tasks : [ 'compass:dev' ]
           }
         }

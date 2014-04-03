@@ -30,10 +30,10 @@ GIT
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
-  ref: 1.1.12
-  sha: 7741d82cb2e682a93b42e031f9ac050c1a4cebd5
+  ref: 1.1.14
+  sha: 1059e3743b31adf75325303e7ed5293a87801976
   specs:
-    forumone (1.1.12)
+    forumone (1.1.14)
       alup/rbenv (~> 1.2)
       fsalum/redis (= 0.0.11)
       puppetlabs/apache (= 1.0.1)
@@ -56,9 +56,9 @@ GIT
 GIT
   remote: https://github.com/thias/puppet-nginx.git
   ref: master
-  sha: 21b7fff35891b9089394add3c5b84d4616467aba
+  sha: 2c9ac2f10116813d0c85c5820805e7ad65afa8e4
   specs:
-    nginx (0.1.8)
+    nginx (0.1.9)
 
 DEPENDENCIES
   forumone (>= 0)

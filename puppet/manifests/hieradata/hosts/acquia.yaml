@@ -1,0 +1,23 @@
+---
+classes: 
+  - forumone::solr
+  - forumone::varnish
+  - forumone::nodejs
+  - forumone::ruby
+  - memcached
+
+forumone::webserver::webserver: apache
+
+forumone::php::modules:
+  - pecl-apc
+  - pecl-memcached
+  
+forumone::solr::collections:  
+  drupal: 
+    order: 1
+    
+php::modules: 
+  apc: 
+    pkgname: "pecl-apc"
+    settings: 
+      apc.shm_size: "96M"
