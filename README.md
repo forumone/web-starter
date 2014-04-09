@@ -1,4 +1,4 @@
-# [Project Name]
+# Web Starter Kit
 
 This project has been setup to use a virtual machine for local development to closely mirror the production environment. To use the the virtual machine, follow these instructions.
 
@@ -19,10 +19,7 @@ Starting from within the root of your project (an existing project which already
 4. Create local configuration files:
   1. Copy htaccess.dev to .htaccess
   2. For Drupal sites, copy sites/default/settings.vm.php to sites/default/settings.php - This may be done automatically on some setups.
-6. Install Node modules by running "npm install"
-7. Install Drupal using custom install profile by running "drush si [profile] -y" and following prompts. Alterntatively, use drush aliases to synch to a development instance of a site database. 
-
-That is it. Alter your hosts file. Add a new vhost to apache and try accessing the site at port 8080
+5. Install Drupal using custom install profile by running "drush si [profile] -y" and following prompts. Alterntatively, use drush aliases to synch to a development instance of a site database. 
 
 ## Troubleshooting
 
