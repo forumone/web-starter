@@ -5,7 +5,9 @@ namespace :deploy do
   namespace :restarting do
     task :varnish do
       on roles(:web) do
-        execute :varnishadm, "'ban req.http.host ~ #{fetch(:site_url)}'"
+        fetch(:site_url).each do |site|
+          execute :varnishadm, "'ban req.http.host ~ #{site}'"
+        end
       end
     end
   end
@@ -24,8 +26,10 @@ namespace :deploy do
 
     task :settings do
       on roles(:app) do
-      	unless test " [ -f #{current_path}/public/sites/#{fetch(:site_folder)}/settings.php ]"
-          execute :ln, '-s', "#{current_path}/public/sites/#{fetch(:site_folder)}/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/#{fetch(:site_folder)}/settings.php"
+        fetch(:site_folder).each do |folder|
+          unless test " [ -f #{current_path}/public/sites/#{folder}/settings.php ]"
+            execute :ln, '-s', "#{current_path}/public/sites/#{folder}/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/#{folder}/settings.php"
+          end
         end
         
         unless test " [ -f #{current_path}/public/.htaccess ]"
