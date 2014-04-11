@@ -1,9 +1,22 @@
+# The stage to use
 set :stage, :production
-set :site_url, 'example.com'
-set :site_folder, 'default'
+
+# An array containing site URL, used for Varnish bans
+set :site_url, %w{example.com}
+
+# An array containing drupal sites to copy settings files in
+set :site_folder, %w{default}
+
+# The directory where the webroot 
 set :webroot, 'public'
+
+# The path to the project on the server
 set :deploy_to, '/var/www/vhosts/example.com'
+
+# Where the temporary directory is
 set :tmp_dir, fetch(:deploy_to)
+
+# Which branch to deploy
 set :branch, "live"
 
 # Simple Role Syntax
