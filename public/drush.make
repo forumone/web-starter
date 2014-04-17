@@ -221,6 +221,9 @@ projects[entitycache][subdir] = "contrib"
 projects[jquery_update][version] = "2"
 projects[jquery_update][subdir] = "contrib"
 
+projects[memcache][version] = "1"
+projects[memcache][subdir] = "contrib"
+
 ; ### Search ###
 
 projects[facetapi][version] = "1"
