@@ -35,6 +35,10 @@ namespace :deploy do
         unless test " [ -f #{current_path}/public/.htaccess ]"
           execute :ln, '-s', "#{current_path}/public/htaccess.#{fetch(:stage)}", "#{current_path}/public/.htaccess"
         end
+
+        unless test " [ -f #{current_path}/public/robots.txt ]"
+          execute :ln, '-s', "#{current_path}/public/robots.#{fetch(:stage)}.txt", "#{current_path}/public/robots.txt"
+        end
       end
     end
   end
