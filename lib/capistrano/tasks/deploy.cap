@@ -5,8 +5,10 @@ namespace :deploy do
   namespace :restarting do
     task :varnish do
       on roles(:web) do
-        fetch(:site_url).each do |site|
-          execute :varnishadm, "'ban req.http.host ~ #{site}'"
+        if test " [ -r /etc/varnish/secret ]"
+          fetch(:site_url).each do |site|
+            execute :varnishadm, "'ban req.http.host ~ #{site}'"
+          end
         end
       end
     end
