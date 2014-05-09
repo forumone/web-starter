@@ -46,7 +46,7 @@ namespace :deploy do
   end
   
   task :revert_database => :rollback_release_path do
-    on roles(:app) do
+    on roles(:db) do
       within "#{release_path}/public" do
       	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{release_path}/db.sql}
       end
