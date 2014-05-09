@@ -1,14 +1,14 @@
 forge "http://forge.puppetlabs.com"
 
-mod "mysql", 
+mod "puppetlabs/mysql", 
   :git => "https://github.com/puppetlabs/puppetlabs-mysql.git",
   :ref => "0.9.0"
-mod "nginx", 
+mod "thias/nginx", 
   :git => "https://github.com/thias/puppet-nginx.git",
   :ref => "master"
-mod "percona",
+mod "arioch/percona",
   :git => "https://github.com/arioch/puppet-percona.git",
   :ref => "master"
-mod "forumone",
+mod "forumone/forumone",
   :git => "https://github.com/forumone/puppet-forumone.git",
   :ref => "1.1.14"

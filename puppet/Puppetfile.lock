@@ -15,7 +15,7 @@ FORGE
     puppetlabs/nodejs (0.4.0)
       puppetlabs/apt (>= 0.0.3)
       puppetlabs/stdlib (>= 2.0.0)
-    puppetlabs/stdlib (4.1.0)
+    puppetlabs/stdlib (4.2.0)
     stahnma/epel (0.0.5)
     thias/memcached (0.1.0)
     thias/php (0.3.9)
@@ -24,16 +24,16 @@ FORGE
 GIT
   remote: https://github.com/arioch/puppet-percona.git
   ref: master
-  sha: ca514218d8c34971d21208d402596c56452ca49d
+  sha: b6e30013e17c2e9309e33818fbafa31fa5f0d34a
   specs:
-    percona (0.0.1)
+    arioch/percona (1.3.1)
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
   ref: 1.1.14
   sha: 1059e3743b31adf75325303e7ed5293a87801976
   specs:
-    forumone (1.1.14)
+    forumone/forumone (1.1.14)
       alup/rbenv (~> 1.2)
       fsalum/redis (= 0.0.11)
       puppetlabs/apache (= 1.0.1)
@@ -50,7 +50,7 @@ GIT
   ref: 0.9.0
   sha: 11ab036fed3b252492f5400bf8fd69698d510482
   specs:
-    mysql (0.9.0)
+    puppetlabs/mysql (0.9.0)
       puppetlabs/stdlib (>= 2.2.1)
 
 GIT
@@ -58,11 +58,11 @@ GIT
   ref: master
   sha: 2c9ac2f10116813d0c85c5820805e7ad65afa8e4
   specs:
-    nginx (0.1.9)
+    thias/nginx (0.1.9)
 
 DEPENDENCIES
-  forumone (>= 0)
-  mysql (>= 0)
-  nginx (>= 0)
-  percona (>= 0)
+  arioch/percona (>= 0)
+  forumone/forumone (>= 0)
+  puppetlabs/mysql (>= 0)
+  thias/nginx (>= 0)
 
