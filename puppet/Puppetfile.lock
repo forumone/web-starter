@@ -7,18 +7,17 @@ FORGE
     puppetlabs/apache (1.0.1)
       puppetlabs/concat (>= 1.0.0)
       puppetlabs/stdlib (>= 2.4.0)
-    puppetlabs/apt (1.4.2)
+    puppetlabs/apt (1.1.1)
       puppetlabs/stdlib (>= 2.2.1)
-    puppetlabs/concat (1.1.0-rc1)
-      puppetlabs/stdlib (>= 3.0.0)
-    puppetlabs/firewall (0.5.0)
+    puppetlabs/concat (1.0.2)
+    puppetlabs/firewall (0.4.2)
     puppetlabs/nodejs (0.4.0)
       puppetlabs/apt (>= 0.0.3)
       puppetlabs/stdlib (>= 2.0.0)
-    puppetlabs/stdlib (4.2.0)
+    puppetlabs/stdlib (4.2.1)
     stahnma/epel (0.0.5)
     thias/memcached (0.1.0)
-    thias/php (0.3.9)
+    thias/php (0.3.12)
     thias/sysctl (0.3.0)
 
 GIT
@@ -30,20 +29,20 @@ GIT
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
-  ref: 1.1.14
-  sha: 1059e3743b31adf75325303e7ed5293a87801976
+  ref: 1.1.17
+  sha: e7993af31ed325771fbb01da7bdfab7f41e65f69
   specs:
-    forumone/forumone (1.1.14)
-      alup/rbenv (~> 1.2)
+    forumone/forumone (1.1.17)
+      alup/rbenv (~> 1.2.0)
       fsalum/redis (= 0.0.11)
       puppetlabs/apache (= 1.0.1)
-      puppetlabs/apt (~> 1.1)
-      puppetlabs/concat (~> 1.0)
-      puppetlabs/firewall (~> 0.4)
-      puppetlabs/nodejs (~> 0.4)
+      puppetlabs/apt (~> 1.1.0)
+      puppetlabs/concat (~> 1.0.0)
+      puppetlabs/firewall (~> 0.4.0)
+      puppetlabs/nodejs (~> 0.4.0)
       stahnma/epel (= 0.0.5)
-      thias/memcached (~> 0.1)
-      thias/php (~> 0.3)
+      thias/memcached (~> 0.1.0)
+      thias/php (~> 0.3.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-mysql.git
