@@ -3,4 +3,4 @@
 .settings
 .vagrant
 node_modules
-
+Vagrantfile.local
