@@ -78,3 +78,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
 
 end
+
+overrides = "#{__FILE__}.local"
+if File.exist?(overrides)
+    eval File.read(overrides)
+end
