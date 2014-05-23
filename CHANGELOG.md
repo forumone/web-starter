@@ -4,14 +4,43 @@
 - Added ability to have a Vagrantfile.local file that will override settings in the checked in Vagrantfile
 - Added example drush alias file
 - Added post-provision example script that copies configuration files and drush aliases if they exist
-- Updating to 1.1.17 of puppet-forumone
+- Updated to 1.1.17 of puppet-forumone
 
-## 1.1.12 (May 9, 2014)
+## 1.1.12 (9 May, 2014)
 - Changing meaning of roles. App is where Drupal is intended to live, so it symlinks settings, htaccess, etc. App is where Varnish is cleared. DB is where drush commands that affect the database are executed.
 
-## 1.1.11 (May 8, 2014)
+## 1.1.11 (8 May, 2014)
 - Test for the readability of /etc/varnish/secret before trying to use varnishadm
-- Updating to new format of references for Librarian
+- Updated to new format of references for Librarian
 - Copy robots.txt for stage
 - Execute drush commands on all sites defined in :site_url
 - Added memcache module to drush.make
+
+## 1.1.10 (11 April, 2014)
+- Added custom SSH configuration
+- Changed to use array for Drupal sites and host names to support multi-site deployments
+
+## 1.1.9 (3 April, 2014)
+- Added example drupal settings.php file for VM
+- Added example post-provision script
+- Updated to 1.1.14 of puppet-forumone
+- Changed execution of post-provision script to use source to avoid issues with NTFS
+- Changed npm install to use `--no-bin-links` to avoid NTFS issues
+- Replace project-specific paths in Gruntfile to more useful defaults
+- Added host specification for Acquia
+- Updating to PHP 5.3 from IUS
+- Changed starting database name and user/password to be less drupal specific
+
+## 1.1.8 (19 March, 2014)
+- Updated to use 1.1.12 of puppet-forumone
+
+## 1.1.7 (12 March, 2014)
+- Updated to use 1.1.11 of puppet-forumone
+
+## 1.1.6 (12 March, 2014)
+- Fixed defect in post provision scripts
+
+## 1.1.5 (11 March, 2014)
+- Updated to use 1.1.10 of puppet-forumone
+- Removing unnecessary overrides of capistrano scripts
+- Switched to use Librarian to manage puppet modules
