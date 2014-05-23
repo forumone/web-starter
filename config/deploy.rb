@@ -33,6 +33,7 @@ set :ssh_options, {
   config: 'config/ssh_config'
 }
 
+after "deploy:check", "drush:initialize"
 after "deploy:publishing", "deploy:restart"
 after "deploy:symlink:release", "deploy:symlink:drupal"
 after "deploy:symlink:drupal", "deploy:symlink:settings"
