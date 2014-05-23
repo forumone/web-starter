@@ -4,6 +4,7 @@
 - Added ability to have a Vagrantfile.local file that will override settings in the checked in Vagrantfile
 - Added example drush alias file
 - Added post-provision example script that copies configuration files and drush aliases if they exist
+- Updating to 1.1.17 of puppet-forumone
 
 ## 1.1.12 (May 9, 2014)
 - Changing meaning of roles. App is where Drupal is intended to live, so it symlinks settings, htaccess, etc. App is where Varnish is cleared. DB is where drush commands that affect the database are executed.
