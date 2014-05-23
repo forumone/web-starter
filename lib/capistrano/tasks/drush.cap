@@ -1,16 +1,76 @@
 namespace :drush do
+  # Initializes drush directory and aliases
+  task :initialize do
+    invoke 'drush:drushdir'
+    invoke 'drush:aliases'
+  end
+
+  # Creates ~/.drush directory if it's missing
+  task :drushdir do
+    on roles(:all) do
+      user = capture(:whoami) 
+      unless test "[ -d /home/#{user}/.drush ]"
+        execute :mkdir, "/home/#{user}/.drush"
+      end
+    end
+  end
+
+  # Copies any aliases from the root checkout to the logged in user's ~/.drush directory
+  task :aliases do
+    on roles(:all) do
+      within "#{release_path}" do
+        user = capture(:whoami)
+        capture(:ls, '-x', '*.aliases.drushrc.php').split.each do |item|
+          unless test "[ -f /home/#{user}/.drush/#{item} ]"
+            execute :cp, "#{item}", "/home/#{user}/.drush"
+          end
+        end
+      end
+    end
+  end
+
+  # Triggers drush sql-sync to copy databases between environments
+  task :sqlsync do 
+    on roles(:app) do
+      if ENV['source']
+        within "#{release_path}/public" do
+          execute :drush, "-p -r #{current_path}/public -l #{fetch(:site_url)[0]} sql-sync #{ENV['source']} @self -y"
+        end
+      end
+    end
+  end
+
+  # Triggers drush rsync to copy files between environments
+  task :rsync do
+    on roles(:app) do
+      if ENV['path']
+        path = ENV['path']
+      else
+        path = '%files'
+      end
+
+      if ENV['source']
+        within "#{release_path}/public" do
+          execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)[0]} rsync #{ENV['source']}:#{path} @self:#{path}"
+        end
+      end
+    end
+  end
+
+  # Creates database backup
   task :dbbackup do 
-    on roles(:db) do
+    on roles(:app) do
       unless test " [ -f #{release_path}/db.sql ]"
         within "#{release_path}/public" do
-          execute :drush, "-l #{fetch(:site_url)[0]} sql-dump -y >> #{release_path}/db.sql"
+          execute :drush, "-p -r #{current_path}/public -l #{fetch(:site_url)[0]} sql-dump -y >> #{release_path}/db.sql"
         end
       end
     end
   end
   
+  # Runs all pending update hooks
   task :updatedb do
-    on roles(:db) do
+    on roles(:app) do
       within "#{release_path}/public" do
         fetch(:site_url).each do |site|
           execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'updatedb'
@@ -20,7 +80,7 @@ namespace :drush do
   end
 
   task :cache_clear do
-    on roles(:db) do
+    on roles(:app) do
       within "#{release_path}/public" do
         fetch(:site_url).each do |site|
           execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'cc all'
@@ -38,7 +98,7 @@ namespace :drush do
   
   namespace :features do
     task :revert do
-      on roles(:db) do
+      on roles(:app) do
         within "#{release_path}/public" do
           fetch(:site_url).each do |site|
             execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'fra'
