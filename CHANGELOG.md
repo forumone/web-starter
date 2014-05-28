@@ -5,6 +5,7 @@
 - Added example drush alias file
 - Added post-provision example script that copies configuration files and drush aliases if they exist
 - Updated to 1.1.17 of puppet-forumone
+- Added configuration to example settings.vm.php to disable Google Analytics, Secure Pages and core search indexing
 
 ## 1.1.12 (9 May, 2014)
 - Changing meaning of roles. App is where Drupal is intended to live, so it symlinks settings, htaccess, etc. App is where Varnish is cleared. DB is where drush commands that affect the database are executed.

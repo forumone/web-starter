@@ -587,3 +587,19 @@ $conf['search_api_solr_overrides'] = array(
 $conf['cache_backends'][] = 'sites/all/modules/contrib/memcache/memcache.inc';
 $conf['cache_default_class'] = 'MemCacheDrupal';
 $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+
+/**
+ * Secure pages
+ */
+$conf['https'] = FALSE;
+$conf['securepages_secure'] = 0;
+
+/**
+ * Google Analytics
+ */
+$conf['googleanalytics_account'] = '';
+
+/**
+ * Disable core search
+ */
+$conf['search_cron_limit'] = 0;
