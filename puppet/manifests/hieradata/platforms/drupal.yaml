@@ -19,6 +19,7 @@ php::ini:
   upload_max_filesize: "50M"
   post_max_size: "100M"
   sendmail_path: "/usr/bin/env catchmail"
+  max_execution_time: 180
 
 percona::conf:
   max_allowed_packets:
