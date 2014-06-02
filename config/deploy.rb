@@ -7,6 +7,9 @@ set :repo_url, 'repo'
 # Use git for the SCM
 set :scm, :git
 
+# Or use the line below to deploy via rsync
+# set :scm, :rsync
+
 # Use a remote cache for git
 set :deploy_via, :remote_cache
 
