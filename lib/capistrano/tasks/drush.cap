@@ -8,9 +8,9 @@ namespace :drush do
   # Creates ~/.drush directory if it's missing
   task :drushdir do
     on roles(:all) do
-      user = capture(:whoami) 
-      unless test "[ -d /home/#{user}/.drush ]"
-        execute :mkdir, "/home/#{user}/.drush"
+      home = capture(:echo, '$HOME') 
+      unless test "[ -d #{home}.drush ]"
+        execute :mkdir, "#{home}.drush"
       end
     end
   end
@@ -19,12 +19,8 @@ namespace :drush do
   task :aliases do
     on roles(:all) do
       within "#{release_path}" do
-        user = capture(:whoami)
-        capture(:ls, '-x', '*.aliases.drushrc.php').split.each do |item|
-          unless test "[ -f /home/#{user}/.drush/#{item} ]"
-            execute :cp, "#{item}", "/home/#{user}/.drush"
-          end
-        end
+        home = capture(:echo, '$HOME')
+        execute :cp, "*.aliases.drushrc.php", "#{home}.drush", "|| :"
       end
     end
   end
