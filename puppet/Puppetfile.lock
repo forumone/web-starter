@@ -9,12 +9,12 @@ FORGE
       puppetlabs/stdlib (>= 2.4.0)
     puppetlabs/apt (1.1.1)
       puppetlabs/stdlib (>= 2.2.1)
-    puppetlabs/concat (1.0.2)
+    puppetlabs/concat (1.0.3)
     puppetlabs/firewall (0.4.2)
     puppetlabs/nodejs (0.4.0)
       puppetlabs/apt (>= 0.0.3)
       puppetlabs/stdlib (>= 2.0.0)
-    puppetlabs/stdlib (4.2.1)
+    puppetlabs/stdlib (4.2.2)
     stahnma/epel (0.0.5)
     thias/memcached (0.1.0)
     thias/php (0.3.12)
@@ -29,10 +29,10 @@ GIT
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
-  ref: 1.1.17
-  sha: e7993af31ed325771fbb01da7bdfab7f41e65f69
+  ref: 1.1.18
+  sha: e2d590608e2355d5c20f548a13a8a9e9d99e7570
   specs:
-    forumone/forumone (1.1.17)
+    forumone/forumone (1.1.18)
       alup/rbenv (~> 1.2.0)
       fsalum/redis (= 0.0.11)
       puppetlabs/apache (= 1.0.1)
