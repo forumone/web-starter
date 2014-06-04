@@ -2,9 +2,16 @@
 
 VAGRANT_CORE_FOLDER="/vagrant"
 
-if [[ -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.vm.php" && -w "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" ]]; then
-  echo 'Copying settings file'
-  su - vagrant -c "cd ${VAGRANT_CORE_FOLDER}/public/sites/default && cp settings.vm.php settings.php" >/dev/null
+if [[ -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.vm.php" ]]; then
+  if [[ ! -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" || -w "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" ]]; then
+    echo 'Copying settings file'
+    su - vagrant -c "cd ${VAGRANT_CORE_FOLDER}/public/sites/default && cp settings.vm.php settings.php" >/dev/null
+  fi
+fi
+
+if [[ -f "${VAGRANT_CORE_FOLDER}/public/htaccess.dev" ]]; then
+  echo 'Copying .htaccess'
+  su - vagrant -c "cd ${VAGRANT_CORE_FOLDER}/public && cp htaccess.dev .htaccess" > /dev/null
 fi
 
 if [[ ! -d "/home/vagrant/.drush" ]]; then
