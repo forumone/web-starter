@@ -9,8 +9,8 @@ namespace :drush do
   task :drushdir do
     on roles(:all) do
       home = capture(:echo, '$HOME') 
-      unless test "[ -d #{home}.drush ]"
-        execute :mkdir, "#{home}.drush"
+      unless test "[ -d #{home}/.drush ]"
+        execute :mkdir, "#{home}/.drush"
       end
     end
   end
@@ -20,7 +20,7 @@ namespace :drush do
     on roles(:all) do
       within "#{release_path}" do
         home = capture(:echo, '$HOME')
-        execute :cp, "*.aliases.drushrc.php", "#{home}.drush", "|| :"
+        execute :cp, "*.aliases.drushrc.php", "#{home}/.drush", "|| :"
       end
     end
   end
@@ -34,6 +34,8 @@ namespace :drush do
         end
       end
     end
+
+    invoke 'drush:run_updates'
   end
 
   # Triggers drush rsync to copy files between environments
