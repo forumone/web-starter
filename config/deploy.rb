@@ -36,10 +36,6 @@ set :ssh_options, {
   config: 'config/ssh_config'
 }
 
-after "deploy:check", "drush:initialize"
-after "deploy:publishing", "deploy:restart"
-after "deploy:symlink:release", "deploy:symlink:drupal"
-after "deploy:symlink:drupal", "deploy:symlink:settings"
-after "deploy:symlink:settings", "drush:dbbackup"
-after "drush:dbbackup", "drush:run_updates"
+set :drupal_features, false
+
 after "deploy:revert_release", "deploy:revert_database"

@@ -1,10 +1,31 @@
 Rake::Task['deploy:cleanup'].clear
 Rake::Task['deploy:cleanup_rollback'].clear
+Rake::Task["deploy:finishing"].enhance ["web:restart"]
 
-namespace :deploy do
-  namespace :restarting do
-    task :varnish do
+# Symlink appropriate folder and settings
+Rake::Task["deploy:symlink:release"].enhance do
+  Rake::Task["deploy:symlink:web"].invoke
+  Rake::Task["deploy:symlink:settings"].invoke
+end
+
+Rake::Task["deploy:starting"].enhance ["web:load_platform"]
+
+namespace :load do
+  task :defaults do
+    set :platform, "drupal"
+  end
+end
+
+namespace :web do
+  task :load_platform do
+    load "capistrano/#{fetch(:platform)}.rb"
+  end
+
+  namespace :varnish do
+    desc "Ban all URLs for a site"
+    task :ban do
       on roles(:web) do
+        # Make sure we have access to the varnish secret file
         if test " [ -r /etc/varnish/secret ]"
           fetch(:site_url).each do |site|
             execute :varnishadm, "'ban req.http.host ~ #{site}'"
@@ -14,42 +35,24 @@ namespace :deploy do
     end
   end
   
+  desc "Run any tasks after deployment"
   task :restart do
-    invoke 'deploy:restarting:varnish'
+    invoke "web:varnish:ban"
   end
-  
+end
+
+namespace :deploy do
   namespace :symlink do
-    task :drupal do
+    desc "Set application webroot"
+    task :web do
       on roles(:app) do
         execute :rm, '-rf', deploy_to + "/#{fetch(:webroot)}"
-        execute :ln, '-s', "#{current_path}/public", deploy_to + "/#{fetch(:webroot)}"
+        execute :ln, '-s', "#{current_path}/#{fetch(:app_webroot, 'public')}", deploy_to + "/#{fetch(:webroot)}"
       end
     end
 
     task :settings do
-      on roles(:app) do
-        fetch(:site_folder).each do |folder|
-          unless test " [ -f #{current_path}/public/sites/#{folder}/settings.php ]"
-            execute :ln, '-s', "#{current_path}/public/sites/#{folder}/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/#{folder}/settings.php"
-          end
-        end
-        
-        unless test " [ -f #{current_path}/public/.htaccess ]"
-          execute :ln, '-s', "#{current_path}/public/htaccess.#{fetch(:stage)}", "#{current_path}/public/.htaccess"
-        end
-
-        unless test " [ -f #{current_path}/public/robots.txt ]"
-          execute :ln, '-s', "#{current_path}/public/robots.#{fetch(:stage)}.txt", "#{current_path}/public/robots.txt"
-        end
-      end
-    end
-  end
-  
-  task :revert_database => :rollback_release_path do
-    on roles(:db) do
-      within "#{release_path}/public" do
-      	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{release_path}/db.sql}
-      end
+      invoke "#{fetch(:platform)}:settings"
     end
   end
   
