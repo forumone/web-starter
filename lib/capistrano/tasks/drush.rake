@@ -1,7 +1,25 @@
+# A set of tasks to trigger Drush on the remote system during deployment
+#
+# Tasks:
+# - :initialize: Creates a ~/.drush directory and copies aliases from the release
+# - :sqlsync: Copies a database from a remote Drupal site, assumes ENV['source'] provided which is a drush alias
+# - :rsync: Copies files from a remote Drupal site, assumes ENV['source'] provided which is a drush alias
+# - :sqldump: Dumps the database to the current revision's file system
+# - :cc: Clears the entire Drupal cache
+# - :update: Runs all pending updates, including DB updates, Features and Configuration -- if set to use those
+# - :updatedb: Runs update hooks
+# - :features:revert: Reverts Features, which may be all Features or just Features in particular directories
+# - :configuration:sync: Synchronizes Configuration and loads it from the Data Store to the Active Store
+#
+# Variables:
+# - :drupal_features: Whether the Features module is enabled -- defaults to TRUE
+# - :drupal_cmi: Whether the Configuration module is enabled -- defaults to FALSE
+# - :drupal_features_path: Path(s) to scan for Features modules, if empty reverts all Features -- defaults to empty
+# - :drupal_db_updates: Whether to run update hooks on deployment -- defaults to TRUE
+
 Rake::Task["deploy:check"].enhance ["drush:initialize"]
-Rake::Task["deploy:publishing"].enhance ["drush:dbbackup"]
 Rake::Task["deploy:published"].enhance do 
-  Rake::Task["drush:run_updates"].invoke
+  Rake::Task["drush:update"].invoke
 end
 
 namespace :load do
@@ -9,7 +27,7 @@ namespace :load do
     set :drupal_features, true
     set :drupal_cmi, false
     set :drupal_features_path, %w[]
-    set :drupal_updates, true
+    set :drupal_db_updates, true
   end
 end
 
@@ -50,7 +68,7 @@ namespace :drush do
       end
     end
 
-    invoke 'drush:run_updates'
+    invoke 'drush:update'
   end
 
   desc "Triggers drush rsync to copy files between environments"
@@ -71,7 +89,7 @@ namespace :drush do
   end
 
   desc "Creates database backup"
-  task :dbbackup do 
+  task :sqldump do 
     on roles(:app) do
       unless test " [ -f #{release_path}/db.sql ]"
         within "#{release_path}/public" do
@@ -93,7 +111,7 @@ namespace :drush do
   end
 
   desc "Clears the Drupal cache"
-  task :cache_clear do
+  task :cc do
     on roles(:app) do
       within "#{release_path}/public" do
         fetch(:site_url).each do |site|
@@ -104,24 +122,24 @@ namespace :drush do
   end
 
   desc "Runs pending updates"
-  task :run_updates do
+  task :update do
     # Run all pending database updates
     if fetch(:drupal_updates)
       invoke 'drush:updatedb'
     end
     
-    invoke 'drush:cache_clear'
+    invoke 'drush:cc'
 	
 	# If we're using Features revert Features
 	if fetch(:drupal_features)
       invoke 'drush:features:revert'
-      invoke 'drush:cache_clear'
+      invoke 'drush:cc'
     end
     
     # If we're using Drupal Configuration Management module synchronize the Configuration
     if fetch(:drupal_cmi)
       invoke 'drush:configuration:sync'
-      invoke 'drush:cache_clear'
+      invoke 'drush:cc'
     end
   end
   

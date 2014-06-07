@@ -1,6 +1,10 @@
+# Revert the database when a rollback occurs
 Rake::Task["deploy:rollback_release_path"].enhance do
   invoke "drupal:revert_database"
 end
+
+# Backup the database when publishing a new release
+Rake::Task["deploy:publishing"].enhance ["drupal:dbbackup"]
 
 namespace :drupal do
   desc "Copy Drupal and web server configuration files"
@@ -41,5 +45,10 @@ namespace :drupal do
       	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{release_path}/db.sql}
       end
     end
+  end
+  
+  desc "Backup the database"
+  task :dbbackup do
+    invoke "drush:sqldump"
   end
 end
