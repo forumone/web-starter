@@ -65,7 +65,7 @@ namespace :rsync do
   end
 
   task :create_stage do
-    next if !fetch(:rsync_stage) || File.directory?(fetch(:rsync_stage))
+    next if fetch(:rsync_stage).nil? || File.directory?(fetch(:rsync_stage))
 
     clone = %W[git clone]
     clone << fetch(:repo_url, ".")
@@ -75,7 +75,7 @@ namespace :rsync do
 
   desc "Stage the repository in a local directory."
   task :stage => %w[create_stage] do
-    next if !fetch(:rsync_stage) || !File.directory?(fetch(:rsync_stage))
+    next if fetch(:rsync_stage).nil? || !File.directory?(fetch(:rsync_stage))
     
     Dir.chdir fetch(:rsync_stage) do
       update = %W[git fetch --quiet --all --prune]
