@@ -8,6 +8,10 @@ Rake::Task["deploy:symlink:release"].enhance do
   Rake::Task["deploy:symlink:settings"].invoke
 end
 
+# Add the build tasks if necessary
+Rake::Task["deploy:updating"].enhance ["web:add_build"]
+
+# Load the platform specific add-on
 Rake::Task["deploy:starting"].enhance ["web:load_platform"]
 
 namespace :load do
@@ -21,6 +25,24 @@ namespace :web do
     load "capistrano/#{fetch(:platform)}.rb"
   end
 
+  # Run our build check after rsync:stage
+  task :add_build do
+    Rake::Task.define_task("rsync:stage") do
+      invoke "web:run_build"
+    end
+  end
+  
+  # Only run the build if we stage rsync
+  task :run_build do
+    if ENV["ignore_rsync_stage"].nil?
+      invoke "web:build"
+    end
+  end
+  
+  desc "Run application build scripts"
+  task :build do
+  end
+  
   namespace :varnish do
     desc "Ban all URLs for a site"
     task :ban do
