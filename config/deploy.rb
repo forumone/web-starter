@@ -36,6 +36,22 @@ set :ssh_options, {
   config: 'config/ssh_config'
 }
 
-set :drupal_features, false
+# rsync settings
+set :rsync_options, %w[--recursive --chmod=Dug=rwx,Do=rx --perms --delete --delete-excluded --exclude=.git* --exclude=node_modules]
+set :rsync_copy, "rsync --archive --acls --xattrs"
+set :rsync_cache, "shared/deploy"
 
-after "deploy:revert_release", "deploy:revert_database"
+# allow for a flag to be passed that prevents staging the rsync target
+if ENV['ignore_rsync_stage']
+  set :rsync_stage, nil
+else
+  set :rsync_stage, 'tmp/deploy'
+end
+
+# install NPM modules and run grunt when building for deployment
+Rake::Task["web:build"].enhance do
+  Dir.chdir fetch(:rsync_stage) do
+    system "npm", "install", "--loglevel silent"
+    system "grunt"
+  end
+end
