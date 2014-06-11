@@ -6,7 +6,7 @@ This project has been setup to use a virtual machine for local development to cl
 
   * Latest Virtualbox -- [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads). If you are running Win 7 install 4.2.x
   * Latest Virtualbox Extension Pack -- [https://www.virtualbox.org/wiki/Downloads]. Should match your Virtualbox version
-  * Vagrant (currently tested with 1.3.5) -- [http://downloads.vagrantup.com](http://downloads.vagrantup.com)
+  * Vagrant (currently tested with 1.3.5 and 1.6.2) -- [http://downloads.vagrantup.com](http://downloads.vagrantup.com)
 
 
 ## Getting Vagrant environment set up
@@ -16,10 +16,7 @@ Starting from within the root of your project (an existing project which already
   * If you get an error re-provision the VM by running "vagrant provision" to see if this resolves the issue
 2. SSH into VM by running "vagrant ssh"
 3. Navigate to VM docroot by running "cd /vagrant/public"
-4. Create local configuration files:
-  1. Copy htaccess.dev to .htaccess
-  2. For Drupal sites, copy sites/default/settings.vm.php to sites/default/settings.php - This may be done automatically on some setups.
-5. Install Drupal using custom install profile by running "drush si [profile] -y" and following prompts. Alterntatively, use drush aliases to synch to a development instance of a site database. 
+4. Install Drupal using custom install profile by running "drush si [profile] -y" and following prompts. Alterntatively, use drush aliases to synch to a development instance of a site database. 
 
 ## Troubleshooting
 
@@ -33,6 +30,7 @@ If the virtual machine does not boot up and you get a message saying there was a
 ### Macintosh machines
 
 * If you experience errors when sharing the folder over NFS you may need to enable File Sharing in System Preferences -> Sharing
+* If you receive an error about an invalid export you may need to manually delete /etc/exports file
 * If you've updated to Mavericks and Virtualbox is no longer working, try the following command: sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 * If you are prompted to enter your password when SSHing from the VM ensure your SSH private key is in the keychain by running "ssh-add -K ~/.ssh/id_rsa" from your machine
 
