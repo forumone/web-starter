@@ -26,7 +26,10 @@ set :user_sudo, false
 set :pty, true
 
 # Array of folders to share
-set :linked_dirs, %w{public/sites/default/files}
+set :linked_dirs, %w{public/wp-content/uploads}
+
+# Sets platform to WordPress
+set :platform, "wordpress"
 
 # Number of release directories to keep
 set :keep_releases, 3

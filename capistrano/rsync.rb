@@ -34,10 +34,15 @@ desc "Stage and rsync to the server (or its cache)."
 task :rsync => %w[rsync:stage] do
   roles(:all).each do |role|
     user = role.user + "@" if !role.user.nil?
-
+	
+	path = fetch(:rsync_stage)
+	if path.nil? 
+	  path = '.'
+	end
+	
     rsync = %w[rsync]
     rsync.concat fetch(:rsync_options)
-    rsync << fetch(:rsync_stage) + "/"
+    rsync << path + "/"
     rsync << "#{user}#{role.hostname}:#{rsync_cache.call || release_path}"
 
     Kernel.system *rsync
@@ -60,7 +65,7 @@ namespace :rsync do
   end
 
   task :create_stage do
-    next if File.directory?(fetch(:rsync_stage))
+    next if fetch(:rsync_stage).nil? || File.directory?(fetch(:rsync_stage))
 
     clone = %W[git clone]
     clone << fetch(:repo_url, ".")
@@ -70,6 +75,8 @@ namespace :rsync do
 
   desc "Stage the repository in a local directory."
   task :stage => %w[create_stage] do
+    next if fetch(:rsync_stage).nil? || !File.directory?(fetch(:rsync_stage))
+    
     Dir.chdir fetch(:rsync_stage) do
       update = %W[git fetch --quiet --all --prune]
       Kernel.system *update
@@ -95,7 +102,12 @@ namespace :rsync do
   desc "Set the current revision"
   task :set_current_revision do
     run_locally do
-      within fetch(:rsync_stage) do
+      path = fetch(:rsync_stage)
+	  if path.nil? 
+	    path = '.'
+	  end
+	  
+      within path do
         rev = capture(:git, 'rev-parse', 'HEAD')
         set :current_revision, rev
       end
