@@ -124,7 +124,7 @@ namespace :drush do
   desc "Runs pending updates"
   task :update do
     # Run all pending database updates
-    if fetch(:drupal_updates)
+    if fetch(:drupal_db_updates)
       invoke 'drush:updatedb'
     end
     
