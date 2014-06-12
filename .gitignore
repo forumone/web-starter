@@ -4,3 +4,5 @@
 .vagrant
 node_modules
 Vagrantfile.local
+.DS_Store
+/_site
