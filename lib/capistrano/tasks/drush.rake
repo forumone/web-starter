@@ -133,13 +133,11 @@ namespace :drush do
 	# If we're using Features revert Features
 	if fetch(:drupal_features)
       invoke 'drush:features:revert'
-      invoke 'drush:cc'
     end
     
     # If we're using Drupal Configuration Management module synchronize the Configuration
     if fetch(:drupal_cmi)
       invoke 'drush:configuration:sync'
-      invoke 'drush:cc'
     end
   end
   
@@ -151,6 +149,8 @@ namespace :drush do
           execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'config-sync'
         end
       end
+      
+      invoke 'drush:cc'
     end
   end
   
@@ -168,12 +168,10 @@ namespace :drush do
                 features_path = "#{current_path}/public/#{path}"
                 # Get a list of all Feature modules in that path
                 features = capture(:ls, '-x', features_path).split
-                features.map do |feature|
-                  # Make sure the Feature is actually enabled, otherwise it will fail
-                  feature_name = capture(:drush, "pm-list --pipe --type=module --status=enabled --no-core | grep '^#{feature}$' || :")
-                  if !feature_name.empty?
-                    execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'fr', feature
-                  end
+                modules = capture(:drush, "pm-list", "--pipe --type=module --status=enabled --no-core").split
+                features_enabled = modules & features
+                features_enabled.each do |feature_enabled|
+                  execute :drush, "fr", feature_enabled, "-y -p -r #{current_path}/public -l #{site}"
                 end
               end
             else
@@ -182,6 +180,8 @@ namespace :drush do
           end
         end
       end
+      
+      invoke 'drush:cc'
     end
   end
 end
