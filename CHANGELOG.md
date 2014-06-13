@@ -1,4 +1,11 @@
-## 1.1.13 (In progress)
+## 1.1.14 (in progress)
+- Changed ".cap" to ".rake" to make more clear they are Rake tasks
+- Refactored tasks to allow for different platforms
+- Added documentation to Drupal platform add-on and tasks
+- Added build script tasks for rsync
+- Added tasks and platform for WordPress and WP-CLI
+
+## 1.1.13 (13 June, 2014)
 - Added Capistrano task to copy database from a drush alias `cap dev drush:sqlsync source=@site.stage`
 - Added Capistrano task to copy files from a drush alias `cap dev drush:rsync source=@site.stage`
 - Added ability to have a Vagrantfile.local file that will override settings in the checked in Vagrantfile
@@ -10,11 +17,7 @@
 - Updated example post-provision script to copy .htaccess if it exists
 - Added support for vagrant-cachier plugin
 - Fixed issue with copying drush aliases when they do not exist
-- Changed ".cap" to ".rake" to make more clear they are Rake tasks
-- Refactored tasks to allow for different platforms
-- Added documentation to Drupal platform add-on and tasks
-- Added build script tasks for rsync
-- Added tasks and platform for WordPress and WP-CLI
+- Forced version 1.0.3 of Librarian Puppet to prevent issue with CentOS Ruby version
 
 ## 1.1.12 (9 May, 2014)
 - Changing meaning of roles. App is where Drupal is intended to live, so it symlinks settings, htaccess, etc. App is where Varnish is cleared. DB is where drush commands that affect the database are executed.

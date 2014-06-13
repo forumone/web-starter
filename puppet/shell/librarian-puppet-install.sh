@@ -1,5 +1,5 @@
 #!/bin/bash
-
+LIBRARIAN_PUPPET_VERSION="1.0.3"
 VAGRANT_CORE_FOLDER="/vagrant"
 
 OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/puppet/shell/os-detect.sh" ID)
@@ -76,7 +76,7 @@ fi
 
 if [[ ! -f "${OPT_DIR}/librarian-puppet-installed" ]]; then
     echo 'Installing librarian-puppet'
-    gem install librarian-puppet >/dev/null
+    gem install librarian-puppet -v "${LIBRARIAN_PUPPET_VERSION}" >/dev/null
     echo 'Finished installing librarian-puppet'
 
     echo 'Running initial librarian-puppet'
