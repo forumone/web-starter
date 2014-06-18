@@ -8,6 +8,8 @@ classes:
 
 forumone::webserver::webserver: nginx
 
+forumone::php::prefix: "php53u"
+
 forumone::php::modules:
   - pecl-apc
   - pecl-redis

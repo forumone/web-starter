@@ -7,8 +7,6 @@ forumone::webserver::vhosts:
   vagrant: 
     path: "/vagrant/public"
 
-forumone::php::prefix: "php53u"
-
 forumone::solr::collections:  
   drupal: 
     order: 1
