@@ -17,11 +17,6 @@
 # - :drupal_features_path: Path(s) to scan for Features modules, if empty reverts all Features -- defaults to empty
 # - :drupal_db_updates: Whether to run update hooks on deployment -- defaults to TRUE
 
-Rake::Task["deploy:check"].enhance ["drush:initialize"]
-Rake::Task["deploy:published"].enhance do 
-  Rake::Task["drush:update"].invoke
-end
-
 namespace :load do
   task :defaults do
     set :drupal_features, true

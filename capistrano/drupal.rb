@@ -6,6 +6,14 @@ end
 # Backup the database when publishing a new release
 Rake::Task["deploy:publishing"].enhance ["drupal:dbbackup"]
 
+# Copy drush aliases when we check compatibility
+Rake::Task["deploy:check"].enhance ["drush:initialize"]
+
+# After publication run updates
+Rake::Task["deploy:published"].enhance do 
+  Rake::Task["drush:update"].invoke
+end
+
 namespace :drupal do
   desc "Copy Drupal and web server configuration files"
   task :settings do
