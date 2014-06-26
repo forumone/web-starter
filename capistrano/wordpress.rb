@@ -6,6 +6,11 @@ end
 # Backup the database when publishing a new release
 Rake::Task["deploy:publishing"].enhance ["wordpress:dbbackup"]
 
+# After publication run updates
+Rake::Task["deploy:published"].enhance do 
+  Rake::Task["wpcli:update"].invoke
+end
+
 namespace :wordpress do
   task :settings do
     on roles(:app) do

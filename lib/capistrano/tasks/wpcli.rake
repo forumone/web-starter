@@ -1,7 +1,3 @@
-Rake::Task["deploy:published"].enhance do 
-  Rake::Task["wpcli:update"].invoke
-end
-
 namespace :load do
   task :defaults do
     set :wordpress_wpcfm, false
