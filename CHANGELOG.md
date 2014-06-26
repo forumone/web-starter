@@ -4,6 +4,7 @@
 - Added documentation to Drupal platform add-on and tasks
 - Added build script tasks for rsync
 - Added tasks and platform for WordPress and WP-CLI
+- Updated to 1.1.19 of puppet-forumone
 
 ## 1.1.13 (13 June, 2014)
 - Added Capistrano task to copy database from a drush alias `cap dev drush:sqlsync source=@site.stage`
