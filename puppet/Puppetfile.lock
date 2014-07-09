@@ -29,8 +29,8 @@ GIT
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
-  ref: 1.1.19
-  sha: 9c1d1eaf069dd9e51de7ed75887e6dfe150ca9f9
+  ref: 1.2.1
+  sha: 385125d76e096db3ce1a126117ee486ed79827e9
   specs:
     forumone/forumone (1.1.19)
       alup/rbenv (~> 1.2.0)

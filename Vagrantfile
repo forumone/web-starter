@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "f1-centos64-64"
+  config.vm.box = "f1centos"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -85,7 +85,8 @@ Vagrant.configure("2") do |config|
     puppet.facter = { 
       "host_uid" => config.nfs.map_uid, 
       "host_gid" => config.nfs.map_gid, 
-      "vagrant_user" => ENV['USER'] }
+      "vagrant_user" => ENV['USER'],
+      "fqdn" => "localhost.localdomain" }
     
     puppet.manifests_path = "puppet/manifests"
     puppet.manifest_file = "init.pp"

@@ -10,3 +10,5 @@ forumone::webserver::vhosts:
 forumone::solr::collections:  
   drupal: 
     order: 1
+
+forumone::ruby::home: "/usr/local/rbenv"
