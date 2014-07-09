@@ -170,7 +170,7 @@ namespace :drush do
           # For each site
           fetch(:site_url).each do |site|
             # If we've explictly set a Features path array
-            if fetch(:drupal_features_path).length
+            if 0 != fetch(:drupal_features_path).length
               # Iterate through each element
               fetch(:drupal_features_path).each do |path|
                 features_path = "#{current_path}/public/#{path}"
