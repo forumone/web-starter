@@ -64,6 +64,14 @@ namespace :web do
 end
 
 namespace :deploy do
+  desc "Installs current platform on remote host"
+  task :install => [:check, :starting, :started, :updating, :updated, :publishing] do
+    invoke "#{fetch(:platform)}:install"
+    invoke "deploy:published"
+    invoke "deploy:finishing"
+    invoke "deploy:finished"
+  end
+  
   namespace :symlink do
     desc "Set application webroot"
     task :web do

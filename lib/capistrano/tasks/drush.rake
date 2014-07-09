@@ -53,6 +53,19 @@ namespace :drush do
     end
   end
 
+  desc "Triggers drush site-install"
+  task :siteinstall do
+    on roles(:app) do
+      command = "-y -r #{current_path}/public site-install "
+    
+      if ENV['profile']
+        command << ENV['profile']
+      end
+      
+      execute :drush, command
+    end
+  end
+  
   desc "Triggers drush sql-sync to copy databases between environments"
   task :sqlsync do 
     on roles(:app) do

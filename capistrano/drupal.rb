@@ -15,6 +15,11 @@ Rake::Task["deploy:published"].enhance do
 end
 
 namespace :drupal do
+  desc "Install Drupal"
+  task :install do
+    invoke 'drush:siteinstall'
+  end
+  
   desc "Copy Drupal and web server configuration files"
   task :settings do
     on roles(:app) do
