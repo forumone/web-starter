@@ -49,8 +49,11 @@ namespace :drupal do
   desc "Revert the database"
   task :revert_database do
     on roles(:db) do
-      within "#{release_path}/public" do
-      	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{release_path}/db.sql}
+      last_release = capture(:ls, '-xr', releases_path).split.first
+      last_release_path = releases_path.join(last_release)
+      
+      within "#{last_release_path}/public" do
+      	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{last_release_path}/db.sql}
       end
     end
   end
