@@ -27,7 +27,7 @@ php:
     mysqlnd_pkg: php53u-mysqlnd
     pear_pkg:  php53u-pear
     soap_pkg:  php53u-soap
-    fpm_service: php53u-fpm
+    fpm_service: php-fpm
     xml_pkg:  php53u-xml
     imagick_pkg: php53u-imagick
     suhosin_pkg: php53u-suhosin
