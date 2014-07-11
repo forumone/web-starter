@@ -1,8 +1,3 @@
-ius_repo:
-  pkg.installed:
-    - sources:
-      - ius-release: http://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/ius-release-1.0-11.ius.centos6.noarch.rpm
-
 include:
   - php.apc
   - php.curl
