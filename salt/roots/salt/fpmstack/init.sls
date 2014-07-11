@@ -1,4 +1,5 @@
 include:
+  - fpmstack.pools
   - php.apc
   - php.curl
   - php.fpm
@@ -8,7 +9,6 @@ include:
   - php.mysql
   - php.pear
   - php.xml
-  - fpmstack.pools
 
 /var/log/php-fpm:
   file.directory:
