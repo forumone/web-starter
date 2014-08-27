@@ -4,7 +4,7 @@ Rake::Task["deploy:rollback_release_path"].enhance do
 end
 
 # Backup the database when publishing a new release
-Rake::Task["deploy:publishing"].enhance ["wordpress:dbbackup"]
+Rake::Task["deploy:published"].enhance ["wordpress:dbbackup"]
 
 # After publication run updates
 Rake::Task["deploy:published"].enhance do 
