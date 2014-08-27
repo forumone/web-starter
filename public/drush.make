@@ -284,11 +284,7 @@ projects[webform][version] = "3"
 projects[webform][subdir] = "contrib"
 
 ; ## Themes ##
-projects[f1omega][download][type] = "git"
-projects[f1omega][download][url] = "git@code.forumone.com:f1ux/f1ux-theme.git"
-projects[f1omega][download][branch] = "master"
-projects[f1omega][directory_name] = "f1ux-theme"
-projects[f1omega][type] = "theme"
+projects[gesso] = "1.x-dev"
 
 ; ## Libraries ##
 
