@@ -7,7 +7,7 @@ classes:
 
 forumone::webserver::webserver: nginx
 
-forumone::php::prefix: "php53u"
+forumone::php::prefix: "php54"
 
 forumone::php::modules:
   - pecl-memcached
