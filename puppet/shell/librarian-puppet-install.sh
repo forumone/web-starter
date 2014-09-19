@@ -83,7 +83,9 @@ if [[ ! -f "${OPT_DIR}/librarian-puppet-installed" ]]; then
     cd "${PUPPET_DIR}" && librarian-puppet install --clean >/dev/null
     echo 'Finished running initial librarian-puppet'
 
-    touch "${OPT_DIR}/librarian-puppet-installed"
+    if [ $? -eq 0 ]; then
+        touch "${OPT_DIR}/librarian-puppet-installed"
+    fi
 else
     echo 'Running update librarian-puppet'
     cd "${PUPPET_DIR}" && librarian-puppet update >/dev/null
