@@ -1,0 +1,73 @@
+---
+layout: default
+title: Included Hosts
+---
+
+<h4>Acquia</h4>
+<p>This host mimics the environment used by Acquia to deploy Drupal sites. It's not entirely the same 
+because Acquia uses Ubuntu while the Web Starter Kit uses CentOS, but the packages are very close. This 
+includes the following software:</p>
+
+<ul>
+  <li>Apache web server</li>
+  <li>PHP 5.4 mod_php with the following modules:
+    <ul>
+      <li>APC</li>
+      <li>PECL memcached</li>
+    </ul>
+  </li>
+  <li>Apache Solr 3.6.2 with a collection called "drupal"</li>
+  <li>memcached</li>
+  <li>Varnish 3</li>
+  <li>NodeJS</li>
+  <li>Ruby -- default version is 1.9.3p484</li>
+</ul>
+
+<h4>Pantheon</h4>
+<p>This host mimics the environment used by Pantheon to deploy Drupal sites. It's not entirely the same 
+because Pantheon uses custom containers while the Web Starter Kit uses CentOS, but the packages are very close. This 
+includes the following software:</p>
+
+<ul>
+  <li>nginx web server</li>
+  <li>PHP 5.4 FPM with the following modules:
+    <ul>
+      <li>APC</li>
+      <li>PECL Redis</li>
+    </ul>
+  </li>
+  <li>Apache Solr 3.6.2 with a collection called "drupal"</li>
+  <li>Redis</li>
+  <li>Varnish 3</li>
+  <li>NodeJS</li>
+  <li>Ruby -- default version is 1.9.3p484</li>
+</ul>
+
+<h4>F1 Dev</h4>
+<p>This host mimics the environment used by Forum One internally, so is slightly idiosyncratic to our tools
+and processes. This includes the following software:</p>
+
+<ul>
+  <li>nginx web server</li>
+  <li>PHP 5.4 FPM with the following modules:
+    <ul>
+      <li>XCache</li>
+      <li>PECL memcached</li>
+    </ul>
+  </li>
+  <li>Apache Solr 3.6.2 with a collection called "drupal"</li>
+  <li>memcache</li>
+  <li>Varnish 3</li>
+  <li>NodeJS</li>
+  <li>Ruby -- default version is 1.9.3p484</li>
+</ul>
+  
+<hr/>
+
+<h3>Further topics</h3>
+<ul>
+  <li><a href="hosts.html">Included Hosts</a></li>
+  <li><a href="platforms.html">Included Platforms</a></li>
+  <li><a href="customization.html">Customization Scenarios</a></li>
+  <li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
