@@ -32,6 +32,7 @@ module.exports = function(grunt) {
   var stage = grunt.option('stage') || 'dev';
   
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-simple-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
 
   grunt.registerTask('default', [ 'compass:' + stage ]);
