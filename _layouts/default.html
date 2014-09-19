@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>{{page.title}}</h1>
+        <h1><a href="{{site.baseurl}}/">Web Starter Kit</a></h1>
         <p>Starting place for developing Drupal, Wordpress and other web applications</p>
 
         <p class="view"><a href="https://github.com/forumone/web-starter">View the Project on GitHub <small>forumone/web-starter</small></a></p>
@@ -28,11 +28,12 @@
         </ul>
       </header>
       <section>
+        <h2>{{page.title}}</h2>
         {{content}}
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/forumone">forumone</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p>Developed and maintained by</p>
+        <p><a href="http://forumone.com" target="_blank"><img src="http://forumone.com/wp-content/themes/f1ux/images/bg/logo-full.png"/></a></p>
       </footer>
     </div>
     <script src="{{site.baseurl}}/javascripts/scale.fix.js"></script>
