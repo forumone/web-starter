@@ -27,7 +27,8 @@ module.exports = function(grunt) {
             options: {
                 interrupt: true,
                 atBegin: true,
-                livereload: true
+                livereload: true,
+                spawn: true
             }
         }
     });

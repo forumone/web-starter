@@ -1,0 +1,48 @@
+---
+layout: default
+title: Local Development Environments
+---
+
+<p>The Web Starter Kit comes with the ability to stand up a local development environment that 
+closely mimics your production environment.</p>
+
+<p>It's built on the following tools:
+
+<ul>
+  <li><a href="http://vagrantup.com">Vagrant</a></li>
+  <li><a href="http://puppetlabs.com/" target="_blank">Puppet</a></li>
+  <li><a href="http://librarian-puppet.com/" target="_blank">librarian-puppet</a>
+</ul>
+</p>
+
+<p>The Web Starter Kit uses Hiera to control the configuration for the virtual machine so you don't need 
+to modify the underlying Puppet files. Updating which packages, services and settings are used is a simple matter 
+of changing some YAML</p>
+
+<p>The Web Starter Kit is based around the concept of separating configuration into Hosts, Platforms and Sites. 
+Each holds a piece of the configuration that can be overridden by the following set, but they allow you to 
+structure your configuration so that pieces are re-usable. For example, the configuration for the Drupal Platform 
+includes:
+
+<ul>
+  <li>A webserver</li>
+  <li>PHP</li>
+  <li>Drush</li>
+  <li><a href="http://mailcatcher.me/" target="_blank">Mailcatcher</a></li>
+  <li>The following PHP modules:
+  <ul>
+    <li>XML</li>
+    <li>PDO</li>
+    <li>MBString</li>
+    <li>MySQL</li>
+    <li>XDebug</li>
+    <li>GD</li>
+  </ul>
+  </li>
+  <li>And some various configurations for PHP and MySQL</li>
+</ul>
+
+But what it doesn't specify is which webserver it requires or which version of PHP. Those are left to the Host 
+to have the configuration for what services and versions it supports. This allows you to mix and match Hosts and 
+Platforms without having to keep changing the settings.
+</p>
