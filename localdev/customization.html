@@ -1,0 +1,181 @@
+---
+layout: default
+title: Customization Scenarios
+---
+
+<p>This covers some basic scenarios to customize the particular installation of the Web Starter Kit. Each 
+scenario will contain a set of steps and then what the expected outcome would be.</p>
+
+<h3>Create new Host</h3>
+<p>In this scenario we'll be creating a new host file from one of the existing host files.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Copy puppet/manifests/hieradata/hosts/f1dev.yaml to puppet/manifests/hieradata/hosts/test.yaml</li>
+  <li>Edit puppet/manifests/init.pp</li>
+  <li>Change line 2 to <code>$host = 'test'</code></li>
+  <li>Run <pre>vagrant provision</pre></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>The provisioner should run without errors and make no changes.</p>
+
+<h3>Add post-provisioner</h3>
+<p>In this scenario we'll be adding and configuring a post provision script to set initial files for Drupal.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Create public/sites and public/sites/default directories</li>
+  <li>Copy examples/drupal/settings.vm.php to public/sites/default/settings.vm.php</li>
+  <li>Copy examples/drupal/site.aliases.drushrc.php to test.aliases.drushrc.php</li>
+  <li>Copy puppet/shell/custom/example-drupal-post-provision.sh to puppet/shell/custom/post-provision.sh</li>
+  <li>Run <pre>vagrant provision</pre></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>vagrant ssh</code> and then <code>ll ~/.drush</code> and verify there are files there for drush.ini and test.aliases.drushrc.php. 
+Also verify there is /vagrant/public/sites/default/settings.php file.</p>
+
+<h3>Change web server</h3>
+<p>In this scenario we'll be changing the web server on the virtual machine.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Edit puppet/manifests/hieradata/hosts/test.yaml</li>
+  <li>Change line 8 to <code>forumone::webserver::webserver: "apache"</code></li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>The response headers should indicate that you are on Apache, you can check this with <code>curl -I http://localhost:8080</code> 
+or by going to that URL in a browser and inspecting the response headers.</p>
+
+<h3>Add a database</h3>
+<p>In this scenario we'll be adding a new database. In the forumone::databases stanza the key of the hash is the 
+name of the database and it takes a username attribute and an optional password attribute. If the password is not 
+specified the username is used as the password as well.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Edit puppet/manifests/hieradata/sites/localhost.localdomain.yaml</li>
+  <li>Add entry in the forumone::databases that has:
+<pre>test: 
+  username: test</pre>
+  </li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>vagrant ssh</code> and then <code>mysql -u test --password=test test</code> and verify you are able to connect to the new 
+database.</p>
+
+<h3>Add a PHP module</h3>
+<p>In this scenario we'll be adding the PHP SOAP module.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Edit puppet/manifests/hieradata/hosts/test.yaml</li>
+  <li>Add item to array on line 12 for "soap"</li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>vagrant ssh</code> and then <code>php -i |grep soap.wsdl_cache</code> and verify that the SOAP module is installed and that 
+the value is the default of "1".</p>
+
+<h3>Configure a PHP module</h3>
+<p>In this scenario we'll be configuring the PHP SOAP module.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Edit puppet/manifests/hieradata/hosts/test.yaml</li>
+  <li>Add and entry for php::modules so that it reads:
+<pre>php::modules: 
+  xcache: 
+    settings: 
+      xcache.size: "96M"
+  soap:
+    settings:
+      soap.wsdl_cache: 0</pre>  
+  </li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>vagrant ssh</code> and then <code>php -i |grep soap.wsdl_cache</code> and verify that value has been changed to "0".</p>
+
+<h3>Change Solr version</h3>
+<p>In this scenario we'll be changing the version of Apache Solr from 3.6.2 to 4.8.0.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Open a web browser and go to <code>http://localhost:18983/solr/drupal/admin</code> and you should see the admin
+  screen for Solr 3.6.2</li>
+  <li>Edit puppet/manifests/hieradata/hosts/test.yaml and add the line:
+<pre>forumone::solr::version: "4.8.0"</pre>
+ </li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>After the provisioning finishes go to <code>http://localhost:18983/solr</code> you should see a line that has "solr-spec: 4.8.0" 
+and be able to select "drupal" from the "Core selector" drop-down.</p>
+<p>Note: at present there is an issue switching between versions of Solr within the 4.x family. You can see information 
+about the issue at <a href="https://github.com/forumone/web-starter/issues/27">https://github.com/forumone/web-starter/issues/27</a></p>
+
+<h3>Set memcached max object size</h3>
+<p>In this scenario we'll be increasing the max object size for memcached to avoid cache failures for Drupal.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Edit puppet/manifests/hieradata/hosts/test.yaml and add:
+<pre>memcached::options: "-I 3M"</pre>
+</li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>vagrant ssh</code> and then <code>sudo service memcached restart</code> you should see a warning about 
+raising the item max size above 1MB. Run <code>cat /etc/sysconfig/memcached</code> and verify the last line says 
+<code>OPTIONS="-I 3M"</code></p>
+
+<h3>Removing Varnish</h3>
+<p>In this scenario we'll be removing Varnish for a host that does not have it.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Edit puppet/manifests/hieradata/hosts/test.yaml and add the following lines:
+<pre>forumone::varnish::bind: "*:8080"
+forumone::varnish::backend_port: 80
+forumone::webserver::port: 80
+</pre>
+</li>
+  <li>Remove line 3 <code>forumone::varnish</code></li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>curl -I "http://localhost:8080</code> and verify the <code>X-Varnish-Cache</code> header is not present.</p>
+<p>Note: due to port release issues with some web servers you may need to run <code>vagrant provision</code> twice
+to have the web server properly bind to the port.</p>
+
+<h3>Adding SSH config</h3>
+<p>In this scenario we'll be adding custom SSH configuration to ensure that connections from the VM are all using the correct user.</p> 
+<h4>Steps</h4>
+<ol>
+  <li>Edit puppet/manifests/hieradata/sites/localhost.localdomain.yaml and add the following lines 
+  -- replacing server, hostname and user information as appropriate:
+<pre>forumone::ssh_config:
+  [server]:
+    hostname: [hostname]
+    unix_user: "vagrant"
+    port: 22
+    remote_user: [user]
+</pre>
+</li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>vagrant ssh</code> and <code>cat ~/.ssh/config</code> and verify that the SSH config is in place.</p>
+
+<hr/>
+
+<h3>Further topics</h3>
+<ul>
+  <li><a href="hosts.html">Included Hosts</a></li>
+  <li><a href="platforms.html">Included Platforms</a></li>
+  <li><a href="customization.html">Customization Scenarios</a></li>
+  <li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
