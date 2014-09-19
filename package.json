@@ -1,0 +1,9 @@
+{
+  "name": "web_starter_docs",
+  "version": "0.1.0",
+  "description": "Documentation for web starter-kit",
+  "devDependencies": {
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-shell": "^0.7.0"
+  }
+}
