@@ -1,0 +1,12 @@
+---
+forumone::databases: 
+  web: 
+    username: web
+
+forumone::webserver::vhosts:  
+  vagrant: 
+    path: "/vagrant/public"
+
+forumone::solr::collections:  
+  drupal: 
+    order: 1
