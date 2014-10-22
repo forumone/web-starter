@@ -24,7 +24,7 @@ namespace :drupal do
   task :settings do
     on roles(:app) do
       fetch(:site_folder).each do |folder|
-        if test " [ -f #{current_path}/public/sites/#{folder}/settings.php ]"
+        if test " [ -e #{current_path}/public/sites/#{folder}/settings.php ]"
           execute :rm, "-f", "#{current_path}/public/sites/#{folder}/settings.php"
         end
         execute :ln, '-s', "#{current_path}/public/sites/#{folder}/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/#{folder}/settings.php"
