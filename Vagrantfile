@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://clients.forumone.com/sites/default/files/boxes/centos64-64.box"
+  config.vm.box_url = "https://s3.amazonaws.com/f1vagrant/centos64-64.box"
 
   if Vagrant.has_plugin?("vagrant-cachier")
     # Configure cached packages to be shared between instances of the same base box.
