@@ -1,0 +1,43 @@
+---
+layout: default
+title: Capistrano Tasks
+---
+
+<p>The Web Starter Kit relies on <a href="http://capistranorb.com" target="_blank">Capistrano</a> to deploy changes
+to remote hosts. This included creation of several new Capistrano tasks to perform required updates as well as 
+updating default tasks.</p>
+
+<h3>Deploy namespace</h3>
+<ul>
+  <li><strong>deploy:install</strong> <p>Installs the current platform on the remote host</p></li>
+  <li><strong>deploy:symlink</strong> <p>Links the application webroot -- defaults to 'public' -- to the host webroot</p>
+</ul>
+
+<h3>Web namespace</h3>
+<ul>
+  <li><strong>web:build</strong> <p>Runs any local build tasks, used for triggering build tasks from the rsync staging directory</p></li>
+  <li><strong>web:varnish</strong> <p>Bans all cache items where the host is like items in the site_url hash</p></li>
+</ul>
+
+<h3>Drush namespace</h3>
+<ul>
+  <li><strong>drush:drushdir</strong> <p>Creates the users's .drush directory if it doesn't exist</p></li>
+  <li><strong>drush:aliases</strong> <p>Copies drush alias files from the repository to the user's .drush directory on the host</p></li>
+  <li><strong>drush:initialize</strong> <p>Triggers the drush:drushdir and drush:aliases tasks</p></li>
+  <li><strong>drush:cc</strong> <p>Clears all caches</p></li>
+  <li><strong>drush:configuration:sync</strong> <p>Synchronizes the configuration exported via the Drupal Configuration module</p></li>
+  <li><strong>drush:features:revert</strong> <p>Reverts Drupal Features, reverts all Features unless the <code>drupal_features_path</code> value is set</p></li>
+  <li><strong>drush:updatedb</strong> <p>Runs all pending update hooks</p></li>
+  <li><strong>drush:update</strong> <p>Runs updates to the Drupal site, including update hooks, clearing the cache, reverting Features and synchronizing Configuration as configured</p></li>
+  <li><strong>drush:siteinstall</strong> <p>Installs Drupal on the remote site, can specify which install profile to use by passing <code>profile=[profile]</code></p></li>
+  <li><strong>drush:sqldump</strong> <p>Creates a backup of the database into the current release directory</p></li>
+  <li><strong>drush:rsync</strong> <p>Copies files from one remote alias to the selected stage, the source is specified is specified by passing <code>source=[alias]</code></p></li>
+  <li><strong>drush:sqlsync</strong> <p>Copies database from one remote alias to the selected stage, the source is specified by passing <code>source=[alias]</code></p></li>
+</ul>
+
+<h3>WPCLI namespace</h3>
+<ul>
+  <li><strong>wpcli:wpcfm:pull</strong> <p>Pulls configuration from WP-CFM into the stage</p></li>
+</ul>
+
+{% include menus/deployment.html %}
