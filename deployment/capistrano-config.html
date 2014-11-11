@@ -13,18 +13,18 @@ title: Capistrano Config
   <li><strong>:scm</strong> <p>Whether deployments should use git or rsync</p></li>
   <li><strong>:deploy_via</strong> <p>Whether to use a remote cache for git, generally recommended</p></li>
   <li><strong>:format</strong> <p>The log formatter to use, generally recommended to use :pretty to see details</p></li>
-  <li><strong>:user_sudo</strong> <p>Whether the deployment user will have access to sudo</p></li>
-  <li><strong>:pty</strong> <p>Whether to use a "pseudo TTY" for the deployment</p></li>
-  <li><strong>:linked_dirs</strong> <p>Which directories to link into the release; typically public/sites/default/files
+  <li><strong>:user_sudo</strong> <p>A boolean value whether the deployment user will have access to sudo</p></li>
+  <li><strong>:pty</strong> <p>A boolean value whether to use a "pseudo TTY" for the deployment</p></li>
+  <li><strong>:linked_dirs</strong> <p>A whitespace delimited hash of which directories to link into the release; typically public/sites/default/files
   for typical Drupal installations or public/wp-content/uploads for typical Wordpress installations</p></li>
   <li><strong>:keep_releases</strong> <p>Number of releases to keep on the deployment target</p></li>
   <li><strong>:ssh_options</strong> <p>Includes the <code>config/ssh_config</code> file to provide custom SSH config
   for deployment</p></li>
   <li><strong>:platform</strong> <p>Sets platform to use, this controls various aspects of deployment, including which 
   tasks to run to set configuration; each value maps to a file in the capistrano directory, e.g. drupal or wordpress</p></li>
-  <li><strong>:rsync_options</strong> <p>Options passed to rsync when copying files from the deployment host to the 
+  <li><strong>:rsync_options</strong> <p>A whitespace delimited set of options passed to rsync when copying files from the deployment host to the 
   target</p></li>
-  <li><strong>:rsync_copy</strong> <p>Options passed to rsync when copying files from the staging directory on the 
+  <li><strong>:rsync_copy</strong> <p>A whitespace delimited set of options passed to rsync when copying files from the staging directory on the 
   deployment target to the release</p></li>
   <li><strong>:rsync_cache</strong> <p>The location where files are initially copied on the deployment target 
   before being copied to the release</p></li>
