@@ -5,7 +5,7 @@ title: Capistrano Config
 
 <p>There are a number of places where the Capistrano scripts can be customized to deploy a variety of web platforms.</p>
 
-<h3>General configuration -- deploy/config.rb</h3>
+<h3>General configuration -- deploy/deploy.rb</h3>
 <ul>
   <li><strong>:application</strong> <p>The name of the directory within the deployment target that hosts files, can be
   anything name as long as it is comprised of characters that are safe for Unix directories</p></li>
@@ -30,9 +30,11 @@ title: Capistrano Config
   before being copied to the release</p></li>
   <li><strong>web:build</strong> <p>Task that runs build operations within the rsync stage directory; used when the
   <code>ignore_rsync_stage</code> flag is not set</p></li>
+  <li><strong>:app_webroot</strong> <p>The location within the repository that contains the webroot; will be symlinked 
+  to the :webroot attribute within the deployment target; defaults to 'public'</p></li>
 </ul>
 
-<h3>Stage configuration -- deploy/config/[stage].rb</h3>
+<h3>Stage configuration -- deploy/deploy/[stage].rb</h3>
 <ul>
   <li><strong>:stage</strong> <p>The name of the stage, should match the filename</p></li>
   <li><strong>:site_url</strong> <p>A whitespace delimited hash of URLs that the site can be accessed on; used 
@@ -54,6 +56,21 @@ title: Capistrano Config
     <li><strong>:db</strong> <p>A whitespace delimited hash of hosts to run database tasks on, this includes backing 
     up the database and applying configuration changes</p></li>
   </ul></li>
+</ul>
+
+<h3>Drupal configuration -- deploy/deploy.rb</h3>
+<ul>
+  <li><strong>:drupal_features</strong> <p>A boolean value whether the Features module is enabled; defaults to true</p></li>
+  <li><strong>:drupal_cmi</strong> <p>A boolean value whether the Configuration module is enabled; defaults to false</p></li>
+  <li><strong>:drupal_features_path</strong> <p>A whitespace delimited hash or paths to look for Features to revert on; 
+  defaults to empty; if it is empty all Features will be reverted</p></li>
+  <li><strong>:drupal_db_updates</strong> <p>A boolean value whether to run database updates when deploying; defaults to true</p></li>
+</ul>
+
+<h3>WordPress configuration -- deploy/deploy.rb</h3>
+<ul>
+  <li><strong>:wordpress_wpcfm</strong> <p>A boolean value whether to use WP-CFM to propagate configuration; defaults to
+  false</p></li>  
 </ul>
 
 {% include menus/deployment.html %}
