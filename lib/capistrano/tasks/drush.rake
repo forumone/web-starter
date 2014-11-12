@@ -56,7 +56,7 @@ namespace :drush do
   desc "Triggers drush site-install"
   task :siteinstall do
     on roles(:app) do
-      command = "-y -r #{current_path}/public site-install "
+      command = "-y -r #{current_path}/#{fetch(:webroot, 'public')} site-install "
     
       if ENV['profile']
         command << ENV['profile']
@@ -70,8 +70,8 @@ namespace :drush do
   task :sqlsync do 
     on roles(:app) do
       if ENV['source']
-        within "#{release_path}/public" do
-          execute :drush, "-p -r #{current_path}/public -l #{fetch(:site_url)[0]} sql-sync #{ENV['source']} @self -y"
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} sql-sync #{ENV['source']} @self -y"
         end
       end
     end
@@ -89,8 +89,8 @@ namespace :drush do
       end
 
       if ENV['source']
-        within "#{release_path}/public" do
-          execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)[0]} rsync #{ENV['source']}:#{path} @self:#{path} --mode=rz"
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} rsync #{ENV['source']}:#{path} @self:#{path} --mode=rz"
         end
       end
     end
@@ -100,8 +100,8 @@ namespace :drush do
   task :sqldump do 
     on roles(:app) do
       unless test " [ -f #{release_path}/db.sql ]"
-        within "#{release_path}/public" do
-          execute :drush, "-r #{current_path}/public -l #{fetch(:site_url)[0]} sql-dump -y >> #{release_path}/db.sql"
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} sql-dump -y >> #{release_path}/db.sql"
         end
       end
     end
@@ -110,9 +110,9 @@ namespace :drush do
   desc "Runs all pending update hooks"
   task :updatedb do
     on roles(:app) do
-      within "#{release_path}/public" do
+      within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
         fetch(:site_url).each do |site|
-          execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'updatedb'
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'updatedb'
         end
       end
     end
@@ -121,9 +121,9 @@ namespace :drush do
   desc "Clears the Drupal cache"
   task :cc do
     on roles(:app) do
-      within "#{release_path}/public" do
+      within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
         fetch(:site_url).each do |site|
-          execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'cc all'
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'cc all'
         end
       end
     end
@@ -153,8 +153,8 @@ namespace :drush do
     desc "Load Configuration from the Data Store and apply it to the Active Store"
     task :sync do
       on roles(:app) do
-        within "#{release_path}/public" do
-          execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'config-sync'
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)}", 'config-sync'
         end
       end
       
@@ -166,24 +166,24 @@ namespace :drush do
     desc "Revert Features"
     task :revert do
       on roles(:app) do
-        within "#{release_path}/public" do
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
           # For each site
           fetch(:site_url).each do |site|
             # If we've explictly set a Features path array
             if 0 != fetch(:drupal_features_path).length
               # Iterate through each element
               fetch(:drupal_features_path).each do |path|
-                features_path = "#{current_path}/public/#{path}"
+                features_path = "#{current_path}/#{fetch(:webroot, 'public')}/#{path}"
                 # Get a list of all Feature modules in that path
                 features = capture(:ls, '-x', features_path).split
                 modules = capture(:drush, "pm-list", "--pipe --type=module --status=enabled --no-core").split
                 features_enabled = modules & features
                 features_enabled.each do |feature_enabled|
-                  execute :drush, "fr", feature_enabled, "-y -p -r #{current_path}/public -l #{site}"
+                  execute :drush, "fr", feature_enabled, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}"
                 end
               end
             else
-              execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'fra'
+              execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'fra'
             end
           end
         end
