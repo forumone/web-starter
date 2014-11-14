@@ -2,6 +2,7 @@ module.exports = function(grunt) {
   grunt
       .initConfig({
         pkg : grunt.file.readJSON('package.json'),
+        {{#use_compass}}
         compass : { // Task
           dev : { // Target
             options : { // Target options
@@ -25,13 +26,16 @@ module.exports = function(grunt) {
             }
           },
         },
+        {{/use_compass}}
         watch : {
+          {{#use_compass}}
           compass : {
             {{#is_drupal}}
             files : [ '{{app_webroot}}/sites/all/themes/{{drupal_theme}}/sass/*.scss', '{{app_webroot}}/sites/all/themes/{{drupal_theme}}/sass/**/*.scss' ],
             {{/is_drupal}}
             tasks : [ 'compass:dev' ]
           }
+          {{/use_compass}}
         }
       });
 
@@ -41,7 +45,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-simple-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
 
-  {{#is_drupal}}
-  grunt.registerTask('default', [ {{#drupal_use_compass}}'compass:' + stage {{/drupal_use_compass}}]);
-  {{/is_drupal}}
+  grunt.registerTask('default', [ {{#use_compass}}'compass:' + stage {{/use_compass}}]);
 };
