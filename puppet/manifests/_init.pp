@@ -1,5 +1,5 @@
-$platform = '{{ platform}}'
-$host = '{{ host}}'
+$platform = '{{platform}}'
+$host = '{{host}}'
 
 case $::operatingsystem {
   /(?i:redhat|centos)/ : {

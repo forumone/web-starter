@@ -1,12 +1,14 @@
 ---
 forumone::databases: 
-  web: 
-    username: web
+  {{db_name}}: 
+    username: {{db_user}}
 
 forumone::webserver::vhosts:  
   vagrant: 
-    path: "/vagrant/public"
+    path: "/vagrant/{{app_webroot}}"
 
+{{#solr}}
 forumone::solr::collections:  
   drupal: 
     order: 1
+{{/solr}}
