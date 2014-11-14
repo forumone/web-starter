@@ -1,6 +1,12 @@
 {
   "name": "{{name}}",
   "version": "{{version}}",
+  {{#repository}}
+  "repository": {
+    "type": "git",
+    "url": "{{repository}}"
+  },
+  {{/repository}}
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-coffee": "~0.7.0",
