@@ -22,9 +22,6 @@ set :user_sudo, false
 # Whether to use a pseudo-TTY
 set :pty, true
 
-# Array of folders to share
-set :linked_dirs, %w{public/sites/default/files}
-
 # Number of release directories to keep
 set :keep_releases, 3
 
@@ -40,7 +37,10 @@ set :platform, "{{platform}}"
 set :drupal_features, {{features}}
 set :drupal_cmi, {{cmi}}
 set :drupal_db_updates, true
-{{/drupal}}
+
+# Array of folders to share
+set :linked_dirs, %w{{{app_webroot}}/sites/default/files}
+{{/is_drupal}}
 
 # rsync settings
 set :rsync_options, %w[--recursive --chmod=Dug=rwx,Do=rx --perms --delete --delete-excluded --exclude=.git* --exclude=node_modules]
