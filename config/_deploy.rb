@@ -39,7 +39,7 @@ set :drupal_cmi, {{cmi}}
 set :drupal_db_updates, true
 
 # Array of folders to share
-set :linked_dirs, %w{{{app_webroot}}/sites/default/files}
+set :linked_dirs, %w[{{app_webroot}}/sites/default/files]
 {{/is_drupal}}
 
 # rsync settings
