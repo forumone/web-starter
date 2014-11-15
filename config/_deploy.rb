@@ -23,7 +23,7 @@ set :user_sudo, false
 set :pty, true
 
 # Number of release directories to keep
-set :keep_releases, 3
+set :keep_releases, {{keep_releases}}
 
 # Add custom SSH config
 set :ssh_options, {
