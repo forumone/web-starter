@@ -9,6 +9,9 @@ module.exports = function(grunt) {
               {{#is_drupal}}
               basePath: '{{app_webroot}}/sites/all/themes/{{drupal_theme}}/',
               {{/is_drupal}}
+              {{#is_wordpress}}
+              basePath: '{{app_webroot}}/wp-content/themes/{{wordpress_theme}}/',
+              {{/is_wordpress}}
               outputStyle: 'expanded',
               noLineComments: false,
               bundleExec: true
@@ -19,6 +22,9 @@ module.exports = function(grunt) {
               {{#is_drupal}}
               basePath: '{{app_webroot}}/sites/all/themes/{{drupal_theme}}/',
               {{/is_drupal}}
+              {{#is_wordpress}}
+              basePath: '{{app_webroot}}/wp-content/themes/{{wordpress_theme}}/',
+              {{/is_wordpress}}
               outputStyle: 'compressed',
               noLineComments: true,
               force: true,
@@ -33,6 +39,9 @@ module.exports = function(grunt) {
             {{#is_drupal}}
             files : [ '{{app_webroot}}/sites/all/themes/{{drupal_theme}}/sass/*.scss', '{{app_webroot}}/sites/all/themes/{{drupal_theme}}/sass/**/*.scss' ],
             {{/is_drupal}}
+            {{#is_wordpress}}
+            files : [ '{{app_webroot}}/wp-content/themes/{{wordpress_theme}}/sass/*.scss', '{{app_webroot}}/wp-content/themes/{{wordpress_theme}}/sass/**/*.scss' ],
+            {{/is_wordpress}}
             tasks : [ 'compass:dev' ]
           }
           {{/use_compass}}
