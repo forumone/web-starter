@@ -1,0 +1,12 @@
+{
+  "name": "{{name}}",
+  "version": "{{version}}",
+  {{#repository}}
+  "repository": {
+    "type": "git",
+    "url": "{{repository}}"
+  },
+  {{/repository}}
+  "devDependencies": {
+  }
+}
