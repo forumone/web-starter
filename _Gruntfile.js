@@ -1,4 +1,7 @@
 module.exports = function(grunt) {
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
+
   grunt
       .initConfig({
         pkg : grunt.file.readJSON('package.json'),
@@ -49,10 +52,6 @@ module.exports = function(grunt) {
       });
 
   var stage = grunt.option('stage') || 'dev';
-  
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-simple-watch');
-  grunt.loadNpmTasks('grunt-contrib-compass');
 
   grunt.registerTask('default', [ {{#use_compass}}'compass:' + stage {{/use_compass}}]);
 };
