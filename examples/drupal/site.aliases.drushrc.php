@@ -58,3 +58,18 @@ $aliases['prod'] = array(
     ),
   ),
 );
+
+// Unset remote-host if drush command is being performed on the remote host,
+// which will allow the command to work when the user doesn't have shell 
+// access to itself.
+// Credit: http://www.mediacurrent.com/blog/make-your-drush-aliases-work-local-and-remote
+$ip = gethostbyname(php_uname('n'));
+foreach ($aliases as &$alias) {
+  if (empty($alias['remote-host'])) {
+    continue;
+  }
+  if (gethostbyname($alias['remote-host']) === $ip) {
+    unset($alias['remote-host']);
+  }
+}
+
