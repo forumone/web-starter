@@ -33,10 +33,10 @@ GIT
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
-  ref: 1.1.21
-  sha: 5adcd993ceb13f1a0876995e01043256104798df
+  ref: 1.1.22
+  sha: 25ee9573d24574d94fc443c1a7df445950483b05
   specs:
-    forumone/forumone (1.1.21)
+    forumone/forumone (1.1.22)
       alup/rbenv (~> 1.2.0)
       fsalum/redis (= 0.0.11)
       puppetlabs/apache (= 1.0.1)
