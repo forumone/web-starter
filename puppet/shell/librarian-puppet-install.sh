@@ -74,6 +74,7 @@ if [ "${OS}" == 'ubuntu' ]; then
 fi
 
 if [[ ! -f "${OPT_DIR}/librarian-puppet-installed" ]]; then
+    gem install bundler
     cp "${VAGRANT_CORE_FOLDER}/puppet/shell/Gemfile" "${PUPPET_DIR}"
     echo 'Installing librarian-puppet'
     cd "${PUPPET_DIR}" && bundle install
