@@ -11,6 +11,11 @@ OPT_DIR=/opt/puppet
 $(which git > /dev/null 2>&1)
 FOUND_GIT=$?
 
+$(which apt-get > /dev/null 2>&1)
+FOUND_APT=$?
+$(which yum > /dev/null 2>&1)
+FOUND_YUM=$?
+
 if [ "${FOUND_GIT}" -ne '0' ] && [ ! -f /.puphpet-stuff/librarian-puppet-installed ]; then
     $(which apt-get > /dev/null 2>&1)
     FOUND_APT=$?
@@ -74,6 +79,9 @@ if [ "${OS}" == 'ubuntu' ]; then
 fi
 
 if [[ ! -f "${OPT_DIR}/librarian-puppet-installed" ]]; then
+    if [ "${FOUND_YUM}" -eq '0' ]; then
+      yum install -q -y ruby-devel sqlite sql sqlite-devel
+    fi
     gem install bundler
     cp "${VAGRANT_CORE_FOLDER}/puppet/shell/Gemfile" "${PUPPET_DIR}"
     echo 'Installing librarian-puppet'
