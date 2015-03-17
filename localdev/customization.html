@@ -170,4 +170,54 @@ to have the web server properly bind to the port.</p>
 <h4>Outcome</h4>
 <p>Run <code>vagrant ssh</code> and <code>cat ~/.ssh/config</code> and verify that the SSH config is in place.</p>
 
+<h3>Customizing Solr config</h3>
+<p>In this scenario we'll be updating the Solr configuration files.</p>
+<h4>Steps</h4>
+<ol>
+  <li>Create directory structure in puppet like <code>puppet/files/solr/3.x</code></li>
+  <li>Edit puppet/manifests/hieradata/sites/localhost.localdomain.yaml and change the solr stanza to be like:
+<pre>forumone::solr::collections:  
+  drupal: 
+    order: 1
+    config_directory: '/vagrant/puppet/files/solr/3.x'
+    files:
+      - mapping-ISOLatin1Accent.txt
+      - protwords.txt
+      - protwords_en.txt
+      - stopwords.txt
+      - elevate.xml
+      - synonyms_en.txt
+      - synonyms.txt
+      - stopwords_en.txt
+      - mapping-ISOLatin1Accent_en.txt
+      - compoundwords_en.txt
+      - protwords_fr.txt
+      - stopwords_fr.txt
+      - compoundwords_fr.txt
+      - synonyms_fr.txt
+      - mapping-ISOLatin1Accent_fr.txt
+      - protwords_es.txt
+      - stopwords_es.txt
+      - compoundwords_es.txt
+      - synonyms_es.txt
+      - mapping-ISOLatin1Accent_es.txt
+      - protwords_ar.txt
+      - stopwords_ar.txt
+      - compoundwords_ar.txt
+      - synonyms_ar.txt
+      - mapping-ISOLatin1Accent_ar.txt
+      - mapping-ISOLatin1Accent.erb
+      - schema_extra_fields.xml
+      - schema_extra_types.xml
+      - schema.xml
+      - solrconfig_extra.xml
+      - solrconfig.xml
+      - solrcore.properties</pre>
+  </li>
+  <li>Run <code>vagrant provision</code></li>
+</ol>
+
+<h4>Outcome</h4>
+<p>Run <code>vagrant ssh</code> and the new configuration should be available in <code>/opt/solr</code>.</p>
+
 {% include menus/localdev.html %}
