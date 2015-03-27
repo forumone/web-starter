@@ -1,6 +1,7 @@
 {
   "name": "drupal_starter",
   "version": "0.1.0",
+  "themePath": "public/sites/all/themes/f1ux",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-coffee": "~0.7.0",
