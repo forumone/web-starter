@@ -3,10 +3,12 @@ module.exports = function(grunt) {
   grunt.config.merge({
     compass: {
       options: {
-        config: '<%= pkg.theme_path %>/config.rb,'
+        basePath: '<%= pkg.themePath %>',
+        config: '<%= pkg.themePath %>/config.rb',
       },
       dev: {
         options: {
+          environment: 'development',
           outputStyle: 'expanded',
           noLineComments: false,
           bundleExec: true,
@@ -14,6 +16,7 @@ module.exports = function(grunt) {
       },
       stage: {
         options: {
+          environment: 'production',
           outputStyle: 'compressed',
           noLineComments: true,
           force: true,
@@ -23,10 +26,10 @@ module.exports = function(grunt) {
     },
     watch: {
       compass: {
-        files: [ '<%= pkg.theme_path %>/sass/**/*.scss' ],
-        tasks: [ 'compass:dev' ]
-      }
-    }
+        files: [ '<%= pkg.themePath %>/sass/**/*.scss' ],
+        tasks: [ 'compass:dev' ],
+      },
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-compass');
