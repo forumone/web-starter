@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-	grunt.registerTask('default', [
+  grunt.registerTask('default', [
     'build',
   ]);
 };
