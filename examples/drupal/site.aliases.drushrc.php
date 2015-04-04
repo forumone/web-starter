@@ -58,3 +58,10 @@ $aliases['prod'] = array(
     ),
   ),
 );
+
+$ip = gethostbyname(php_uname('n'));
+// Swap out the hostname when not running from within vagrant.
+if (gethostbyname($aliases['local']['remote-host']) != $ip) {
+  $aliases['local']['uri'] = 'http://localhost:8080';
+}
+
