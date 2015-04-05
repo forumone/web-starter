@@ -138,8 +138,8 @@ namespace :drush do
     
     invoke 'drush:cc'
 	
-	# If we're using Features revert Features
-	if fetch(:drupal_features)
+    # If we're using Features revert Features
+    if fetch(:drupal_features)
       invoke 'drush:features:revert'
     end
     
