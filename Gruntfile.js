@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 
   // Load task functions
   var taskConfigurations = loadTasks('./tasks/config'),
-  registerDefinitions = loadTasks('./tasks/register');
+      registerDefinitions = loadTasks('./tasks/register');
 
   // Ensure that a default task exists
   if (!registerDefinitions.default) {
