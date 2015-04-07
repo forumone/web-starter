@@ -54,11 +54,6 @@ module.exports = function(grunt) {
     }
   }
 
-  // Initialize with configuration from package.json
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json')
-  });
-
   // Load task functions
   var taskConfigurations = loadTasks('./tasks/config'),
       registerDefinitions = loadTasks('./tasks/register');
