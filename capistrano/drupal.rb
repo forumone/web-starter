@@ -6,8 +6,8 @@ end
 # Backup the database when publishing a new release
 Rake::Task["deploy:publishing"].enhance ["drupal:dbbackup"]
 
-# Copy drush aliases when we check compatibility
-Rake::Task["deploy:check"].enhance ["drush:initialize"]
+# Copy drush aliases after linking the new release
+Rake::Task["deploy:symlink:release"].enhance ["drush:initialize"]
 
 # After publication run updates
 Rake::Task["deploy:published"].enhance do 
