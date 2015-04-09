@@ -36,6 +36,9 @@ set :ssh_options, {
   config: 'config/ssh_config'
 }
 
+# Platform
+set :platform, "drupal"
+
 # rsync settings
 set :rsync_options, %w[--recursive --chmod=Dug=rwx,Do=rx --perms --delete --delete-excluded --exclude=.git* --exclude=node_modules]
 set :rsync_copy, "rsync --archive --acls --xattrs"
