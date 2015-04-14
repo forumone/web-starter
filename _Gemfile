@@ -15,5 +15,4 @@ if File.exists?(theme_gemfile)
   puts "Loading #{theme_gemfile} ..." if $DEBUG # `ruby -d` or `bundle -v`
   instance_eval File.read(theme_gemfile)
 end
-{{^is_drupal}}
 {{/use_compass}}
