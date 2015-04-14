@@ -44,4 +44,7 @@ echo '  Downloading database dump'
 s3cmd sync --force s3://f1dev/$SITENAME.dev.sql.gz /home/vagrant/$SITENAME.dev.sql.gz
 
 echo '  Installing database'
-/bin/zcat /home/vagrant/$SITENAME.sql.gz | mysql -u web --password="web" web
+/bin/zcat /home/vagrant/$SITENAME.dev.sql.gz | mysql -u web --password="web" web
+
+echo 'Clearing caches'
+cd ${VAGRANT_CORE_FOLDER}/public && drush cc all
