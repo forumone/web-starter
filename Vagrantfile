@@ -119,6 +119,7 @@ Vagrant.configure("2") do |config|
 
   # Run any custom scripts after provisioning
   config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
+  config.vm.provision :shell, :path => "puppet/shell/post-provision.unprivileged.sh", privileged: false
 
 end
 
