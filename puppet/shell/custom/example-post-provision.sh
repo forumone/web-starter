@@ -5,3 +5,5 @@
 
 VAGRANT_CORE_FOLDER="/vagrant"
 
+echo 'Installing s3cmd'
+yum -y --enablerepo epel-testing install s3cmd
