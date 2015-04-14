@@ -7,6 +7,7 @@
 
 VAGRANT_CORE_FOLDER="/vagrant"
 SITENAME="example"
+S3_BUCKET="f1dev"
 
 if [[ -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.vm.php" ]]; then
   if [[ ! -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" || -w "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" ]]; then
@@ -41,7 +42,7 @@ echo '  Emptying existing DB'
 cd ${VAGRANT_CORE_FOLDER}/public && drush sql-drop -y
 
 echo '  Downloading database dump'
-s3cmd sync --force s3://f1dev/$SITENAME.dev.sql.gz /home/vagrant/$SITENAME.dev.sql.gz
+s3cmd sync --force s3://$S3_BUCKET/$SITENAME.dev.sql.gz /home/vagrant/$SITENAME.dev.sql.gz
 
 echo '  Installing database'
 /bin/zcat /home/vagrant/$SITENAME.dev.sql.gz | mysql -u web --password="web" web
