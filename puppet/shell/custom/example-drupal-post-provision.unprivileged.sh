@@ -6,6 +6,7 @@
 # Just rename this file to "post-provision.unprivileged.sh" to make it active.
 
 VAGRANT_CORE_FOLDER="/vagrant"
+SITENAME="example"
 
 if [[ -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.vm.php" ]]; then
   if [[ ! -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" || -w "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" ]]; then
@@ -31,3 +32,16 @@ if [[ ! -f "/home/vagrant/.drush/drush.ini" ]]; then
   echo 'Creating drush settings'
   echo 'memory_limit = 512M' > ~/.drush/drush.ini
 fi
+
+echo 'Downloading and importing database'
+if [[ ${VAGRANT_CORE_FOLDER}/s3cfg -nt /home/vagrant/.s3cfg ]]; then
+    cp ${VAGRANT_CORE_FOLDER}/s3cfg /home/vagrant/.s3cfg
+fi
+echo '  Emptying existing DB'
+cd ${VAGRANT_CORE_FOLDER}/public && drush sql-drop -y
+echo '  Downloading database dump'
+s3cmd get --force s3://f1dev/$SITENAME.dev.sql.gz /home/vagrant/$SITENAME.dev.sql.gz
+gunzip -c /home/vagrant/$SITENAME.dev.sql.gz > /home/vagrant/$SITENAME.dev.sql
+echo '  Installing database'
+cd ${VAGRANT_CORE_FOLDER}/public && drush sqlc < /home/vagrant/$SITENAME.dev.sql && drush cc all
+
