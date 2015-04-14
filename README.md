@@ -84,12 +84,12 @@ $aliases['local'] = array(
 You can have your drupal site database automatically updated on 'vagrant provision'. 
 
 * copy examples/config/s3fg to the root of the repository.
-* modify the password in s3cfg.
+* modify the password and AWS credentials in s3cfg.
 * copy puppet/shell/custom/example-drupal-post-provision.unprivileged.sh to puppet/shell/custom/post-provision.unprivileged.sh
-* edit puppet/shell/custom/post-provision.unprivileged.sh and fill your project name into the variable at the top.
+* edit puppet/shell/custom/post-provision.unprivileged.sh and fill your project name and s3 bucket into the variables at the top.
 * copy puppet/shell/custom/example-post-provision.sh to puppet/shell/custom/post-provision.sh
-* upload an encrypted .tgz of your database dump to s3://f1dev/PROJECTNAME.dev.sql.gz . You might find it easiest with this cron task:
+* upload an encrypted .tgz of your database dump to an S3 bucket, with name: PROJECTNAME.dev.sql.gz . You might find it easiest with this cron task:
 ```
-0 0 * * * export HOME=/var/www/vhosts/PROJECTNAME.dev; /bin/gzip -c $HOME/current/db.sql > $HOME/PROJECTNAME.dev.sql.gz && /usr/bin/s3cmd put $HOME/PROJECTNAME.dev.sql.gz s3://f1dev
+0 0 * * * export HOME=/var/www/vhosts/PROJECTNAME.dev; /bin/gzip -c $HOME/current/db.sql > $HOME/PROJECTNAME.dev.sql.gz && /usr/bin/s3cmd put $HOME/PROJECTNAME.dev.sql.gz s3://my-s3-bucket
 ```
-Note that dev will have to have a matching ~/.s3cfg file for this to work!
+Note that the system running this cron task will have to have a matching ~/.s3cfg file for this to work!
