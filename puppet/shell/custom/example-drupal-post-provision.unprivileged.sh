@@ -39,9 +39,9 @@ if [[ ${VAGRANT_CORE_FOLDER}/s3cfg -nt /home/vagrant/.s3cfg ]]; then
 fi
 echo '  Emptying existing DB'
 cd ${VAGRANT_CORE_FOLDER}/public && drush sql-drop -y
-echo '  Downloading database dump'
-s3cmd get --force s3://f1dev/$SITENAME.dev.sql.gz /home/vagrant/$SITENAME.dev.sql.gz
-gunzip -c /home/vagrant/$SITENAME.dev.sql.gz > /home/vagrant/$SITENAME.dev.sql
-echo '  Installing database'
-cd ${VAGRANT_CORE_FOLDER}/public && drush sqlc < /home/vagrant/$SITENAME.dev.sql && drush cc all
 
+echo '  Downloading database dump'
+s3cmd sync --force s3://f1dev/$SITENAME.dev.sql.gz /home/vagrant/$SITENAME.dev.sql.gz
+
+echo '  Installing database'
+/bin/zcat /home/vagrant/techhiring.sql.gz | mysql -u web --password="web" web
