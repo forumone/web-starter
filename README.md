@@ -83,8 +83,8 @@ $aliases['local'] = array(
 
 You can have your drupal site database automatically updated on 'vagrant provision'. 
 
-* copy examples/config/s3fg to the root of the repository and rename to .s3cfg
-* modify the password in .s3cfg
+* copy examples/config/s3fg to the root of the repository.
+* modify the password in s3cfg.
 * copy puppet/shell/custom/example-drupal-post-provision.unprivileged.sh to puppet/shell/custom/post-provision.unprivileged.sh
 * edit puppet/shell/custom/post-provision.unprivileged.sh and fill your project name into the variable at the top.
 * copy puppet/shell/custom/example-post-provision.sh to puppet/shell/custom/post-provision.sh
