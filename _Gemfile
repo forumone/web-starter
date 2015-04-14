@@ -1,0 +1,18 @@
+source 'https://rubygems.org'
+
+gem 'capistrano', '~>3.1'
+gem 'rake'
+
+{{#use_compass}}
+# Load gem dependencies from the theme
+{{#is_drupal}}
+theme_gemfile = File.join(File.dirname(__FILE__), "{{app_webroot}}/sites/all/themes/{{drupal_theme}}/Gemfile")
+{{/is_drupal}}
+{{#is_wordpress}}
+theme_gemfile = File.join(File.dirname(__FILE__), "{{app_webroot}}/wp-content/themes/{{wordpress_theme}}/Gemfile")
+{{/is_wordpress}}
+if File.exists?(theme_gemfile)
+  puts "Loading #{theme_gemfile} ..." if $DEBUG # `ruby -d` or `bundle -v`
+  instance_eval File.read(theme_gemfile)
+end
+{{/use_compass}}
