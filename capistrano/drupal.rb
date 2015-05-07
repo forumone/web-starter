@@ -28,9 +28,9 @@ namespace :drupal do
           execute :rm, "-f", "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.php"
         end
         execute :ln, '-s', "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.#{fetch(:stage)}.php", "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.php"
-        # Set permissions on settings file and directory so Drupal doesn't complain.
-        execute :chmod, 644, "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.#{fetch(:stage)}.php"
-        execute :chmod, 750, "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}"
+        # Set permissions on settings file and directory so Drupal doesn't complain. The permission values are set in lib/capistrano/tasks/drush.rake.
+        execute :chmod, fetch(:settings_file_perms), "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.#{fetch(:stage)}.php"
+        execute :chmod, fetch(:site_directory_perms), "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}"
       end
         
       # If a .htaccess file for the stage exists
