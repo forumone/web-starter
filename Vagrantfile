@@ -40,13 +40,14 @@ Vagrant.configure("2") do |config|
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
     config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
   else
     config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
+    config.nfs.map_uid = 501
+    config.nfs.map_gid = 20
   end
   
-  config.nfs.map_uid = Process.uid
-  config.nfs.map_gid = Process.gid
-
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
