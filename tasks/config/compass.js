@@ -1,3 +1,8 @@
+/**
+ * tasks/config/compass.js
+ */
+'use strict';
+
 module.exports = function(grunt) {
   // Test the build mode to use by checking the --environment CLI flag
   var environment = (grunt.option('prod') || grunt.option('production')) ? 'stage' : 'dev';
