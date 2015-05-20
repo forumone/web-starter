@@ -13,6 +13,9 @@
  */
 'use strict';
 module.exports = function(grunt) {
+  // Load grunt contrib tasks automatically
+  require('load-grunt-tasks')(grunt);
+
   // Initialize configuration with package.json data
   grunt.initConfig({
     'pkg': grunt.file.readJSON('package.json')
