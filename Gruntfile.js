@@ -11,7 +11,12 @@
  * Unless you know what you're doing, you shouldn't change this file.
  * Check out the `tasks` directory instead.
  */
+'use strict';
 module.exports = function(grunt) {
+  // Initialize configuration with package.json data
+  grunt.initConfig({
+    'pkg': grunt.file.readJSON('package.json')
+  });
 
   // Load the include-all library in order to require all of our grunt
   // configurations and task registrations dynamically.
