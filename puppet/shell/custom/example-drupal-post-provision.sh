@@ -2,6 +2,11 @@
 
 VAGRANT_CORE_FOLDER="/vagrant"
 
+# Install composer
+if [[ ! -f "/usr/bin/composer" ]]; then
+  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+fi
+
 if [[ -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.vm.php" ]]; then
   if [[ ! -f "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" || -w "${VAGRANT_CORE_FOLDER}/public/sites/default/settings.php" ]]; then
     echo 'Copying settings file'
