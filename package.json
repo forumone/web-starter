@@ -11,7 +11,7 @@
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.4.0",
-    "grunt-shell": "~0.4.0",
+    "grunt-shell": "^1.1.2",
     "grunt-simple-watch": "^0.1.2",
     "load-grunt-tasks": "~1.0.0"
   }
