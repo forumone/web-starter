@@ -1,10 +1,10 @@
 Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "f1centos"
+  config.vm.box = "forumone/centos64-64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://clients.forumone.com/sites/default/files/boxes/centos64-64.box"
+  config.vm.box_url = "http://boxen.forumone.com/centos64-64.box"
 
 #  if Vagrant.has_plugin?("vagrant-cachier")
 #    # Configure cached packages to be shared between instances of the same base box.
@@ -37,18 +37,17 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   config.vm.network :private_network, ip: "10.11.12.14"
 
-#  # Add NFS
-#  if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
-#    config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
-#  else
-#    config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
-#  end
-
-  config.vm.synced_folder ".", "/vagrant", :mount_options => ["async"]
+  # Add NFS
+  if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
+    config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
+  else
+    config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
+    config.nfs.map_uid = 501
+    config.nfs.map_gid = 20
+  end
   
-  config.nfs.map_uid = Process.uid
-  config.nfs.map_gid = Process.gid
-
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.

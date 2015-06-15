@@ -8,7 +8,7 @@ classes:
 
 forumone::webserver::webserver: apache
 
-forumone::php::prefix: "php53u"
+forumone::php::prefix: "php54"
 
 forumone::php::modules:
   - pecl-apc

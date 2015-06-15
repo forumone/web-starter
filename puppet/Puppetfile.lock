@@ -9,15 +9,21 @@ FORGE
       puppetlabs/stdlib (>= 2.4.0)
     puppetlabs/apt (1.1.1)
       puppetlabs/stdlib (>= 2.2.1)
-    puppetlabs/concat (1.0.3)
+    puppetlabs/concat (1.0.4)
     puppetlabs/firewall (0.4.2)
     puppetlabs/nodejs (0.4.0)
       puppetlabs/apt (>= 0.0.3)
       puppetlabs/stdlib (>= 2.0.0)
-    puppetlabs/stdlib (4.2.2)
+    puppetlabs/ruby (0.4.0)
+      puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs/stdlib (4.5.1)
     stahnma/epel (0.0.5)
     thias/memcached (0.1.0)
     thias/php (0.3.12)
+
+FORGE
+  remote: https://forge.puppetlabs.com
+  specs:
     thias/sysctl (0.3.0)
 
 GIT
@@ -32,7 +38,7 @@ GIT
   ref: 1.2.1
   sha: 385125d76e096db3ce1a126117ee486ed79827e9
   specs:
-    forumone/forumone (1.1.19)
+    forumone/forumone (1.1.24)
       alup/rbenv (~> 1.2.0)
       fsalum/redis (= 0.0.11)
       puppetlabs/apache (= 1.0.1)
@@ -40,6 +46,7 @@ GIT
       puppetlabs/concat (~> 1.0.0)
       puppetlabs/firewall (~> 0.4.0)
       puppetlabs/nodejs (~> 0.4.0)
+      puppetlabs/ruby (~> 0.4.0)
       stahnma/epel (= 0.0.5)
       thias/memcached (~> 0.1.0)
       thias/php (~> 0.3.0)
@@ -55,9 +62,9 @@ GIT
 GIT
   remote: https://github.com/thias/puppet-nginx.git
   ref: master
-  sha: 2c9ac2f10116813d0c85c5820805e7ad65afa8e4
+  sha: e3dc41eabccc298e6cd5125c3bd267c1abdb2a62
   specs:
-    thias/nginx (0.1.9)
+    thias/nginx (0.0.1)
 
 DEPENDENCIES
   arioch/percona (>= 0)

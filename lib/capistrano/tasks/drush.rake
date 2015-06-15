@@ -10,6 +10,7 @@
 # - :updatedb: Runs update hooks
 # - :features:revert: Reverts Features, which may be all Features or just Features in particular directories
 # - :configuration:sync: Synchronizes Configuration and loads it from the Data Store to the Active Store
+# - :sapi:reindex: Clear Search API indexes and reindex each
 #
 # Variables:
 # - :drupal_features: Whether the Features module is enabled -- defaults to TRUE
@@ -53,12 +54,25 @@ namespace :drush do
     end
   end
 
+  desc "Triggers drush site-install"
+  task :siteinstall do
+    on roles(:app) do
+      command = "-y -r #{current_path}/#{fetch(:webroot, 'public')} site-install "
+    
+      if ENV['profile']
+        command << ENV['profile']
+      end
+      
+      execute :drush, command
+    end
+  end
+  
   desc "Triggers drush sql-sync to copy databases between environments"
   task :sqlsync do 
     on roles(:app) do
       if ENV['source']
-        within "#{release_path}/public" do
-          execute :drush, "-p -r #{current_path}/public -l #{fetch(:site_url)[0]} sql-sync #{ENV['source']} @self -y"
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} sql-sync #{ENV['source']} @self -y"
         end
       end
     end
@@ -76,8 +90,8 @@ namespace :drush do
       end
 
       if ENV['source']
-        within "#{release_path}/public" do
-          execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)[0]} rsync #{ENV['source']}:#{path} @self:#{path} --mode=rz"
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} rsync #{ENV['source']}:#{path} @self:#{path} --mode=rz"
         end
       end
     end
@@ -87,8 +101,8 @@ namespace :drush do
   task :sqldump do 
     on roles(:app) do
       unless test " [ -f #{release_path}/db.sql ]"
-        within "#{release_path}/public" do
-          execute :drush, "-r #{current_path}/public -l #{fetch(:site_url)[0]} sql-dump -y >> #{release_path}/db.sql"
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} sql-dump -y >> #{release_path}/db.sql"
         end
       end
     end
@@ -97,9 +111,9 @@ namespace :drush do
   desc "Runs all pending update hooks"
   task :updatedb do
     on roles(:app) do
-      within "#{release_path}/public" do
+      within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
         fetch(:site_url).each do |site|
-          execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'updatedb'
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'updatedb'
         end
       end
     end
@@ -108,9 +122,9 @@ namespace :drush do
   desc "Clears the Drupal cache"
   task :cc do
     on roles(:app) do
-      within "#{release_path}/public" do
+      within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
         fetch(:site_url).each do |site|
-          execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'cc all'
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'cc all'
         end
       end
     end
@@ -125,8 +139,8 @@ namespace :drush do
     
     invoke 'drush:cc'
 	
-	# If we're using Features revert Features
-	if fetch(:drupal_features)
+    # If we're using Features revert Features
+    if fetch(:drupal_features)
       invoke 'drush:features:revert'
     end
     
@@ -140,8 +154,8 @@ namespace :drush do
     desc "Load Configuration from the Data Store and apply it to the Active Store"
     task :sync do
       on roles(:app) do
-        within "#{release_path}/public" do
-          execute :drush, "-y -p -r #{current_path}/public -l #{fetch(:site_url)}", 'config-sync'
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)}", 'config-sync'
         end
       end
       
@@ -153,29 +167,56 @@ namespace :drush do
     desc "Revert Features"
     task :revert do
       on roles(:app) do
-        within "#{release_path}/public" do
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
           # For each site
           fetch(:site_url).each do |site|
             # If we've explictly set a Features path array
-            if fetch(:drupal_features_path).length
+            if 0 != fetch(:drupal_features_path).length
               # Iterate through each element
               fetch(:drupal_features_path).each do |path|
-                features_path = "#{current_path}/public/#{path}"
+                features_path = "#{current_path}/#{fetch(:webroot, 'public')}/#{path}"
                 # Get a list of all Feature modules in that path
                 features = capture(:ls, '-x', features_path).split
                 modules = capture(:drush, "pm-list", "--pipe --type=module --status=enabled --no-core").split
                 features_enabled = modules & features
                 features_enabled.each do |feature_enabled|
-                  execute :drush, "fr", feature_enabled, "-y -p -r #{current_path}/public -l #{site}"
+                  execute :drush, "fr", feature_enabled, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}"
                 end
               end
             else
-              execute :drush, "-y -p -r #{current_path}/public -l #{site}", 'fra'
+              execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'fra'
             end
           end
         end
       end
       
+      invoke 'drush:cc'
+    end
+  end
+
+  namespace :sapi do
+    desc "Reindex Search API Indexes"
+    task :reindex do
+      on roles(:app) do
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          # For each site
+          fetch(:site_url).each do |site|
+            # Clear all indexes
+            execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'sapi-c'
+            if (0 != fetch(:search_indexes, []).length)
+              # Re-index each defined index individually
+              # Sometimes search_api hangs after running the first of multiple indexing operations
+              fetch(:search_indexes).each do |index|
+                execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'sapi-i', index
+              end
+            else
+              # Index without arguments to run for all enabled indexes
+              execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'sapi-i'
+            end
+          end
+        end
+      end
+
       invoke 'drush:cc'
     end
   end

@@ -1,5 +1,4 @@
 #!/bin/bash
-LIBRARIAN_PUPPET_VERSION="1.0.3"
 VAGRANT_CORE_FOLDER="/vagrant"
 
 OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/puppet/shell/os-detect.sh" ID)
@@ -11,6 +10,11 @@ OPT_DIR=/opt/puppet
 
 $(which git > /dev/null 2>&1)
 FOUND_GIT=$?
+
+$(which apt-get > /dev/null 2>&1)
+FOUND_APT=$?
+$(which yum > /dev/null 2>&1)
+FOUND_YUM=$?
 
 if [ "${FOUND_GIT}" -ne '0' ] && [ ! -f /.puphpet-stuff/librarian-puppet-installed ]; then
     $(which apt-get > /dev/null 2>&1)
@@ -75,18 +79,25 @@ if [ "${OS}" == 'ubuntu' ]; then
 fi
 
 if [[ ! -f "${OPT_DIR}/librarian-puppet-installed" ]]; then
+    if [ "${FOUND_YUM}" -eq '0' ]; then
+      yum install -q -y ruby-devel sqlite sql sqlite-devel
+    fi
+    gem install bundler
+    cp "${VAGRANT_CORE_FOLDER}/puppet/shell/Gemfile" "${PUPPET_DIR}"
     echo 'Installing librarian-puppet'
-    gem install librarian-puppet -v "${LIBRARIAN_PUPPET_VERSION}" >/dev/null
+    cd "${PUPPET_DIR}" && bundle install
     echo 'Finished installing librarian-puppet'
 
     echo 'Running initial librarian-puppet'
-    cd "${PUPPET_DIR}" && librarian-puppet install --clean >/dev/null
+    cd "${PUPPET_DIR}" && bundle exec librarian-puppet install --clean >/dev/null
     echo 'Finished running initial librarian-puppet'
 
-    touch "${OPT_DIR}/librarian-puppet-installed"
+    if [ $? -eq 0 ]; then
+        touch "${OPT_DIR}/librarian-puppet-installed"
+    fi
 else
     echo 'Running update librarian-puppet'
-    cd "${PUPPET_DIR}" && librarian-puppet update >/dev/null
+    cd "${PUPPET_DIR}" && bundle exec librarian-puppet update >/dev/null
     echo 'Finished running update librarian-puppet'
 fi
 

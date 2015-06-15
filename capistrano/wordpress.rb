@@ -4,7 +4,7 @@ Rake::Task["deploy:rollback_release_path"].enhance do
 end
 
 # Backup the database when publishing a new release
-Rake::Task["deploy:publishing"].enhance ["wordpress:dbbackup"]
+Rake::Task["deploy:published"].enhance ["wordpress:dbbackup"]
 
 # After publication run updates
 Rake::Task["deploy:published"].enhance do 
@@ -14,20 +14,20 @@ end
 namespace :wordpress do
   task :settings do
     on roles(:app) do
-      if test " [ -f #{current_path}/public/wp-config.php ]"
-        execute :rm, "-f", "#{current_path}/public/wp-config.php"
+      if test " [ -f #{current_path}/#{fetch(:webroot, 'public')}/wp-config.php ]"
+        execute :rm, "-f", "#{current_path}/#{fetch(:webroot, 'public')}/wp-config.php"
       end
       
-      execute :ln, '-s', "#{current_path}/public/wp-config.#{fetch(:stage)}.php", "#{current_path}/public/wp-config.php"
+      execute :ln, '-s', "#{current_path}/#{fetch(:webroot, 'public')}/wp-config.#{fetch(:stage)}.php", "#{current_path}/#{fetch(:webroot, 'public')}/wp-config.php"
         
       # If a .htaccess file for the stage exists
-      if test " [ -f #{current_path}/public/htaccess.#{fetch(:stage)} ]"
+      if test " [ -f #{current_path}/#{fetch(:webroot, 'public')}/htaccess.#{fetch(:stage)} ]"
         # If there is currently an .htaccess file
-        if test " [ -f #{current_path}/public/.htaccess ]"
-          execute :rm, "#{current_path}/public/.htaccess"
+        if test " [ -f #{current_path}/#{fetch(:webroot, 'public')}/.htaccess ]"
+          execute :rm, "#{current_path}/#{fetch(:webroot, 'public')}/.htaccess"
         end
         
-        execute :ln, '-s', "#{current_path}/public/htaccess.#{fetch(:stage)}", "#{current_path}/public/.htaccess"
+        execute :ln, '-s', "#{current_path}/#{fetch(:webroot, 'public')}/htaccess.#{fetch(:stage)}", "#{current_path}/#{fetch(:webroot, 'public')}/.htaccess"
       end
     end
   end
@@ -39,7 +39,7 @@ namespace :wordpress do
   desc "Revert the database"
   task :revert_database do
     on roles(:db) do
-      within "#{release_path}/public" do
+      within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
         execute :wp, "db import", "#{release_path}/db.sql"
       end
     end

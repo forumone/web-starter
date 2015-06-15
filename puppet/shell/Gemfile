@@ -1,0 +1,4 @@
+source 'https://rubygems.org'
+
+gem 'librarian-puppet', '1.0.3'
+gem 'highline', '< 1.7.1'

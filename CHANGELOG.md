@@ -1,10 +1,20 @@
-## 1.1.14 (in progress)
+## 1.1.15 (6 January, 2015)
+- Updated to 1.1.20 of puppet-forumone, resolves mailcatcher issue
+- Removed hard-coded references to "public" webroot
+- Switched to use load-grunt-tasks instead of manually declaring then in Gruntfile.js
+
+## 1.1.14 (17 November, 2014)
 - Changed ".cap" to ".rake" to make more clear they are Rake tasks
 - Refactored tasks to allow for different platforms
 - Added documentation to Drupal platform add-on and tasks
 - Added build script tasks for rsync
 - Added tasks and platform for WordPress and WP-CLI
 - Updated to 1.1.19 of puppet-forumone
+- Adding yeoman templates
+- Adding .gitattributes to control LF for shell scripts
+- Updating default PHP version to 5.4
+- Updating drupal.make theme to use gesso contrib
+- Updating Rake tasks for WordPress
 
 ## 1.1.13 (13 June, 2014)
 - Added Capistrano task to copy database from a drush alias `cap dev drush:sqlsync source=@site.stage`
