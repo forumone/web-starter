@@ -98,9 +98,17 @@ Vagrant.configure("2") do |config|
 #  config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
 
 # Salt provisioning
-  config.vm.synced_folder "salt/roots/", "/srv/"
+  config.vm.synced_folder "../../vbnfs", "/vbnfs"
+  config.vm.provider "virtualbox" do |vb|
+    # Don't boot with headless mode
+    # vb.gui = true
+
+    # Use VBoxManage to customize the VM. For example to change memory:
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+  config.vm.synced_folder "salt/roots/", "/srv/salt"
   config.vm.provision :salt do |salt|
-    salt.minion_config = "salt/minion"
+    salt.minion_config = "salt/minion.conf"
     salt.run_highstate = true
     salt.verbose = true
     salt.colorize = true
