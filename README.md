@@ -52,29 +52,4 @@ If the virtual machine does not boot up and you get a message saying there was a
 
 ## Drush Alias File
 
-An example alias file to connect with a Drupal site running in Virtualbox:
-
-```
-$aliases['local'] = array(
-  'parent' => '@parent',
-  'uri' => 'http://10.11.12.14',
-  'root' => '/vagrant/public',
-  'remote-host' => '10.11.12.14',
-  'remote-user' => 'vagrant',
-  'ssh-options' => "-i ~/.vagrant.d/insecure_private_key -l vagrant",
-  'db-url' => 'mysql://web:web@10.11.12.14:3306/web',
-  'databases' => array (
-    'default' => array (
-      'default' => array (
-        'database' => 'web',
-        'username' => 'web',
-        'password' => 'web',
-        'host' => '10.11.12.14',
-        'port' => '',
-        'driver' => 'mysql',
-        'prefix' => '',
-      ),
-    ),
-  ),
-);
-```
+A sample Drush aliase file has been included at /examples/drupal/site.aliases.drushrc.php . Simply copy this file into public/sites/all/drush and modify the hostnames inside it. You will be able to access the vagrant environment with 'drush @site.local', dev with 'drush @site.dev', etc. 
