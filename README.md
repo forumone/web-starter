@@ -52,4 +52,4 @@ If the virtual machine does not boot up and you get a message saying there was a
 
 ## Drush Alias File
 
-A sample Drush aliase file has been included at /examples/drupal/site.aliases.drushrc.php . Simply copy this file into public/sites/all/drush and modify the hostnames inside it. You will be able to access the vagrant environment with 'drush @site.local', dev with 'drush @site.dev', etc. 
+A sample Drush alias file has been included at /examples/drupal/site.aliases.drushrc.php . Simply copy this file into public/sites/all/drush and modify the hostnames inside it. You will be able to access the vagrant environment with 'drush @site.local', dev with 'drush @site.dev', etc. 
