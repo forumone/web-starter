@@ -1,4 +1,6 @@
-Vagrant.configure("2") do |config|
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "forumone/centos64-64"
 
@@ -98,7 +100,9 @@ Vagrant.configure("2") do |config|
 #  config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
 
 # Salt provisioning
-  config.vm.synced_folder "../../vbnfs", "/vbnfs"
+# GDW - based partially upon
+# http://www.roblayton.com/2014/12/masterless-saltstack-provisioning-to.html
+  #config.vm.synced_folder "../../vbnfs", "/vbnfs"
   config.vm.provider "virtualbox" do |vb|
     # Don't boot with headless mode
     # vb.gui = true
@@ -106,7 +110,10 @@ Vagrant.configure("2") do |config|
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
-  config.vm.synced_folder "salt/roots/", "/srv/salt"
+
+  config.vm.provision "shell", path: "bootstrap-salt.sh"
+
+  config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
   config.vm.provision :salt do |salt|
     salt.minion_config = "salt/minion.conf"
     salt.run_highstate = true
@@ -115,9 +122,13 @@ Vagrant.configure("2") do |config|
     salt.log_level = 'info'
   end
 
+# https://github.com/mitchellh/vagrant/issues/5001
+config.vm.box_download_insecure = true
+
 end
 
 overrides = "#{__FILE__}.local"
 if File.exist?(overrides)
    eval File.read(overrides)
 end
+
