@@ -2,11 +2,11 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "forumone/centos64-64"
+  config.vm.box = "forumone/centos6salt"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://boxen.forumone.com/centos64-64.box"
+  config.vm.box_url = "https://s3.amazonaws.com/f1vagrant/CentOS66-salt.box"
 
 #  if Vagrant.has_plugin?("vagrant-cachier")
 #    # Configure cached packages to be shared between instances of the same base box.

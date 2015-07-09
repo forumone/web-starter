@@ -11,28 +11,28 @@ memcached:
 
 php:
   lookup:
-    php_pkg: php53u
-    apc_pkg: php53u-pecl-apc
-    cgi_pkg: php53u-cgi
-    cli_pkg: php53u-cli
+    php_pkg: php55
+    apc_pkg: php-pecl-apc
+    cgi_pkg: php55-cgi
+    cli_pkg: php55-cli
     curl_pkg: curl
-    fpm_pkg: php53u-fpm
-    gd_pkg: php53u-gd
-    json_pkg: php53u-common
-    mbstring_pkg: php53u-mbstring
-    mcrypt_pkg: php53u-mcrypt
-    memcache_pkg: php53u-pecl-memcache
-    memcached_pkg: php53u-pecl-memcached
-    mysql_pkg: php53u-mysql
-    mysqlnd_pkg: php53u-mysqlnd
-    pear_pkg:  php53u-pear
-    soap_pkg:  php53u-soap
+    fpm_pkg: php-fpm
+    gd_pkg: php-gd
+    json_pkg: php55-common
+    mbstring_pkg: php-mbstring
+    mcrypt_pkg: php55-mcrypt
+    memcache_pkg: php-pecl-memcache
+    memcached_pkg: php-pecl-memcached
+    mysql_pkg: php-mysql
+    mysqlnd_pkg: php-mysqlnd
+    pear_pkg:  php-pear
+    soap_pkg:  php55-soap
     fpm_service: php-fpm
-    xml_pkg:  php53u-xml
-    imagick_pkg: php53u-imagick
-    suhosin_pkg: php53u-suhosin
-    imap_pkg: php53u-imap
-    adodb_pkg: php53u-adodb
-    pgsql_pkg: php53u-pgsql
-    ldap_pkg: php53u-ldap
+    xml_pkg:  php-xml
+    imagick_pkg: php55-imagick
+    suhosin_pkg: php55-suhosin
+    imap_pkg: php55-imap
+    adodb_pkg: php55-adodb
+    pgsql_pkg: php55-pgsql
+    ldap_pkg: php55-ldap
     php_ini: /etc/php.ini
