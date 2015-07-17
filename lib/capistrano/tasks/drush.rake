@@ -10,6 +10,7 @@
 # - :updatedb: Runs update hooks
 # - :features:revert: Reverts Features, which may be all Features or just Features in particular directories
 # - :configuration:sync: Synchronizes Configuration and loads it from the Data Store to the Active Store
+# - :sapi:reindex: Clear Search API indexes and reindex each
 #
 # Variables:
 # - :drupal_features: Whether the Features module is enabled -- defaults to TRUE
@@ -138,8 +139,8 @@ namespace :drush do
     
     invoke 'drush:cc'
 	
-	# If we're using Features revert Features
-	if fetch(:drupal_features)
+    # If we're using Features revert Features
+    if fetch(:drupal_features)
       invoke 'drush:features:revert'
     end
     
@@ -189,6 +190,33 @@ namespace :drush do
         end
       end
       
+      invoke 'drush:cc'
+    end
+  end
+
+  namespace :sapi do
+    desc "Reindex Search API Indexes"
+    task :reindex do
+      on roles(:app) do
+        within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+          # For each site
+          fetch(:site_url).each do |site|
+            # Clear all indexes
+            execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'sapi-c'
+            if (0 != fetch(:search_indexes, []).length)
+              # Re-index each defined index individually
+              # Sometimes search_api hangs after running the first of multiple indexing operations
+              fetch(:search_indexes).each do |index|
+                execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'sapi-i', index
+              end
+            else
+              # Index without arguments to run for all enabled indexes
+              execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'sapi-i'
+            end
+          end
+        end
+      end
+
       invoke 'drush:cc'
     end
   end
