@@ -24,6 +24,8 @@ namespace :load do
     set :drupal_cmi, false
     set :drupal_features_path, %w[]
     set :drupal_db_updates, true
+    set :settings_file_perms, '644'
+    set :site_directory_perms, '750'
   end
 end
 
