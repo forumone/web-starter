@@ -1,8 +1,19 @@
+# IDE specific files
 .buildpath
 .project
 .settings
+
+# Vagrant
 .vagrant
+
+# NPM
 node_modules
-Vagrantfile.local
+
+# OSX file
 .DS_Store
+
 /_site
+
+# Local configuration
+Vagrantfile.local
+settings.local.php
