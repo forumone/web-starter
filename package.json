@@ -1,7 +1,7 @@
 {
   "name": "drupal_starter",
   "version": "0.1.0",
-  "themePath": "public/sites/all/themes/f1ux",
+  "themePath": "public/sites/all/themes/gesso",
   "devDependencies": {
     "grunt": "^0.4.1",
     "grunt-contrib-coffee": "^0.13.0",
@@ -15,6 +15,8 @@
     "grunt-shell": "^1.1.2",
     "grunt-simple-watch": "^0.1.2",
     "include-all": "^0.1.6",
-    "load-grunt-tasks": "^3.2.0"
+    "load-grunt-tasks": "^3.2.0",
+    "grunt-sync": "~0.2.3",
+    "grunt-contrib-copy": "^0.8.0"
   }
 }
