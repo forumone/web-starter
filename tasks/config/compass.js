@@ -1,12 +1,4 @@
-/**
- * tasks/config/compass.js
- */
-'use strict';
-
 module.exports = function(grunt) {
-  // Test the build mode to use by checking the --environment CLI flag
-  var environment = (grunt.option('prod') || grunt.option('production')) ? 'stage' : 'dev';
-
   grunt.config.merge({
     compass: {
       options: {
@@ -31,14 +23,7 @@ module.exports = function(grunt) {
         },
       },
     },
-    watch: {
-      compass: {
-        files: [ '<%= pkg.themePath %>/sass/**/*.scss' ],
-        tasks: [ 'compass:' + environment ],
-      },
-    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-contrib-watch');
 };
