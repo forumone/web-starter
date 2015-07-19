@@ -17,3 +17,6 @@ node_modules
 # Local configuration
 Vagrantfile.local
 settings.local.php
+
+# SASS cache
+.sass-cache
