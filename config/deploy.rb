@@ -55,6 +55,6 @@ end
 Rake::Task["web:build"].enhance do
   Dir.chdir fetch(:rsync_stage) do
     system "npm", "install", "--loglevel silent"
-    system "grunt"
+    system "grunt build"
   end
 end
