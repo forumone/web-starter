@@ -4,10 +4,16 @@ siteuser:
   - vagrant
 
 memcached:
-  memory_cap: 2048
+  memory_cap: 512
   port: 11211
   max_connections: 1024
   options: -I 2m
+
+#ius_repo:
+#  pkg.installed:
+#    - sources:
+#      - ius-release: http://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/ius-release-1.0-11.ius.centos6.noarch.rpm
+
 
 php:
   lookup:

@@ -1,14 +1,14 @@
-#probe healthcheck {
-#  .request =
-#    "GET / HTTP/1.1"
-#    "Host: localhost"
-#    "Connection: close";
-#  .interval = 5s;
-#  .timeout = 15s;
-#  .window = 5;
-#  .threshold = 1;
-#  #.expected_response = 200;
-#}
+probe healthcheck {
+  .request =
+    "GET / HTTP/1.1"
+    "Host: localhost"
+    "Connection: close";
+  .interval = 5s;
+  .timeout = 15s;
+  .window = 5;
+  .threshold = 1;
+  #.expected_response = 200;
+}
 
 backend web1 {
   .host = "localhost";
@@ -16,7 +16,7 @@ backend web1 {
   .connect_timeout = 600s;
   .first_byte_timeout = 600s;
   .between_bytes_timeout = 600s;
-#  .probe = healthcheck;
+  .probe = healthcheck;
 }
 
 #backend web2 {

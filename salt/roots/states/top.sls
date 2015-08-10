@@ -7,3 +7,5 @@ base:
     - fpmstack
     - memcached
     - nginx
+    - varnish
+    - php
