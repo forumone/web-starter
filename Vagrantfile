@@ -111,10 +111,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
-  config.vm.provision "shell", path: "bootstrap-salt.sh"
+#    master.vm.provision :shell, path: "master_bootstrap.sh"
+#  config.vm.provision "shell", path: File.expand_path("../bootstrap-salt.sh", __FILE__)
+
+#  Vagrant.configure("2") do |config|
+#    config.vm.provision "shell" do |s|  
+#      s.inline = "/bin/sh /vagrant/bootstrap-salt.sh $1"
+#      s.args = "' -M'"
+#    end
+#  end
 
   config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
   config.vm.provision :salt do |salt|
+    salt.bootstrap_script = 'bootstrap-salt.sh'
+    #salt.install_master = true
     salt.minion_config = "salt/minion.conf"
     salt.run_highstate = true
     salt.verbose = true
