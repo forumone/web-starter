@@ -108,7 +108,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # vb.gui = true
 
     # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+#    vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
 #    master.vm.provision :shell, path: "master_bootstrap.sh"
@@ -123,14 +123,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
   config.vm.provision :salt do |salt|
-    salt.bootstrap_script = 'bootstrap-salt.sh'
-    #salt.install_master = true
-    salt.minion_config = "salt/minion.conf"
-    salt.run_highstate = true
+    salt.bootstrap_options = "-P"
     salt.verbose = true
     salt.colorize = true
     salt.log_level = 'info'
   end
+
+  config.vm.provision "shell",
+    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call --local state.highstate"
 
 # https://github.com/mitchellh/vagrant/issues/5001
 config.vm.box_download_insecure = true
