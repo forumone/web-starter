@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         command : 'php core/builder.php -g',
         options : {
           execOptions : {
-            cwd : '<%= pkg.themePath %>/patternlab'
+            cwd : '<%= pkg.themePath %>/pattern-lab'
           }
         }
       }

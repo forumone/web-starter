@@ -3,9 +3,9 @@ module.exports = function(grunt) {
     copy : {
       patternlabStyleguide : {
         expand : true,
-        cwd : '<%= pkg.themePath %>/patternlab/core/styleguide/',
+        cwd : '<%= pkg.themePath %>/pattern-lab/core/styleguide/',
         src : '**',
-        dest : '<%= pkg.themePath %>/patternlab/public/styleguide/'
+        dest : '<%= pkg.themePath %>/pattern-lab/public/styleguide/'
       }
     }
   });

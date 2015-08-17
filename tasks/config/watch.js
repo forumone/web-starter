@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         tasks : [ 'compass:' + environment ],
       },
       patternlab : {
-        files : [ '<%= pkg.themePath %>/patternlab/source/**/*' ],
+        files : [ '<%= pkg.themePath %>/pattern-lab/source/**/*' ],
         tasks : [ 'shell:patternlab' ],
         options : {
           livereload : true
