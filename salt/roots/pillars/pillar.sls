@@ -4,7 +4,9 @@ siteuser:
   - vagrant
 
 memcached:
-  memory_cap: 512
+  user: memcached
+  daemonize: True
+  memory_cap: 128
   port: 11211
   max_connections: 1024
   options: -I 2m
