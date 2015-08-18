@@ -1,3 +1,5 @@
 base:
   '*':
+    - defaults
     - pillar
+    

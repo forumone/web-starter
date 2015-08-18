@@ -11,3 +11,4 @@ base:
 #    - varnish
 #    - php
 #    - mailcatcher
+    - nginx.ng

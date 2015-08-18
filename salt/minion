@@ -369,18 +369,18 @@
 #
 # If using the local file directory, then the state top file name needs to be
 # defined, by default this is top.sls.
-state_top: top.sls
+#state_top: top.sls
 #
 # Run states when the minion daemon starts. To enable, set startup_states to:
 # 'highstate' -- Execute state.highstate
 # 'sls' -- Read in the sls_list option and execute the named sls files
 # 'top' -- Read top_file option and execute based on that file on the Master
-#startup_states: ''
+startup_states: 'sls'
 #
 # List of states to run when the minion starts up if startup_states is 'sls':
-#sls_list:
-#  - edit.vim
-#  - hyper
+sls_list:
+  - core
+  - jinja26
 #
 # Top file to execute if startup_states is 'top':
 #top_file: ''
@@ -642,3 +642,4 @@ gitfs_remotes:
   - https://github.com/forumone/epel-formula.git
   - https://github.com/forumone/mailcatcher-formula.git
   - https://github.com/forumone/memcached-formula.git
+  - https://github.com/forumone/mysql-formula.git
