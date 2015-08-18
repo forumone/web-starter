@@ -123,7 +123,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
   config.vm.provision :salt do |salt|
-    salt.bootstrap_options = "-G -X -I -p python-pygit2 -p git"
+    salt.bootstrap_options = "-X -Z -p python-pygit2 -p git"
     salt.verbose = true
     salt.colorize = true
     salt.log_level = 'debug'

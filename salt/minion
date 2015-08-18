@@ -626,14 +626,13 @@ pillar_roots:
 # Location of the repository cache file on the master:
 #win_repo_cachefile: 'salt://win/repo/winrepo.p'
 
-
 ######      Returner  settings        ######
 ############################################
 # Which returner(s) will be used for minion's result:
 #return: mysql
 #
 
-# GitFS 
+# GitFS
 fileserver_backend:
   - roots
   - git
