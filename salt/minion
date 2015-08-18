@@ -591,3 +591,12 @@ pillar_roots:
 ############################################
 # Location of the repository cache file on the master
 #win_repo_cachefile: 'salt://win/repo/winrepo.p'
+
+# GitFS
+fileserver_backend:
+  - roots
+  - git
+
+gitfs_remotes:
+  - https://github.com/forumone/nginx-formula.git
+  - https://github.com/forumone/epel-formula.git
