@@ -79,7 +79,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell",
-    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH salt-call --local state.highstate"
+    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call state.sls jinja26 && sudo PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH salt-call state.highstate"
 
   # https://github.com/mitchellh/vagrant/issues/5001
   config.vm.box_download_insecure = true

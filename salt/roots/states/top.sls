@@ -1,8 +1,10 @@
 base:
   '*':
     - core
+    - epel
     - jinja26
     - rbenv
+    - node
 #    - mysql.client
 #    - mysql.server
 #    - mysql.localdbs
