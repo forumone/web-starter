@@ -2,6 +2,7 @@ base:
   '*':
     - core
     - jinja26
+    - rbenv
 #    - mysql.client
 #    - mysql.server
 #    - mysql.localdbs

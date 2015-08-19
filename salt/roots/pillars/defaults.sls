@@ -1,3 +1,8 @@
+# Ruby formula defaults for Vagrant
+ruby:
+  version: ruby-2.0.0-p647
+
+# Nginx formula defaults for Vagrant
 nginx:
   ng:
     # PPA installing
