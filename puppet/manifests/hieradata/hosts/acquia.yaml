@@ -8,10 +8,10 @@ classes:
 
 forumone::webserver::webserver: apache
 
-forumone::php::prefix: "php54"
+forumone::php::prefix: "php55u"
 
 forumone::php::modules:
-  - pecl-apc
+  - opcache
   - pecl-memcached
   
 forumone::solr::collections:  
