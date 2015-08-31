@@ -12,6 +12,10 @@ namespace :wpcli do
           within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
             execute :wp, "db export", "#{release_path}/db.sql"
           end
+          
+          within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+            execute :gzip, "#{release_path}/db.sql"
+          end
         end
       end
     end
