@@ -102,9 +102,9 @@ namespace :drush do
   desc "Creates database backup"
   task :sqldump do 
     on roles(:app) do
-      unless test " [ -f #{release_path}/db.sql ]"
+      unless test " [ -f #{release_path}/db.sql.gz ]"
         within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
-          execute :drush, "-r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} sql-dump -y >> #{release_path}/db.sql"
+          execute :drush, "-r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} sql-dump -y --gzip --result-file=#{release_path}/db.sql"
         end
       end
     end
