@@ -1,3 +1,4 @@
 name: Web Starter Kit
-pygments: true
+highlighter: true
 baseurl: /web-starter
+exclude: [vendor/]
