@@ -8,4 +8,5 @@
 -   [Customization Scenarios](customization.html)
 -   [Hiera Options](options.html)
 -   [Troubleshooting](troubleshooting.html)
+-   [Debugging with PHPStorm](debugging-phpstorm.html)
 

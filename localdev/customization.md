@@ -227,4 +227,67 @@ connections from the VM are all using the correct user.
 Run `vagrant ssh` and `cat ~/.ssh/config` and verify that the SSH config
 is in place.
 
+### Customizing Solr config
+
+In this scenario we'll be updating the Solr configuration files.
+
+#### Steps
+
+1.  Create directory structure in puppet like `puppet/files/solr/3.x`
+2.  Edit puppet/manifests/hieradata/sites/localhost.localdomain.yaml and
+    change the solr stanza to be like:
+
+        forumone::solr::collections:  
+          drupal: 
+            order: 1
+            config_directory: '/vagrant/puppet/files/solr/3.x'
+            files:
+              - mapping-ISOLatin1Accent.txt
+              - protwords.txt
+              - protwords_en.txt
+              - stopwords.txt
+              - elevate.xml
+              - synonyms_en.txt
+              - synonyms.txt
+              - stopwords_en.txt
+              - mapping-ISOLatin1Accent_en.txt
+              - compoundwords_en.txt
+              - protwords_fr.txt
+              - stopwords_fr.txt
+              - compoundwords_fr.txt
+              - synonyms_fr.txt
+              - mapping-ISOLatin1Accent_fr.txt
+              - protwords_es.txt
+              - stopwords_es.txt
+              - compoundwords_es.txt
+              - synonyms_es.txt
+              - mapping-ISOLatin1Accent_es.txt
+              - protwords_ar.txt
+              - stopwords_ar.txt
+              - compoundwords_ar.txt
+              - synonyms_ar.txt
+              - mapping-ISOLatin1Accent_ar.txt
+              - mapping-ISOLatin1Accent.erb
+              - schema_extra_fields.xml
+              - schema_extra_types.xml
+              - schema.xml
+              - solrconfig_extra.xml
+              - solrconfig.xml
+              - solrcore.properties
+
+3.  Copy and customize appropriate files. Note that all files expect to
+    end with `.erb` instead of the extension above, e.g.
+    `solrconfig.erb` instead of `solrconfig.xml`. All files necessary
+    for the Solr collection must be placed in the directory and
+    enumerated in the YAML file. These files can typically be found in
+    the configuration directories for either the Search API or
+    Apachesolr module.
+4.  Run `vagrant provision`
+
+#### Outcome
+
+Run `vagrant ssh` and the new configuration should be available in
+`/opt/solr`. You may need to delete and re-index Solr in order to see
+the updates.
+
 {% include menus/localdev.md %}
