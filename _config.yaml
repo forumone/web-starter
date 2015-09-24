@@ -1,5 +1,5 @@
 name: Web Starter Kit
-highlighter: true
+pygments: true
 baseurl: /web-starter
 exclude: [vendor/]
 markdown: redcarpet
