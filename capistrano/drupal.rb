@@ -6,8 +6,8 @@ end
 # Backup the database when publishing a new release
 Rake::Task["deploy:publishing"].enhance ["drupal:dbbackup"]
 
-# Copy drush aliases when we check compatibility
-Rake::Task["deploy:check"].enhance ["drush:initialize"]
+# Copy drush aliases after linking the new release
+Rake::Task["deploy:symlink:release"].enhance ["drush:initialize"]
 
 # After publication run updates
 Rake::Task["deploy:published"].enhance do 
@@ -28,6 +28,9 @@ namespace :drupal do
           execute :rm, "-f", "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.php"
         end
         execute :ln, '-s', "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.#{fetch(:stage)}.php", "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.php"
+        # Set permissions on settings file and directory so Drupal doesn't complain. The permission values are set in lib/capistrano/tasks/drush.rake.
+        execute :chmod, fetch(:settings_file_perms), "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.#{fetch(:stage)}.php"
+        execute :chmod, fetch(:site_directory_perms), "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}"
       end
         
       # If a .htaccess file for the stage exists
@@ -58,7 +61,8 @@ namespace :drupal do
       last_release_path = releases_path.join(last_release)
       
       within "#{last_release_path}/#{fetch(:app_webroot, 'public')}" do
-      	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{last_release_path}/db.sql}
+        execute :gunzip, "#{last_release_path}/db.sql.gz"
+      	execute :drush, "-y sql-drop -l #{fetch(:site_url)[0]} &&", %{$(drush sql-connect -l #{fetch(:site_url)[0]}) < #{last_release_path}/db.sql}
       end
     end
   end

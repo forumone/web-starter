@@ -28,6 +28,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 443, host: 8443
   config.vm.network :forwarded_port, guest: 8080, host: 8081
   config.vm.network :forwarded_port, guest: 8983, host: 18983
   config.vm.network :forwarded_port, guest: 3306, host: 13306
@@ -40,13 +41,14 @@ Vagrant.configure("2") do |config|
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
     config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
   else
     config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
+    config.nfs.map_uid = 501
+    config.nfs.map_gid = 20
   end
   
-  config.nfs.map_uid = Process.uid
-  config.nfs.map_gid = Process.gid
-
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.

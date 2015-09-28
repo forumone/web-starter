@@ -5,10 +5,10 @@ set :application, 'app'
 set :repo_url, 'repo'
 
 # Use git for the SCM
-set :scm, :git
+# set :scm, :git
 
 # Or use the line below to deploy via rsync
-# set :scm, :rsync
+set :scm, :rsync
 
 # Use a remote cache for git
 set :deploy_via, :remote_cache
@@ -36,6 +36,9 @@ set :ssh_options, {
   config: 'config/ssh_config'
 }
 
+# Platform
+set :platform, "drupal"
+
 # rsync settings
 set :rsync_options, %w[--recursive --chmod=Dug=rwx,Do=rx --perms --delete --delete-excluded --exclude=.git* --exclude=node_modules]
 set :rsync_copy, "rsync --archive --acls --xattrs"
@@ -52,6 +55,6 @@ end
 Rake::Task["web:build"].enhance do
   Dir.chdir fetch(:rsync_stage) do
     system "npm", "install", "--loglevel silent"
-    system "grunt"
+    system "grunt build"
   end
 end
