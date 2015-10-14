@@ -1,5 +1,4 @@
 ---
-layout: default
 title: Continuous Integration and Deployment
 ---
 
