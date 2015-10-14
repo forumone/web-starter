@@ -17,9 +17,3 @@ forumone::php::modules:
 forumone::solr::collections:  
   drupal: 
     order: 1
-    
-php::modules: 
-  apc: 
-    pkgname: "pecl-apc"
-    settings: 
-      apc.shm_size: "96M"
