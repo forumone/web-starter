@@ -1,5 +1,4 @@
 ---
-layout: default
 title: Included Hosts
 ---
 
@@ -52,5 +51,3 @@ following software:
 -   Varnish 3
 -   NodeJS
 -   Ruby -- default version is 1.9.3p484
-
-{% include menus/localdev.md %}

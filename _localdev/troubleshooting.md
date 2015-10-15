@@ -1,5 +1,4 @@
 ---
-layout: default
 title: Troubleshooting
 ---
 
@@ -48,5 +47,3 @@ interface to get more detailed information.
 -   PHP reports that NFS shares are not writeable even though they are.
     As a result certain functionality, such as Drupal's CSS and JS
     aggregation, report as being unavailable.
-
-{% include menus/localdev.md %}

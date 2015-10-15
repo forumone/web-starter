@@ -30,6 +30,8 @@
       <section>
         <h2>{{page.title}}</h2>
         {{content}}
+        {% capture section_nav %}{% include menus/section.md %}{% endcapture %}
+        {{ section_nav | markdownify }}
       </section>
       <footer>
         <p>Developed and maintained by</p>

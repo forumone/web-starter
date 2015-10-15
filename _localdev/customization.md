@@ -1,5 +1,4 @@
 ---
-layout: default
 title: Customization Scenarios
 ---
 
@@ -289,5 +288,3 @@ In this scenario we'll be updating the Solr configuration files.
 Run `vagrant ssh` and the new configuration should be available in
 `/opt/solr`. You may need to delete and re-index Solr in order to see
 the updates.
-
-{% include menus/localdev.md %}

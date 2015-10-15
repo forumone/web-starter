@@ -40,5 +40,3 @@ But what it doesn't specify is which webserver it requires or which
 version of PHP. Those are left to the Host to have the configuration for
 what services and versions it supports. This allows you to mix and match
 Hosts and Platforms without having to keep changing the settings.
-
-{% include menus/localdev.md %}
