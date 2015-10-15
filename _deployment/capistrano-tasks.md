@@ -93,5 +93,3 @@ tasks.
 -   **wpcli:wpcfm:pull**
 
     Pulls configuration from WP-CFM into the stage
-
-{% include menus/deployment.md %}

@@ -44,5 +44,3 @@ role
     application servers that need to host the code, but only one db
     server that needs to apply the updates. Each stage defines the roles
     and hosts necessary for deployment.
-
-{% include menus/deployment.md %}

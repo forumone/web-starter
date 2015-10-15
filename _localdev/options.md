@@ -186,5 +186,3 @@ the host configuration.
 </tr>
 </tbody>
 </table>
-
-{% include menus/localdev.md %}

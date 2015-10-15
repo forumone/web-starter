@@ -90,5 +90,3 @@ Though it looks like you can edit the code as it's running, you can't...
 it will keep running on the version of the file that was loaded into
 memory. You'll have to refresh, or use "Evaluate expression" to mimic
 the changes you're making in code as you go.
-
-{% include menus/localdev.md %}

@@ -84,5 +84,3 @@ the memory usage of the VM to 1024M you would create a Vagrantfile.local
 with the following: {% gist wwhurley/6194718f37318224ae5c %} The
 `.gitignore` file will prevent this from being included in the
 repository.
-
-{% include menus/localdev.md %}
