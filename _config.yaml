@@ -1,14 +1,31 @@
 name: Web Starter Kit
 pygments: true
 baseurl: /web-starter
-exclude: [vendor/]
+exclude: [vendor/, node_modules/]
 markdown: redcarpet
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript", "with_toc_data", "tables"]
+collections:
+  localdev:
+    output: true
+  deployment:
+    output: true
 defaults:
   -
     scope:
       path: ""
       type: "pages"
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: localdev
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: deployment
     values:
       layout: "default"

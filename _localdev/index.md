@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Local Development Environments
 ---
 
