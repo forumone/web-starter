@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Included Platforms
 ---
 
@@ -86,3 +87,5 @@ software and configuration:
 -   A web server -- depending on the Host it may be Apache or nginx
 -   NodeJS
 -   Ruby -- default version is 1.9.3p484
+
+{% include menus/localdev.md %}

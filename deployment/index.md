@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Continuous Integration and Deployment
 ---
 
@@ -23,3 +24,5 @@ commands such as:
 -   Deploy code
 -   Run updates and configuration management tasks
 -   Clear reverse proxy cache
+
+{% include menus/deployment.md %}

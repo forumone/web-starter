@@ -1,4 +1,5 @@
 ---
+layout: default
 title: About the Web Starter Kit
 ---
 

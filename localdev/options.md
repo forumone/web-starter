@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Hiera Options
 ---
 
@@ -186,3 +187,5 @@ the host configuration.
 </tr>
 </tbody>
 </table>
+
+{% include menus/localdev.md %}

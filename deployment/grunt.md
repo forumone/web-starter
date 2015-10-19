@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Grunt Configuration
 ---
 
@@ -44,3 +45,5 @@ difference has been nominal.
 
 The paths to the location of the SCSS files will most likely need to be
 changed to point to the appropriate path.
+
+{% include menus/deployment.md %}

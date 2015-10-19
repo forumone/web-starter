@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Capistrano Config
 ---
 
@@ -168,3 +169,5 @@ customized to deploy a variety of web platforms.
 
     A boolean value whether to use WP-CFM to propagate configuration;
     defaults to false
+
+{% include menus/deployment.md %}
