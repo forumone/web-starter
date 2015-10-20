@@ -49,4 +49,9 @@ interface to get more detailed information.
     As a result certain functionality, such as Drupal's CSS and JS
     aggregation, report as being unavailable.
 
+### Drupal
+-   In some cases Drupal will report it is unable to write to the file system.
+    To resolve this navigate to Configuration -> Media -> File system 
+    (`admin/config/media/file-system`) and click `Save configuration`.
+
 {% include menus/localdev.md %}
