@@ -290,4 +290,24 @@ Run `vagrant ssh` and the new configuration should be available in
 `/opt/solr`. You may need to delete and re-index Solr in order to see
 the updates.
 
+### Update drush to 8.x
+
+#### Steps
+
+1. Edit /puppet/manifests/hieradata/sites/localhost.localdomain.yaml
+
+2. Add the line: forumone::drush::version: '8.0.0-rc1'
+
+You can look up drush releases here to specify as version:
+https://github.com/drush-ops/drush/releases
+
+If you specify a git branch, re-provisioning later will *NOT* re-fetch from the repo.
+You'll have to delete /opt/BRANCH-NAME.zip before re-provisioning in order to make it work.
+
+3. Run `vagrant provision`
+
+#### Outcome
+
+Run `drush --version`.  You should see the release version specified.
+
 {% include menus/localdev.md %}
