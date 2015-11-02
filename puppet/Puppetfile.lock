@@ -16,7 +16,7 @@ FORGE
       puppetlabs/stdlib (>= 2.0.0)
     puppetlabs/ruby (0.4.0)
       puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
-    puppetlabs/stdlib (4.8.0)
+    puppetlabs/stdlib (4.9.0)
     stahnma/epel (0.0.5)
     thias/memcached (0.1.0)
     thias/php (0.3.12)
@@ -35,8 +35,8 @@ GIT
 
 GIT
   remote: https://github.com/forumone/puppet-forumone.git
-  ref: 1.1.29
-  sha: 317dff263cd881cab227dbbb6b891ad345334702
+  ref: 1.1.31
+  sha: cf48cf06baae7f5949750e49a51a2dba7a2246cd
   specs:
     forumone/forumone (1.1.28)
       alup/rbenv (~> 1.2.0)
@@ -62,7 +62,7 @@ GIT
 GIT
   remote: https://github.com/thias/puppet-nginx.git
   ref: master
-  sha: 7c2a93913b04151d89884e5f2b154292b3060158
+  sha: f3306eb295ad33186666f8acac7b97212417a99d
   specs:
     thias/nginx (0.0.1)
 
