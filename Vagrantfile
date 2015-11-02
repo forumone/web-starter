@@ -28,11 +28,11 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 80, host: 8080
-  config.vm.network :forwarded_port, guest: 443, host: 8443
   config.vm.network :forwarded_port, guest: 8080, host: 8081
   config.vm.network :forwarded_port, guest: 8983, host: 18983
   config.vm.network :forwarded_port, guest: 3306, host: 13306
   config.vm.network :forwarded_port, guest: 1080, host: 1080
+  config.vm.network :forwarded_port, guest: 9200, host: 9200
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -40,27 +40,25 @@ Vagrant.configure("2") do |config|
 
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
-    config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
-    config.nfs.map_uid = Process.uid
-    config.nfs.map_gid = Process.gid
-  else
-  	# First, disable default vagrant share
-  	config.vm.synced_folder ".", "/vagrant", disabled: true
-  	
-  	# Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
-    config.vm.provider "virtualbox" do |v|
-	  v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
-	  v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
+    synched_opts = { nfs: true, nfs_udp: false }
+    nfs_exports = ["rw", "noac", "actimeo=0", "intr", "async", "insecure", "no_subtree_check", "noacl", "lookupcache=none"]
+  
+    if (RUBY_PLATFORM =~ /darwin/)
+  	  nfs_exports << "maproot=0:0"
+      synched_opts[:bsd__nfs_options] = nfs_exports
+    elsif (RUBY_PLATFORM =~ /linux/)
+  	  nfs_exports << "no_root_squash"
+  	  synched_opts[:linux__nfs_options] = nfs_exports
     end
-    
-    # Finally, mount the shared folder on the guest system during provision
-    config.vm.provision :shell, inline: "mkdir -p /vagrant", run: "always"
-    config.vm.provision :shell, inline: "mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant", run: "always"
-    
-    config.nfs.map_uid = 501
-    config.nfs.map_gid = 20
+  	
+    config.vm.synced_folder ".", "/vagrant", synched_opts
+  else
+    config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
   end
   
+  config.nfs.map_uid = Process.uid
+  config.nfs.map_gid = Process.gid
+
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
