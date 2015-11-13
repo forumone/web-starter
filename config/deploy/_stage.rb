@@ -7,7 +7,7 @@ set :site_url, %w[{{site_url}}]
 # An array containing drupal sites to copy settings files in
 set :site_folder, %w[{{site_folder}}]
 
-# The directory where the webroot 
+# The web root directory on the server
 set :webroot, '{{webroot}}'
 
 # The path to the project on the server
