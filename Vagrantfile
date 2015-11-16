@@ -55,10 +55,10 @@ Vagrant.configure("2") do |config|
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   else
-  	# First, disable default vagrant share
-  	config.vm.synced_folder ".", "/vagrant", disabled: true
+    # First, disable default vagrant share
+    config.vm.synced_folder ".", "/vagrant", disabled: true
   	
-  	# Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
+    # Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
     config.vm.provider "virtualbox" do |v|
 	  v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
 	  v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
