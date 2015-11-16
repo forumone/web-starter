@@ -52,12 +52,25 @@ Vagrant.configure("2") do |config|
     end
   	
     config.vm.synced_folder ".", "/vagrant", synched_opts
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
   else
-    config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
+  	# First, disable default vagrant share
+  	config.vm.synced_folder ".", "/vagrant", disabled: true
+  	
+  	# Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
+    config.vm.provider "virtualbox" do |v|
+	  v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
+	  v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
+    end
+    
+    # Finally, mount the shared folder on the guest system during provision
+    config.vm.provision :shell, inline: "mkdir -p /vagrant", run: "always"
+    config.vm.provision :shell, inline: "mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant", run: "always"
+    
+    config.nfs.map_uid = 501
+    config.nfs.map_gid = 20
   end
-  
-  config.nfs.map_uid = Process.uid
-  config.nfs.map_gid = Process.gid
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
