@@ -44,11 +44,11 @@ Vagrant.configure("2") do |config|
     nfs_exports = ["rw", "noac", "actimeo=0", "intr", "async", "insecure", "no_subtree_check", "noacl", "lookupcache=none"]
   
     if (RUBY_PLATFORM =~ /darwin/)
-  	  nfs_exports << "maproot=0:0"
+      nfs_exports << "maproot=0:0"
       synched_opts[:bsd__nfs_options] = nfs_exports
     elsif (RUBY_PLATFORM =~ /linux/)
-  	  nfs_exports << "no_root_squash"
-  	  synched_opts[:linux__nfs_options] = nfs_exports
+      nfs_exports << "no_root_squash"
+      synched_opts[:linux__nfs_options] = nfs_exports
     end
   	
     config.vm.synced_folder ".", "/vagrant", synched_opts
