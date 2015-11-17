@@ -60,8 +60,8 @@ Vagrant.configure("2") do |config|
   	
     # Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
     config.vm.provider "virtualbox" do |v|
-	  v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
-	  v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
+      v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
+      v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
     
     # Finally, mount the shared folder on the guest system during provision
