@@ -53,3 +53,17 @@ If the virtual machine does not boot up and you get a message saying there was a
 ## Drush Alias File
 
 A sample Drush alias file has been included at /examples/drupal/site.aliases.drushrc.php . Simply copy this file into public/sites/all/drush and modify the hostnames inside it. You will be able to access the vagrant environment with 'drush @site.local', dev with 'drush @site.dev', etc. 
+
+## Database sync
+
+You can have your drupal site database automatically updated on 'vagrant provision'. 
+
+* copy examples/config/s3fg to the root of the repository and rename to .s3cfg
+* modify the password in .s3cfg
+* copy puppet/shell/custom/example-drupal-post-provision.unprivileged.sh to puppet/shell/custom/post-provision.unprivileged.sh
+* edit puppet/shell/custom/post-provision.unprivileged.sh and fill your project name into the variable at the top.
+* upload an encrypted .tgz of your database dump to s3://f1dev/PROJECTNAME.dev.sql.gz . You might find it easiest with this cron task:
+```
+0 0 * * * export HOME=/var/www/vhosts/PROJECTNAME.dev; /bin/gzip -c $HOME/current/db.sql > $HOME/PROJECTNAME.dev.sql.gz && /usr/bin/s3cmd put $HOME/PROJECTNAME.dev.sql.gz s3://f1dev
+```
+Note that dev will have to have a matching ~/.s3cfg file for this to work!
