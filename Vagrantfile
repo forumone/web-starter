@@ -41,13 +41,12 @@ Vagrant.configure("2") do |config|
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
     synched_opts = { nfs: true, nfs_udp: false }
-    nfs_exports = ["rw", "noac", "actimeo=0", "intr", "async", "insecure", "no_subtree_check", "noacl", "lookupcache=none"]
+    nfs_exports = ["rw", "async", "insecure", "no_subtree_check"]
   
     if (RUBY_PLATFORM =~ /darwin/)
-      nfs_exports << "maproot=0:0"
+      nfs_exports += ["noac", "actimeo=0", "intr", "noacl", "lookupcache=none", "maproot=0:0"]
       synched_opts[:bsd__nfs_options] = nfs_exports
     elsif (RUBY_PLATFORM =~ /linux/)
-      nfs_exports << "no_root_squash"
       synched_opts[:linux__nfs_options] = nfs_exports
     end
   	
