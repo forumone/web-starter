@@ -20,7 +20,7 @@ if [[ ! -d "/home/vagrant/.drush" ]]; then
 fi
 
 echo 'Copying aliases'
-find "${VAGRANT_CORE_FOLDER}" -maxdepth 1 -name "*.aliases.drushrc.php" -exec su - vagrant -c "cp {} ~/.drush/" \;
+su - vagrant -c "cp ${VAGRANT_CORE_FOLDER}/examples/drupal/site.aliases.drushrc.php ${VAGRANT_CORE_FOLDER}/public/sites/all/drush/aliases.drushrc.php" \;
 
 if [[ ! -f "/home/vagrant/.drush/drush.ini" ]]; then
   echo 'Creating drush settings'
