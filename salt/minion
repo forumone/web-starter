@@ -643,3 +643,4 @@ gitfs_remotes:
   - https://github.com/forumone/mailcatcher-formula.git
   - https://github.com/forumone/memcached-formula.git
   - https://github.com/forumone/mysql-formula.git
+  - https://github.com/forumone/drush-formula
