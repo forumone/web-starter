@@ -44,7 +44,7 @@ nginx:
                 - include: fastcgi_params
                 - fastcgi_param: SCRIPT_FILENAME $document_root$fastcgi_script_name
                 - fastcgi_intercept_errors: 'on'
-                - fasctgi_pass: unix:/var/run/php-fpm/vagrant.sock
+                - fastcgi_pass: unix:/var/run/php-fpm/vagrant.sock
 
 php:
   lookup:
