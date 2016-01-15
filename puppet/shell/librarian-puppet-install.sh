@@ -44,7 +44,6 @@ if [[ ! -d "${PUPPET_DIR}" ]]; then
 fi
 
 cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile" "${PUPPET_DIR}"
-cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile.lock" "${PUPPET_DIR}"
 
 echo "Copied Puppetfile"
 
