@@ -9,9 +9,10 @@ forumone::php::modules:
   - xml
   - pdo
   - mbstring
-  - mysql
+  - mysqlnd
   - pecl-xdebug
   - gd
+  - process
 
 php::ini: 
   display_errors: "On"
@@ -21,6 +22,14 @@ php::ini:
   sendmail_path: "/usr/bin/env catchmail"
   max_execution_time: 180
 
+forumone::php::settings:
+  realpath_cache_size: "128K"
+  realpath_cache_ttl: "7200"
+  xdebug.remote_enable: 1
+  xdebug.remote_connect_back: 1
+  xdebug.remote_handler: "dbgp"
+  opcache.memory_consumption: "128M"
+  
 percona::conf:
   max_allowed_packets:
     content: "[mysqld]\nmax_allowed_packet=100M"
@@ -36,12 +45,3 @@ percona::conf:
     content: "[mysqld]\nthread_cache_size = 4"
   memory_buffers:
     content: "[mysqld]\ntmp_table_size = 128\nmax_heap_table_size = 128M\njoin_buffer_size = 1M\nmyisam_sort_buffer_size = 8M\nsort_buffer_size = 2M"
-
-php::modules: 
-  xdebug: 
-    pkgname: "pecl-xdebug"
-    zend: "/usr/lib64/php/modules"
-    settings: 
-      xdebug.remote_enable: 1
-      xdebug.remote_connect_back: 1
-      xdebug.remote_handler: "dbgp"

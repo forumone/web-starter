@@ -8,18 +8,12 @@ classes:
 
 forumone::webserver::webserver: apache
 
-forumone::php::prefix: "php54"
+forumone::php::prefix: "php55u"
 
 forumone::php::modules:
-  - pecl-apc
+  - opcache
   - pecl-memcached
   
 forumone::solr::collections:  
   drupal: 
     order: 1
-    
-php::modules: 
-  apc: 
-    pkgname: "pecl-apc"
-    settings: 
-      apc.shm_size: "96M"

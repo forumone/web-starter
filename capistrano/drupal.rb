@@ -6,8 +6,8 @@ end
 # Backup the database when publishing a new release
 Rake::Task["deploy:publishing"].enhance ["drupal:dbbackup"]
 
-# Copy drush aliases when we check compatibility
-Rake::Task["deploy:check"].enhance ["drush:initialize"]
+# Copy drush aliases after linking the new release
+Rake::Task["deploy:symlink:release"].enhance ["drush:initialize"]
 
 # After publication run updates
 Rake::Task["deploy:published"].enhance do 
@@ -24,29 +24,32 @@ namespace :drupal do
   task :settings do
     on roles(:app) do
       fetch(:site_folder).each do |folder|
-        if test " [ -f #{current_path}/public/sites/#{folder}/settings.php ]"
-          execute :rm, "-f", "#{current_path}/public/sites/#{folder}/settings.php"
+        if test " [ -e #{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.php ]"
+          execute :rm, "-f", "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.php"
         end
-        execute :ln, '-s', "#{current_path}/public/sites/#{folder}/settings.#{fetch(:stage)}.php", "#{current_path}/public/sites/#{folder}/settings.php"
+        execute :ln, '-s', "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.#{fetch(:stage)}.php", "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.php"
+        # Set permissions on settings file and directory so Drupal doesn't complain. The permission values are set in lib/capistrano/tasks/drush.rake.
+        execute :chmod, fetch(:settings_file_perms), "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}/settings.#{fetch(:stage)}.php"
+        execute :chmod, fetch(:site_directory_perms), "#{current_path}/#{fetch(:webroot, 'public')}/sites/#{folder}"
       end
         
       # If a .htaccess file for the stage exists
-      if test " [ -f #{current_path}/public/htaccess.#{fetch(:stage)} ]"
+      if test " [ -f #{current_path}/#{fetch(:webroot, 'public')}/htaccess.#{fetch(:stage)} ]"
         # If there is currently an .htaccess file
-        if test " [ -f #{current_path}/public/.htaccess ]"
-          execute :rm, "#{current_path}/public/.htaccess"
+        if test " [ -f #{current_path}/#{fetch(:webroot, 'public')}/.htaccess ]"
+          execute :rm, "#{current_path}/#{fetch(:webroot, 'public')}/.htaccess"
         end
         
-        execute :ln, '-s', "#{current_path}/public/htaccess.#{fetch(:stage)}", "#{current_path}/public/.htaccess"
+        execute :ln, '-s', "#{current_path}/#{fetch(:webroot, 'public')}/htaccess.#{fetch(:stage)}", "#{current_path}/#{fetch(:webroot, 'public')}/.htaccess"
       end
       
       # If there a robots.txt file for the stage exists
-      if test " [ -f #{current_path}/public/robots.#{fetch(:stage)}.txt ]"
-        if test " [ -f #{current_path}/public/robots.txt ]"
-          execute :rm, "#{current_path}/public/robots.txt"
+      if test " [ -f #{current_path}/#{fetch(:webroot, 'public')}/robots.#{fetch(:stage)}.txt ]"
+        if test " [ -f #{current_path}/#{fetch(:webroot, 'public')}/robots.txt ]"
+          execute :rm, "#{current_path}/#{fetch(:webroot, 'public')}/robots.txt"
         end
       
-        execute :ln, '-s', "#{current_path}/public/robots.#{fetch(:stage)}.txt", "#{current_path}/public/robots.txt"
+        execute :ln, '-s', "#{current_path}/#{fetch(:webroot, 'public')}/robots.#{fetch(:stage)}.txt", "#{current_path}/#{fetch(:webroot, 'public')}/robots.txt"
       end
     end
   end
@@ -57,8 +60,9 @@ namespace :drupal do
       last_release = capture(:ls, '-xr', releases_path).split.first
       last_release_path = releases_path.join(last_release)
       
-      within "#{last_release_path}/public" do
-      	execute :drush, "-y sql-drop -l #{fetch(:site_url)} &&", %{$(drush sql-connect -l #{fetch(:site_url)}) < #{last_release_path}/db.sql}
+      within "#{last_release_path}/#{fetch(:app_webroot, 'public')}" do
+        execute :gunzip, "#{last_release_path}/db.sql.gz"
+      	execute :drush, "-y sql-drop -l #{fetch(:site_url)[0]} &&", %{$(drush sql-connect -l #{fetch(:site_url)[0]}) < #{last_release_path}/db.sql}
       end
     end
   end

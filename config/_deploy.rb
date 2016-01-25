@@ -5,7 +5,7 @@ set :application, '{{name}}'
 set :repo_url, '{{repository}}'
 
 # Or use the line below to deploy via rsync
-# set :scm, :{{deploy_via}}
+set :scm, :{{deploy_via}}
 
 # Use a remote cache for git
 set :deploy_via, :remote_cache

@@ -1,4 +1,9 @@
-## 1.1.14
+## 1.1.15 (6 January, 2015)
+- Updated to 1.1.20 of puppet-forumone, resolves mailcatcher issue
+- Removed hard-coded references to "public" webroot
+- Switched to use load-grunt-tasks instead of manually declaring then in Gruntfile.js
+
+## 1.1.14 (17 November, 2014)
 - Changed ".cap" to ".rake" to make more clear they are Rake tasks
 - Refactored tasks to allow for different platforms
 - Added documentation to Drupal platform add-on and tasks

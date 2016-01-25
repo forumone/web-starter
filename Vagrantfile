@@ -1,10 +1,10 @@
 Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "f1-centos64-64"
+  config.vm.box = "forumone/centos64-64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://clients.forumone.com/sites/default/files/boxes/centos64-64.box"
+  config.vm.box_url = "http://boxen.forumone.com/centos64-64.box"
 
   if Vagrant.has_plugin?("vagrant-cachier")
     # Configure cached packages to be shared between instances of the same base box.
@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 18983
   config.vm.network :forwarded_port, guest: 3306, host: 13306
   config.vm.network :forwarded_port, guest: 1080, host: 1080
+  config.vm.network :forwarded_port, guest: 9200, host: 9200
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -39,13 +40,36 @@ Vagrant.configure("2") do |config|
 
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
-    config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
-  else
-    config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
-  end
+    synched_opts = { nfs: true, nfs_udp: false }
+    nfs_exports = ["rw", "async", "insecure", "no_subtree_check"]
   
-  config.nfs.map_uid = Process.uid
-  config.nfs.map_gid = Process.gid
+    if (RUBY_PLATFORM =~ /darwin/)
+      nfs_exports += ["noac", "actimeo=0", "intr", "noacl", "lookupcache=none", "maproot=0:0"]
+      synched_opts[:bsd__nfs_options] = nfs_exports
+    elsif (RUBY_PLATFORM =~ /linux/)
+      synched_opts[:linux__nfs_options] = nfs_exports
+    end
+  	
+    config.vm.synced_folder ".", "/vagrant", synched_opts
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
+  else
+    # First, disable default vagrant share
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+  	
+    # Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
+    config.vm.provider "virtualbox" do |v|
+      v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
+      v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
+    end
+    
+    # Finally, mount the shared folder on the guest system during provision
+    config.vm.provision :shell, inline: "mkdir -p /vagrant", run: "always"
+    config.vm.provision :shell, inline: "mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant", run: "always"
+    
+    config.nfs.map_uid = 501
+    config.nfs.map_gid = 20
+  end
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
