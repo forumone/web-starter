@@ -9,7 +9,8 @@ forumone::php::modules:
   - mbstring
   - mysqlnd
   - pecl-xdebug
-  
+
+forumone::webserver::platform: 'wordpress'  
 
 php::ini: 
   display_errors: "On"

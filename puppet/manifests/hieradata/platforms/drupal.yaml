@@ -14,6 +14,8 @@ forumone::php::modules:
   - gd
   - process
 
+forumone::webserver::platform: 'drupal'
+
 php::ini: 
   display_errors: "On"
   memory_limit: "256M"
