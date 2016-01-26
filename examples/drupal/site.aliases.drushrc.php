@@ -71,5 +71,9 @@ foreach ($aliases as &$alias) {
   if (gethostbyname($alias['remote-host']) === $ip) {
     unset($alias['remote-host']);
   }
+  // Swap out the hostname when not running from within vagrant.
+  else {
+    $aliases['local']['uri'] = 'http://localhost:8080';
+  }
 }
 
