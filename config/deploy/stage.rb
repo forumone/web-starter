@@ -32,8 +32,8 @@ role :db,  %w{deploy@example.com}
 # ======================
 # This can be used to drop a more detailed server
 # definition into the server list. The second argument
-# something that quacks like a has can be used to set
-# extended properties on the server.
+# is something that quacks like a hash and can be used
+# to set extended properties on the server.
 # server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
 
 # you can set custom ssh options
