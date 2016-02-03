@@ -32,6 +32,7 @@ nginx:
       # nginx.conf (main server) declarations
       # dictionaries map to blocks {} and lists cause the same declaration to repeat with different values
       config: 
+        user: vagrant
         worker_processes: 1
         pid: /var/run/nginx.pid
         events:
