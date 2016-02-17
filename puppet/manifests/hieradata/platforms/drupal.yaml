@@ -4,6 +4,7 @@ classes:
   - forumone::php
   - forumone::drush
   - forumone::mailcatcher
+  - forumone::behat
 
 forumone::php::modules:
   - xml
