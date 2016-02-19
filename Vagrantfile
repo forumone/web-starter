@@ -2,11 +2,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "forumone/centos6salt"
-
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "https://s3.amazonaws.com/f1vagrant/CentOS66-salt.box"
+  config.vm.box = "forumone/centos66-64-salt"
 
   if Vagrant.has_plugin?("vagrant-cachier")
     # Configure cached packages to be shared between instances of the same base box.
@@ -46,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
-    config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666","no_root_squash"] }
+    config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   else
@@ -72,7 +68,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Salt provisioning
   config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
   config.vm.provision :salt do |salt|
-    salt.bootstrap_options = "-X -Z -p python-pygit2 -p git"
+    salt.bootstrap_options = "-X -Z -p python-pygit2 -p GitPython -p git"
     salt.verbose = true
     salt.colorize = true
     salt.log_level = 'debug'
