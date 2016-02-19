@@ -638,11 +638,17 @@ fileserver_backend:
   - git
 
 gitfs_remotes:
-  - https://github.com/forumone/nginx-formula.git
-  - https://github.com/forumone/epel-formula.git
-  - https://github.com/forumone/mailcatcher-formula.git
-  - https://github.com/forumone/memcached-formula.git
-  - https://github.com/forumone/mysql-formula.git
+  - https://github.com/forumone/nginx-formula.git:
+    - base: 20160216
+  - https://github.com/forumone/epel-formula.git:
+    - base: 20160216
+  - https://github.com/forumone/mailcatcher-formula.git:
+    - base: 20160216
+  - https://github.com/forumone/memcached-formula.git:
+    - base: 20160216
+  - https://github.com/forumone/mysql-formula.git:
+    - base: 20160216
   - https://github.com/forumone/drush-formula.git
-  - https://github.com/forumone/php-formula.git
+  - https://github.com/forumone/php-formula.git:
+    - base: 20160216
   - https://github.com/saltstack-formulas/remi-formula.git
