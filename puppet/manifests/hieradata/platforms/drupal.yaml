@@ -23,6 +23,7 @@ php::ini:
   post_max_size: "100M"
   sendmail_path: "/usr/bin/env catchmail"
   max_execution_time: 180
+  max_input_vars: 3000
 
 forumone::php::settings:
   realpath_cache_size: "128K"
