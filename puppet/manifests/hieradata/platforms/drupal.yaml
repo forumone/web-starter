@@ -32,7 +32,8 @@ forumone::php::settings:
   xdebug.remote_connect_back: 1
   xdebug.remote_handler: "dbgp"
   opcache.memory_consumption: "128M"
-  
+  date.timezone: "America/Los_Angeles"
+
 percona::conf:
   max_allowed_packets:
     content: "[mysqld]\nmax_allowed_packet=100M"
