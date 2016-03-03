@@ -1,12 +1,11 @@
 <?php
-
 $aliases['local'] = array(
   'parent' => '@parent',
   'uri' => 'http://10.11.12.14',
   'root' => '/vagrant/public',
   'remote-host' => '10.11.12.14',
   'remote-user' => 'vagrant',
-  'ssh-options' => "-i ~/.vagrant.d/insecure_private_key -l vagrant",
+  'ssh-options' => "-i ". dirname(dirname(dirname(dirname($filename)))) ."/.vagrant/machines/default/virtualbox/private_key -l vagrant",
   'db-url' => 'mysql://web:web@10.11.12.14:3306/web',
   'databases' => array (
     'default' => array (
@@ -36,7 +35,7 @@ $aliases['dev'] = array(
 );
 
 $aliases['stage'] = array(
-  'uri' => 'sage.example.com',
+  'uri' => 'stage.example.com',
   'root' => '/var/www/vhosts/example.stage/public',
   'remote-host' => 'stage.example.com',
   'remote-user' => 'example',
