@@ -24,9 +24,6 @@ if [[ ! -d "/home/vagrant/.drush" ]]; then
   mkdir ~/.drush
 fi
 
-echo 'Copying aliases'
-find "${VAGRANT_CORE_FOLDER}" -maxdepth 1 -name "*.aliases.drushrc.php" -exec cp {} ~/.drush/ \;
-
 if [[ ! -f "/home/vagrant/.drush/drush.ini" ]]; then
   echo 'Creating drush settings'
   echo 'memory_limit = 512M' > ~/.drush/drush.ini
