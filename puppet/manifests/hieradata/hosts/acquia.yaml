@@ -8,7 +8,7 @@ classes:
 
 forumone::webserver::webserver: apache
 
-forumone::php::prefix: "php55u"
+forumone::php::prefix: "php56u"
 
 forumone::php::modules:
   - opcache
