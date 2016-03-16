@@ -18,67 +18,7 @@ module.exports = function(grunt) {
 
   // Initialize configuration with package.json data
   grunt.initConfig({
-    'pkg': grunt.file.readJSON('package.json'),
-    behat: {
-      src: 'tests/behat/features/***/**/*',
-      options: {
-        maxProcesses: 5,
-        bin: './tests/behat/bin/behat',
-        junit: {
-          output_folder: 'tests/test_results/'
-        }
-      }
-    }
-  });
-
-  grunt.registerTask('behatJenkinsTest', 'Execute Behat for BDD testing', function () {
-    // The logic here is to allow Jenkins to insert custom environment variables
-    // which are than passed along to Behat in as parameters for using specific
-    // Behat profiles. As projects in Jenkins appear to have different naming conventions
-    // i.e. 'dev' vs 'Dev' it is important for the dev to customize not only the
-    // post-build task in Jenkins but the string to match against in this gruntfile denoted
-    // in the comments below
-    var target = grunt.option('buildDisplay');
-    if (target) {
-      // Requires Customization
-      if (target.indexOf('dev') > -1){
-        grunt.config.merge({
-          behat: {
-            options: {
-              config: './tests/behat/behat.jenkins.yml',
-              flags: '-p dev'
-            }
-          }
-        });
-      // Requires Customization
-      } else if(target.indexOf('stage') > -1) {
-        grunt.config.merge({
-          behat: {
-            options: {
-              config: './tests/behat/behat.jenkins.yml',
-              flags: '-p stage'
-            }
-          }
-        });
-      } else {
-        grunt.fatal('Select either Dev or Stage Behat Profiles');
-      }
-      // Don't allow test to continue if it doesn't match one of the Behat Profiles
-    } else {
-      grunt.fatal('Select either Dev or Stage Behat Profiles');
-    }
-    grunt.task.run('behat')
-  });
-
-  grunt.registerTask('behatTest', 'Execute Behat for BDD testing', function () {
-    grunt.config.merge({
-      behat: {
-        options: {
-          config: './tests/behat/behat.yml'
-        }
-      }
-    });
-    grunt.task.run('behat')
+    'pkg': grunt.file.readJSON('package.json')
   });
 
   // Load the include-all library in order to require all of our grunt
