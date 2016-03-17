@@ -5,8 +5,7 @@ module.exports = function (grunt) {
         grunt.config.merge({
             behat: {
                 options: {
-                    config: './tests/behat/behat.yml',
-                    flags: '-p dev'
+                    config: './tests/behat/behat.yml'
                 }
             }
         });

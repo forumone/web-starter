@@ -1,7 +1,7 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.config.merge({
         behat: {
-            src: 'tests/behat/features/***/**/*',
+            src: './tests/behat/features/***/**/*',
             options: {
                 maxProcesses: 5,
                 bin: './tests/behat/bin/behat',
