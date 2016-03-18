@@ -10,6 +10,7 @@ base:
     - mysql
     - memcached.config
     - varnish
+    - varnish.repo
 #    - mailcatcher
     - nginx.ng
     - php.ng

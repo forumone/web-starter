@@ -302,12 +302,12 @@ sub vcl_error {
 # appended to your code.
 # sub vcl_recv {
 #     if (req.restarts == 0) {
-# 	if (req.http.x-forwarded-for) {
-# 	    set req.http.X-Forwarded-For =
-# 		req.http.X-Forwarded-For + ", " + client.ip;
-# 	} else {
-# 	    set req.http.X-Forwarded-For = client.ip;
-# 	}
+#   if (req.http.x-forwarded-for) {
+#       set req.http.X-Forwarded-For =
+#     req.http.X-Forwarded-For + ", " + client.ip;
+#   } else {
+#       set req.http.X-Forwarded-For = client.ip;
+#   }
 #     }
 #     if (req.request != "GET" &&
 #       req.request != "HEAD" &&
@@ -366,11 +366,11 @@ sub vcl_error {
 #     if (beresp.ttl <= 0s ||
 #         beresp.http.Set-Cookie ||
 #         beresp.http.Vary == "*") {
-# 		/*
-# 		 * Mark as "Hit-For-Pass" for the next 2 minutes
-# 		 */
-# 		set beresp.ttl = 120 s;
-# 		return (hit_for_pass);
+#     /*
+#      * Mark as "Hit-For-Pass" for the next 2 minutes
+#      */
+#     set beresp.ttl = 120 s;
+#     return (hit_for_pass);
 #     }
 #     return (deliver);
 # }
@@ -404,9 +404,9 @@ sub vcl_error {
 # }
 # 
 # sub vcl_init {
-# 	return (ok);
+#   return (ok);
 # }
 # 
 # sub vcl_fini {
-# 	return (ok);
+#   return (ok);
 # }
