@@ -1,17 +1,16 @@
 base:
   '*':
     - core
-    - epel
+#    - epel
     - jinja26
-    - rbenv
-    - node
-#    - mysql.client
-#    - mysql.server
-#    - mysql.localdbs
-#    - fpmstack
-#    - memcached.config
-#    - nginx
-#    - varnish
-#    - php
+#    - rbenv
+#    - node
+#    Load mysql.client first to avoid getting mysql-libs from base repo
+    - mysql.client
+    - mysql
+    - memcached.config
+    - varnish
 #    - mailcatcher
     - nginx.ng
+    - php.ng
+    - php.ng.fpm
