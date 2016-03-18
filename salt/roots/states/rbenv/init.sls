@@ -1,6 +1,6 @@
 rbenv-deps:
   pkg.installed:
-    - names:
+    - pkgs:
       - bison
       - flex
       - openssl-devel
@@ -25,6 +25,7 @@ install_ruby_rbenv:
   rbenv.installed:
     - name: {{ ruby_version }}
     - default: True
+    - user: vagrant
     - require: 
       - pkg: rbenv-deps
 
@@ -36,3 +37,4 @@ install_ruby_rbenv:
 install_bundler:
   gem.installed:
     - name: bundler
+    - user: vagrant

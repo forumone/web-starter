@@ -39,7 +39,3 @@ varnish:
     - mode: 750
     - user: root
     - group: vagrant
-
-# GDW must be a better way to do this
-iptables:
-  service.dead

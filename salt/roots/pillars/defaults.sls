@@ -1,3 +1,44 @@
+# Default memcached settings.
+memcached:
+  user: memcached
+  daemonize: True
+  memory_cap: 128
+  port: 11211
+  max_connections: 1024
+  options: -I 2m
+
+# Default mysqld server settings
+mysql:
+  server:
+    root_password: ''
+    mysqld:
+      bind-address: 0.0.0.0
+      port: 3306
+      skip-name-resolve: noarg_present
+      thread-cache-size: 16
+      table-open-cache: 4096
+      table-definition-cache: 2048
+      query-cache-size: 64M
+      query-cache-limit: 1M
+      sort-buffer-size: 1M
+      read-buffer-size: 1M
+      read-rnd-buffer-size: 1M
+      join-buffer-size: 1M
+      tmp-table-size: 128M
+      max-heap-table-size: 128M
+      max-connections: 20
+      max-allowed-packet: 128M
+      interactive-timeout: 3600
+      default-storage-engine: InnoDB
+      innodb-buffer-pool-size: 512M
+      innodb-log-buffer-size: 8M
+      innodb-log-file-size: 10M
+      innodb-file-per-table: 1
+      innodb-open-files: 300
+      innodb_flush_log_at_trx_commit: 0
+    mysql:
+      max-allowed-packet: 128M
+
 # Ruby formula defaults for Vagrant
 ruby:
   version: ruby-2.0.0-p647
@@ -92,3 +133,166 @@ nginx:
           # dictionaries a block {} will be started with the dictionary key name
           config: 
             - '# disabled'
+
+php:
+  # Use ppa instead the default repository (only Debian family)
+#  use_ppa: True
+  # Set the ppa name (valid only if use_ppa is not none)
+#  ppa_name: 'ondrej/php5'
+  # Set the MongoDB driver version. You can specify (optionally) the driver version
+  # when you add the php.mongo formula to your execution list
+#  mongo_version: "1.5.5"
+  ng:
+    # this section contains mostly grain filtered data, while overrides
+    # are possible in the pillar for unique cases, if your OS is not
+    # represented, please consider adding it to the map.jinja for
+    # upstream inclusion
+    lookup:
+#
+#      # package definitions, these can be strings, lists of strings, or
+#      # lists of dictionaries
+#      pkgs:
+#        memcached: php-pecl-memcached
+#        # ensures both will be installed
+#        curl: 
+#          - php-common
+#          - curl 
+#        # a dictionary can be used in more complex cases where you want
+#        # to pass forward special arguments to the pkg.installed call
+#        # you MUST include the name argument for this to work
+#        cli:
+#           -
+#             name: php-cli
+#             fromrepo: my-specialrepo
+#           -
+#             name: php-common
+#             skip_verify: True
+#
+#      # php-fpm os-specific settings
+#      fpm:
+#        conf: /location/of/php-fpm/config.conf
+#        ini: /location/of/php-fpm/php.ini
+#        pools: /location/of/php-fpm/pool.d
+#        service: name-of-php5-fpm-service
+#
+#        # the default content of the php5-fpm main config file
+#        defaults:
+#          global:
+#            pid: /var/run/php5-fpm.pid
+#
+#      # php-cli os-specific settings
+#      cli:
+#        ini: /location/of/php-cli/php.ini
+#
+#    # php-fpm settings
+    fpm:
+#
+#      # settings for the php-fpm service
+      service:
+#        # if True, enables the php-fpm service, if False disables it
+        enabled: True
+#        # additional arguments passed forward to
+#        # service.enabled/disabled
+        opts:
+          reload: True
+#
+#      # settings for the relevant php-fpm configuration files
+#      config:
+#
+#        # options to manage the php.ini file used by php-fpm
+#        ini:
+#          # arguments passed through to file.managed
+#          opts:
+#            recurse: True
+#          # php.ini file contents that will be merged with the
+#          # defaults in php.ng.ini.defaults. See php.ng.ini.defaults for
+#          # syntax guidelines.
+#          settings:
+#            PHP:
+#              engine: 'Off'
+#              extension_dir: '/usr/lib/php/modules/'
+#              extension: [pdo_mysql.so, iconv.so, openssl.so]
+#
+#        # options to manage the php-fpm conf file
+#        conf:
+#          # arguments passed through to file.managed
+#          opts:
+#            recurse: True
+#          # php-fpm conf file contents that will be merged with
+#          # php.ng.lookup.fpm.defaults. See php.ng.ini.defaults for
+#          # ini-style syntax guidelines.
+#          settings:
+#            global:
+#              pid: /var/run/php-fpm/special-pid.file
+#
+#      # settings for fpm-pools
+      pools:
+#        # name of the pool file to be managed, this will be appended
+#        # to the path specified in php.ng.lookup.fpm.pools
+        'www.conf':
+          enabled: False
+        'vagrant.conf':
+#          # If true, the pool file will be managed, if False it will be
+#          # absent
+          enabled: True
+#          # arguments passed forward to file.managed or file.absent
+#          opts:
+#             replace: False
+#
+#          # pool file contents. See php.ng.ini.defaults for ini-style
+#          # syntax guidelines.
+          settings:
+            vagrant:
+              user: vagrant
+              group: vagrant
+              listen: /var/run/php-fpm/vagrant.sock
+              listen.owner: vagrant
+              listen.group: vagrant
+              listen.mode: 0666
+              pm: dynamic
+              pm.max_children: 5
+              pm.start_servers: 2
+              pm.min_spare_servers: 1
+              pm.max_spare_servers: 3
+              'php_admin_value[memory_limit]': 300M
+#
+#    # php-cli settings
+#    cli:
+#      # settings to manage the cli's php.ini
+#      ini:
+#        # opts passed forward directly to file.managed
+#        opts:
+#          replace: False
+#        # contents of the php.ini file that are merged with defaults
+#        # from php.ng.ini.defaults. See php.ng.ini.defaults for ini-style
+#        # syntax guidelines
+#        settings:
+#          PHP:
+#            engine: 'Off'
+#
+#    # php-xcache settings
+#    xcache:
+#      ini:
+#        opts: {}
+#        # contents of the xcache.ini file that are merged with defaults
+#        # from php.xcache.ini.defaults. See php.ng.ini.defaults for ini-style
+#        settings:
+#          xcache:
+#            xcache.size: 90M
+#
+#    # global php.ini settings
+#    ini:
+#      # Default php.ini contents. These follow a strict format. The top-
+#      # level dict keys form ini group headings. Nested key/value
+#      # pairs represent setting=value statements. If a value is a list,
+#      # its contents will be joined by commas in final rendering.
+#      defaults:
+#        PHP:
+#          engine: on
+#          output_buffering: 4096
+#          disable_functions:
+#            - pcntl_alarm
+#            - pcntl_fork
+#            - pcntl_wait
+#        'CLI Server':
+#          cli_server_color: 'On'

@@ -1,15 +1,18 @@
-project: vagrant
+mysql:
+  mysql_version: mysql56u
+  database:
+    - web
+  user:
+    web:
+      password: 'web'
+      host: localhost
+      databases:
+        - database: web
+          grants: ['all privileges']
 
-siteuser:
-  - vagrant
-
-memcached:
-  user: memcached
-  daemonize: True
-  memory_cap: 128
-  port: 11211
-  max_connections: 1024
-  options: -I 2m
+php:
+  ng:
+    php_version: php55u
 
 nginx:
   ng:
@@ -45,3 +48,4 @@ nginx:
                 - fastcgi_param: SCRIPT_FILENAME $document_root$fastcgi_script_name
                 - fastcgi_intercept_errors: 'on'
                 - fastcgi_pass: unix:/var/run/php-fpm/vagrant.sock
+
