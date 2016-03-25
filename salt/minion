@@ -632,6 +632,9 @@ pillar_roots:
 #return: mysql
 #
 
+# Allow running minion locally
+local: True
+
 # GitFS
 fileserver_backend:
   - roots
@@ -651,4 +654,4 @@ gitfs_remotes:
   - https://github.com/forumone/drush-formula.git
   - https://github.com/forumone/node-formula.git
   - https://github.com/forumone/php-formula.git:
-    - base: 20160216
+    - base: 20160215
