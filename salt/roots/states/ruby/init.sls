@@ -1,7 +1,7 @@
 # Grab precompiled ruby versions 
 
 # Set ruby version and download hash from pillar, or a sane default
-{% set ruby_version = salt['pillar.get']('ruby:version', 'ruby-2.0.0-p647') %}
+{% set ruby_version = salt['pillar.get']('ruby:version', 'ruby-2.3.0') %}
 {% set pkg_hash = salt['pillar.get']('ruby:pkg_hash', 'md5=fe6d1ccbf47da57c9da5a78f2d90e3f9') %}
 
 download-precompiled-ruby:
