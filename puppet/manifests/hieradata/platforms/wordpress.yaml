@@ -3,6 +3,7 @@ classes:
   - forumone::webserver
   - forumone::php
   - forumone::mailcatcher
+  - forumone::wpcli
 
 forumone::php::modules:
   - xml
