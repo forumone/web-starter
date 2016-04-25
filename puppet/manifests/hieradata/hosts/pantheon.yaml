@@ -11,15 +11,9 @@ forumone::webserver::webserver: nginx
 forumone::php::prefix: "php56u"
 
 forumone::php::modules:
-  - pecl-apc
+  - opcache
   - pecl-redis
   
 forumone::solr::collections:  
   drupal: 
     order: 1
-    
-php::modules: 
-  apc: 
-    pkgname: "pecl-apc"
-    settings: 
-      apc.shm_size: "96M"
