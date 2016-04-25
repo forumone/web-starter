@@ -8,7 +8,7 @@ classes:
 
 forumone::webserver::webserver: nginx
 
-forumone::php::prefix: "php54"
+forumone::php::prefix: "php56u"
 
 forumone::php::modules:
   - pecl-apc
