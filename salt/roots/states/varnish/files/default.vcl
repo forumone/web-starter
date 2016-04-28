@@ -202,14 +202,14 @@ sub vcl_hash {
 
 sub vcl_hit {
   if (req.request == "PURGE") {
-    purge;
+    ban("obj.http.X-Varnish-Tag ~ (?i)" + regsub(req.url, "^\/", "") + " && req.http.host ~ " + req.http.host);
     error 200 "Purged.";
   }
 }
 
 sub vcl_miss {
   if (req.request == "PURGE") {
-    purge;
+    ban("obj.http.X-Varnish-Tag ~ (?i)" + regsub(req.url, "^\/", "") + " && req.http.host ~ " + req.http.host);
     error 200 "Purged.";
   }
 }
