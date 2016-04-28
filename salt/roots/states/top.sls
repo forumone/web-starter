@@ -15,3 +15,4 @@ base:
     - nginx.ng
     - php.ng
     - php.ng.fpm
+    - composer
