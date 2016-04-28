@@ -297,7 +297,9 @@ php:
             allow_url_include: 'Off'
             default_socket_timeout: 60
             disable_functions: ''
-
+            xdebug.remote_enable: 1
+            xdebug.remote_connect_back: 1
+            xdebug.remote_handler: "dbgp"
 
 #
 #    # php-xcache settings
