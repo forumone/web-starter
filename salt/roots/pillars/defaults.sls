@@ -255,20 +255,50 @@ php:
               pm.min_spare_servers: 1
               pm.max_spare_servers: 3
               'php_admin_value[memory_limit]': 300M
-#
-#    # php-cli settings
-#    cli:
-#      # settings to manage the cli's php.ini
-#      ini:
-#        # opts passed forward directly to file.managed
-#        opts:
-#          replace: False
-#        # contents of the php.ini file that are merged with defaults
-#        # from php.ng.ini.defaults. See php.ng.ini.defaults for ini-style
-#        # syntax guidelines
-#        settings:
-#          PHP:
-#            engine: 'Off'
+    cli:
+      ini:
+        settings:
+          PHP:
+            engine: 'on'
+            short_open_tag: 'off'
+            asp_tags: 'off'
+            precision: 14
+            output_buffering: 4096
+            zlib.output_compression: 'off'
+            implicit_flush: 'off'
+            serialize_precision: 17
+            zend.enable_gc: 'On'
+            expose_php: 'On'
+            max_execution_time: 90
+            max_input_time: 90
+            max_input_vars: 3000
+            memory_limit: 192M
+            error_reporting: E_ALL & ~E_DEPRECATED & ~E_STRICT
+            display_errors: 'Off'
+            display_startup_errors: 'Off'
+            log_errors: 'On'
+            log_errors_max_len: 1024
+            ignore_repeated_errors: 'Off'
+            ignore_repeated_source: 'Off'
+            report_memleaks: 'On'
+            track_errors: 'Off'
+            html_errors: 'On'
+            variables_order: "GPCS"
+            request_order: "GP"
+            register_argc_argv: 'Off'
+            auto_globals_jit: 'On'
+            default_mimetype: "text/html"
+            enable_dl: 'Off'
+            file_uploads: 'On'
+            upload_max_filesize: 200M
+            post_max_size: 200M
+            max_file_uploads: 20
+            allow_url_fopen: 'On'
+            allow_url_include: 'Off'
+            default_socket_timeout: 60
+            disable_functions: ''
+
+
 #
 #    # php-xcache settings
 #    xcache:

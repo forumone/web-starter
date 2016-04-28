@@ -17,5 +17,6 @@ php:
           - {{php_base}}-soap
           - {{php_base}}-common
           - {{php_base}}-opcache
+          - {{php_base}}-pecl-xdebug
         fpm:
           - {{php_base}}-fpm
