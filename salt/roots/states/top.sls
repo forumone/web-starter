@@ -14,5 +14,6 @@ base:
 #    - mailcatcher
     - nginx.ng
     - php.ng
+    - php.ng.cli.ini
     - php.ng.fpm
     - composer
