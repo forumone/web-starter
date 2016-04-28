@@ -15,7 +15,7 @@ varnish:
 
 /etc/varnish:
   file.recurse:
-    - source: salt://varnish/files
+    - source: {{ salt['pillar.get']('varnish:vcl', 'salt://varnish/files') }}
     - user: root
 
 /etc/sysconfig/varnish:

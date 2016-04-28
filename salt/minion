@@ -414,6 +414,7 @@ file_client: local
 file_roots:
   base:
     - /srv/salt/states
+    - /vagrant/config
 #   dev:
 #     - /srv/salt/dev/services
 #     - /srv/salt/dev/states
