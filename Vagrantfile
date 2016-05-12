@@ -44,6 +44,7 @@ Vagrant.configure("2") do |config|
       nfs_exports += ["noac", "actimeo=0", "intr", "noacl", "lookupcache=none"]
       synched_opts[:bsd__nfs_options] = nfs_exports
     elsif (RUBY_PLATFORM =~ /linux/)
+      nfs_exports << "no_root_squash"
       synched_opts[:linux__nfs_options] = nfs_exports
     end
   	
