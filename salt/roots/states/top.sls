@@ -17,3 +17,5 @@ base:
     - php.ng.cli.ini
     - php.ng.fpm
     - composer
+    - drush
+    - solr.v4
