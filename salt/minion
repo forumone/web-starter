@@ -653,5 +653,7 @@ gitfs_remotes:
     - base: 20160216
   - https://github.com/forumone/drush-formula.git
   - https://github.com/forumone/node-formula.git
+  - https://github.com/forumone/redis-formula.git
+  - https://github.com/forumone/mailhog-formula.git
   - https://github.com/forumone/php-formula.git:
     - base: 20160215
