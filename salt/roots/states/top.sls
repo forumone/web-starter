@@ -4,7 +4,7 @@ base:
 #    - epel
     - jinja26
 #    - rbenv
-#    - node
+    - node
 #    Load mysql.client first to avoid getting mysql-libs from base repo
     - mysql.client
     - mysql
@@ -14,5 +14,6 @@ base:
 #    - mailcatcher
     - nginx.ng
     - php.ng
+    - php.ng.cli.ini
     - php.ng.fpm
     - composer
