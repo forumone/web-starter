@@ -4,9 +4,9 @@ This project has been setup to use a virtual machine for local development to cl
 
 ## Preparing your local environment
 
-  * Latest Virtualbox -- [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads). If you are running Win 7 install 4.2.x
+  * Latest Virtualbox -- [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads).
   * Latest Virtualbox Extension Pack -- [https://www.virtualbox.org/wiki/Downloads]. Should match your Virtualbox version
-  * Vagrant (currently tested with 1.3.5 and 1.6.2) -- [http://downloads.vagrantup.com](http://downloads.vagrantup.com)
+  * Vagrant (currently tested with 1.7 and 1.8) -- [http://downloads.vagrantup.com](http://downloads.vagrantup.com)
 
 
 ## Getting Vagrant environment set up
