@@ -91,6 +91,10 @@ Vagrant.configure("2") do |config|
 
   config.ssh.forward_agent = true
 
+  # CentOS machines with Software Collections scripts (scl enable foo) have a misbehaving sudo that doesn't recognize flags.
+  # Override them to prevent cryptic errors about "line 8: -E: command not found"
+  config.ssh.sudo_command = "sudo %c"
+
   # Run any custom scripts before provisioning
   config.vm.provision :shell, :path => "puppet/shell/pre-provision.sh"
 
