@@ -33,8 +33,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 18983
   # MySQL
   config.vm.network :forwarded_port, guest: 3306, host: 13306
-  # Mailcatcher
-  config.vm.network :forwarded_port, guest: 1080, host: 1080
+  # MailHog
+  config.vm.network :forwarded_port, guest: 8025, host: 8025
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
