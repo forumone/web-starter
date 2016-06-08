@@ -6,3 +6,4 @@ node_modules
 Vagrantfile.local
 .DS_Store
 /_site
+salt/roots/formulas/*
