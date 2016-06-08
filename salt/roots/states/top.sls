@@ -1,7 +1,7 @@
 base:
   '*':
     - core
-#    - epel
+    - epel
     - jinja26
 #    - rbenv
     - node
@@ -11,11 +11,11 @@ base:
     - memcached.config
     - varnish
     - varnish.repo
-#    - mailcatcher
     - nginx.ng
     - php.ng
     - php.ng.cli.ini
-    - php.ng.fpm
+    - php.ng.fpm.pools
     - composer
     - drush
     - solr.v4
+
