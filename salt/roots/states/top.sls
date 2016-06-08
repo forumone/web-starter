@@ -9,9 +9,9 @@ base:
     - mysql.client
     - mysql
     - memcached.config
+    - nginx.ng
     - varnish.repo
     - varnish
-    - nginx.ng
     - php.ng
     - php.ng.cli.ini
     - php.ng.fpm.pools
