@@ -415,6 +415,14 @@ file_roots:
   base:
     - /srv/salt/states
     - /vagrant/config
+    - /srv/salt/formulas/nginx-formula
+    - /srv/salt/formulas/epel-formula
+    - /srv/salt/formulas/memcached-formula
+    - /srv/salt/formulas/mysql-formula
+    - /srv/salt/formulas/drush-formula
+    - /srv/salt/formulas/node-formula
+    - /srv/salt/formulas/php-formula
+    - /srv/salt/formulas/solr-formula
 #   dev:
 #     - /srv/salt/dev/services
 #     - /srv/salt/dev/states
@@ -639,14 +647,12 @@ local: True
 # GitFS
 fileserver_backend:
   - roots
-  - git
+#  - git
 
 gitfs_remotes:
   - https://github.com/forumone/nginx-formula.git:
     - base: 20160216
   - https://github.com/forumone/epel-formula.git:
-    - base: 20160216
-  - https://github.com/forumone/mailcatcher-formula.git:
     - base: 20160216
   - https://github.com/forumone/memcached-formula.git:
     - base: 20160216
