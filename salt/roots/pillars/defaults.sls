@@ -300,6 +300,7 @@ php:
             xdebug.remote_enable: 1
             xdebug.remote_connect_back: 1
             xdebug.remote_handler: "dbgp"
+            sendmail_path: "/usr/local/bin/MailHog sendmail "
 
 #
 #    # php-xcache settings
