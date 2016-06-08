@@ -32,6 +32,7 @@ varnish:
 /etc/varnish/secret:
   file.managed:
     - mode: 644
+    - replace: False
 
 /var/log/varnish:
   file.directory:
