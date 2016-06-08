@@ -64,6 +64,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
 
   # Run any custom scripts before provisioning
+  config.vm.provision :shell, :path => "puppet/shell/pre-provision.sh"
 
   # Salt provisioning
   config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
@@ -76,6 +77,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "shell",
     inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call state.sls jinja26 && sudo bash -c 'export PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH; salt-call state.highstate && sudo yum -y update'"
+
+  # Run any custom scripts after provisioning
+  config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
 
   # https://github.com/mitchellh/vagrant/issues/5001
   config.vm.box_download_insecure = true
