@@ -43,13 +43,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
     config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
+    config.vm.synced_folder "./salt/roots/", "/srv/salt", :nfs => { }
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   else
     config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
+    config.vm.synced_folder "./salt/roots/", "/srv/salt", :mount_options => [ "dmode=777","fmode=666" ]
     config.nfs.map_uid = 501
     config.nfs.map_gid = 20
   end
+
   
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -67,7 +70,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "puppet/shell/pre-provision.sh"
 
   # Salt provisioning
-  config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
   config.vm.provision :salt do |salt|
     salt.bootstrap_options = "-X -Z -p python-pygit2 -p GitPython -p git"
     salt.verbose = true
