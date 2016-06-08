@@ -7,6 +7,7 @@ set-varnish-role:
 varnish:
   pkg:
     - installed
+    - enablerepo: varnish-3.0
   service:
     - enable: True
     - running
@@ -30,12 +31,10 @@ varnish:
 
 /etc/varnish/secret:
   file.managed:
-    - mode: 640
-    - user: root
-    - group: vagrant
+    - mode: 644
 
 /var/log/varnish:
   file.directory:
-    - mode: 750
+    - mode: 755
     - user: root
     - group: vagrant
