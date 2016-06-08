@@ -43,13 +43,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
     config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
+    config.vm.synced_folder "./salt/roots/", "/srv/salt", :nfs => { }
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   else
     config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
+    config.vm.synced_folder "./salt/roots/", "/srv/salt", :mount_options => [ "dmode=777","fmode=666" ]
     config.nfs.map_uid = 501
     config.nfs.map_gid = 20
   end
+
   
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -64,18 +67,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
 
   # Run any custom scripts before provisioning
+  config.vm.provision :shell, :path => "puppet/shell/pre-provision.sh"
 
   # Salt provisioning
-  config.vm.synced_folder "salt/roots/", "/srv/salt", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
   config.vm.provision :salt do |salt|
-    salt.bootstrap_options = "-X -Z -p python-pygit2 -p GitPython -p git"
+#    salt.bootstrap_options = "-X -p python-pygit2 -p GitPython -p git"
+    salt.minion_config = "salt/minion"
+    salt.masterless = true
     salt.verbose = true
     salt.colorize = true
-    salt.log_level = 'debug'
+    salt.log_level = 'info'
+    salt.run_highstate = true
   end
 
-  config.vm.provision "shell",
-    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call state.sls jinja26 && sudo bash -c 'export PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH; salt-call state.highstate && sudo yum -y update'"
+#  config.vm.provision "shell",
+#    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call state.sls jinja26 && sudo bash -c 'export PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH; salt-call state.highstate && sudo yum -y update'"
+
+  # Run any custom scripts after provisioning
+  config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
 
   # https://github.com/mitchellh/vagrant/issues/5001
   config.vm.box_download_insecure = true

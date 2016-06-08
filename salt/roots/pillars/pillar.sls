@@ -26,6 +26,9 @@ php:
   ng:
     php_version: php55u
 
+drush:
+  version: '8.x'
+  
 nginx:
   ng:
     vhosts:

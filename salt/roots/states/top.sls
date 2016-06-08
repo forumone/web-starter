@@ -1,19 +1,22 @@
 base:
   '*':
     - core
-#    - epel
+    - epel
     - jinja26
-#    - rbenv
     - node
+    - ruby
 #    Load mysql.client first to avoid getting mysql-libs from base repo
     - mysql.client
     - mysql
     - memcached.config
-    - varnish
-    - varnish.repo
-#    - mailcatcher
     - nginx.ng
+    - varnish.repo
+    - varnish
     - php.ng
     - php.ng.cli.ini
-    - php.ng.fpm
+    - php.ng.fpm.pools
     - composer
+    - drush
+    - solr.v4
+    - mailhog
+
