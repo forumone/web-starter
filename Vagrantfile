@@ -71,14 +71,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Salt provisioning
   config.vm.provision :salt do |salt|
-    salt.bootstrap_options = "-X -Z -p python-pygit2 -p GitPython -p git"
+#    salt.bootstrap_options = "-X -p python-pygit2 -p GitPython -p git"
+    salt.minion_config = "salt/minion"
+    salt.masterless = true
     salt.verbose = true
     salt.colorize = true
-    salt.log_level = 'debug'
+    salt.log_level = 'info'
+    salt.run_highstate = true
   end
 
-  config.vm.provision "shell",
-    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call state.sls jinja26 && sudo bash -c 'export PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH; salt-call state.highstate && sudo yum -y update'"
+#  config.vm.provision "shell",
+#    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call state.sls jinja26 && sudo bash -c 'export PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH; salt-call state.highstate && sudo yum -y update'"
 
   # Run any custom scripts after provisioning
   config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"

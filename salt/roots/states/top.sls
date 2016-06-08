@@ -3,8 +3,8 @@ base:
     - core
     - epel
     - jinja26
-#    - rbenv
     - node
+    - ruby
 #    Load mysql.client first to avoid getting mysql-libs from base repo
     - mysql.client
     - mysql
@@ -18,4 +18,5 @@ base:
     - composer
     - drush
     - solr.v4
+    - mailhog
 

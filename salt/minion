@@ -423,6 +423,7 @@ file_roots:
     - /srv/salt/formulas/node-formula
     - /srv/salt/formulas/php-formula
     - /srv/salt/formulas/solr-formula
+    - /srv/salt/formulas/mailhog-formula
 #   dev:
 #     - /srv/salt/dev/services
 #     - /srv/salt/dev/states
@@ -664,3 +665,4 @@ gitfs_remotes:
   - https://github.com/forumone/php-formula.git:
     - base: 20160215
   - https://github.com/forumone/solr-formula.git
+  - https://github.com/forumone/mailhog-formula.git

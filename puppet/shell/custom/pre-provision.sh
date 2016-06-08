@@ -11,7 +11,7 @@ do
   echo $repodir
   if [[ ! -d $repodir ]]
   then
-    git fetch $repo || echo "Already exists."
+    git clone $repo || echo "Already exists."
   else
     cd $repodir
     git pull
