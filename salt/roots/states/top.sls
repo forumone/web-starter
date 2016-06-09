@@ -19,4 +19,5 @@ base:
     - drush
     - solr.v4
     - mailhog
+    - core.cleanup
 
