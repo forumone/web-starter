@@ -2,4 +2,4 @@
 
 make-logs-viewable:
   cmd.run:
-    - name: chmod ugo+rx /var/log/{nginx,php-fpm,vagrant}
+    - name: chmod ugo+rx /var/log/{nginx,php-fpm,varnish}
