@@ -16,4 +16,4 @@ download-precompiled-ruby:
 install-ruby-bundler:
   cmd.run:
     - name: /usr/local/bin/gem install bundle
-    - unless: test -f /usr/bin/bundle
+    - unless: test -f /usr/local/bin/bundle
