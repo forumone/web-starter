@@ -4,7 +4,8 @@ VAGRANT_CORE_FOLDER="/vagrant"
 
 if [[ -f "${VAGRANT_CORE_FOLDER}/Gemfile" ]]; then
   echo 'Installing bundler gems'
-  su - vagrant -c "cd ${VAGRANT_CORE_FOLDER} && rbenv exec bundle install" >/dev/null
+  #su - vagrant -c "cd ${VAGRANT_CORE_FOLDER} && rbenv exec bundle install" >/dev/null
+  su - vagrant -c "cd ${VAGRANT_CORE_FOLDER} && bundle install" 
 fi
 
 if [[ -f "${VAGRANT_CORE_FOLDER}/package.json" ]]; then
