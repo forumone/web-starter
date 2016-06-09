@@ -255,6 +255,7 @@ php:
               pm.min_spare_servers: 1
               pm.max_spare_servers: 3
               'php_admin_value[memory_limit]': 300M
+              catch_workers_output: 'yes'
     cli:
       ini:
         settings:
