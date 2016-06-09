@@ -12,3 +12,8 @@ download-precompiled-ruby:
     - tar_options: z
     - archive_format: tar
     - if_missing: /usr/local/bin/ruby
+
+install-ruby-bundler:
+  cmd.run:
+    - name: /usr/local/bin/gem install bundle
+    - unless: test -f /usr/bin/bundle
