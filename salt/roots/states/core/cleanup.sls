@@ -1,5 +1,10 @@
 # Miscellanous rules to clean up after ourselves, etc
 
-make-logs-viewable:
-  cmd.run:
-    - name: chmod ugo+rx /var/log/{nginx,php-fpm,varnish}
+{% set logdirectories = 'nginx', 'varnish', 'php-fpm' %}
+
+{% for dir in logdirectories %}
+logdir-perms-{{dir}}:
+  file.directory:
+    - name: /var/log/{{ dir }}
+    - mode: 755
+{% endfor %}
