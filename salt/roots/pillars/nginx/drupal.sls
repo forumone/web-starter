@@ -10,6 +10,10 @@ nginx:
               - listen:
                 - 8080
                 - default_server
+              - listen:
+                - 443 ssl default_server
+              - ssl_certificate: ssl/vagrant.crt
+              - ssl_certificate_key: ssl/vagrant.key
               - root: /vagrant/public
               - access_log: /var/log/nginx/vagrant.log
               - location /:

@@ -119,6 +119,60 @@ nginx:
             - /etc/nginx/mime.types
             - /etc/nginx/conf.d/*.conf
 
+    certificates:
+      'vagrant':
+        public_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDqzCCApOgAwIBAgIJAPd27F6uPpZtMA0GCSqGSIb3DQEBCwUAMGwxCzAJBgNV
+          BAYTAlVTMREwDwYDVQQIDAhWaXJnaW5pYTETMBEGA1UEBwwKQWxleGFuZHJpYTES
+          MBAGA1UECgwJRm9ydW0gT25lMQ0wCwYDVQQLDARUZWNoMRIwEAYDVQQDDAlsb2Nh
+          bGhvc3QwHhcNMTYwNjE0MTU1OTI5WhcNMjYwNjEyMTU1OTI5WjBsMQswCQYDVQQG
+          EwJVUzERMA8GA1UECAwIVmlyZ2luaWExEzARBgNVBAcMCkFsZXhhbmRyaWExEjAQ
+          BgNVBAoMCUZvcnVtIE9uZTENMAsGA1UECwwEVGVjaDESMBAGA1UEAwwJbG9jYWxo
+          b3N0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzEiKVc065RhnZx94
+          LTk6IEDK7MzwLSO71MvCGnAtGi6DaOR8JsXS/az/DkoIwfHdM6FzIvr43s13pleE
+          4gUvsGV75CCqoaSjF2Rs7Xk3fgcECdZH4ayGhjuzA+RgxyMCD3dM5kqbPOecu8Ng
+          Mwp63IoxTN2EbMD+Tj6/nAV/BeIKAWGLomgBkojeYh3gg4LMyMXvqzd9GTivWCo4
+          RsbTRFokICAL8g8OcQSyGg1NIatoyVhrXDlngCWTHXrsG06sbC/5Pfyzme017W/F
+          0SUlF7Qs853gpuL/mWBe/jYo+12FnihtobYkN3VKWzFli/ODK84avKkWN32l13gb
+          6wPZmwIDAQABo1AwTjAdBgNVHQ4EFgQUi2m8wtEAKZjqRFvylQlbtKfTfnEwHwYD
+          VR0jBBgwFoAUi2m8wtEAKZjqRFvylQlbtKfTfnEwDAYDVR0TBAUwAwEB/zANBgkq
+          hkiG9w0BAQsFAAOCAQEAbVSXs2ggyV7MP153QlMneI5t+U8cvvXwljbaltO4PAt/
+          lZdVnW1l40HyIaRli+O8XSWqdZ4aCSFmZCpAJfK7HjNBe8aICeroG/CIZ45dtEN3
+          OXJ+UB2SIpca4h0poDWrilX7DgUGOTgEgGuiJ1rF0FIb0hKMwX3UOU318DthRKot
+          DEKV3+XLH15sxmJXLH1RlP5Xl1xgOzBhDO1MrzvGBAiJtHWyOtELOQfBcy8eFdaL
+          XDexqbZeTba7l+eVQ6cyVMu+yarBLe3p+cJmasrTzqSdSZzQHynGK6eLL089aRNI
+          S4uCNATzJjEnQkGrYnsBDUpfnwau/d6hvXnCmXur+A==
+          -----END CERTIFICATE-----
+        private_key: |
+          -----BEGIN PRIVATE KEY-----
+          MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDMSIpVzTrlGGdn
+          H3gtOTogQMrszPAtI7vUy8IacC0aLoNo5HwmxdL9rP8OSgjB8d0zoXMi+vjezXem
+          V4TiBS+wZXvkIKqhpKMXZGzteTd+BwQJ1kfhrIaGO7MD5GDHIwIPd0zmSps855y7
+          w2AzCnrcijFM3YRswP5OPr+cBX8F4goBYYuiaAGSiN5iHeCDgszIxe+rN30ZOK9Y
+          KjhGxtNEWiQgIAvyDw5xBLIaDU0hq2jJWGtcOWeAJZMdeuwbTqxsL/k9/LOZ7TXt
+          b8XRJSUXtCzzneCm4v+ZYF7+Nij7XYWeKG2htiQ3dUpbMWWL84Mrzhq8qRY3faXX
+          eBvrA9mbAgMBAAECggEBAKHgKZ5sDmtTtzyEN1q+qky8ixCyJO/gDQtGmv0QPu0s
+          Rn1r8OVYhST3XPUZvW7SFZLAMNhbP7Jt5o4tc+MWcP+6qz3OlOeZ6pKyxY44K7z2
+          GkEhR7yQVdkwnV5MLlQebZeL1af3HqRYdF5lJ2nKuCjiaMacEj+LfvjJyFP+FvW1
+          CWohtSPnskddqEOEpsBInamSXisQLffPIusaCVuK8lI4itpdCQoF/1436BGv3Kgg
+          fS60KXvcQ6wCJOCViUpcJPYJ4AealY+uXHzfN68kGugqEea7ND8Xnw49h9UXQRQB
+          VnYj3odA/Ug2iYgZxHfBGT9xVPOY6a919ob8xrf9NEECgYEA8jL/6t7SILP8eeRI
+          5urKA8rnWQG0iTba4XWneaSXJCjrpmBALDwl0kKyMOij++roEqnHME7k4FdFTx0z
+          d5Z611C4lwR2jvYDHxz31qozRldBsO2Dnyk1ruaCTP8GFa38psNTqyaV5EYw6Nn2
+          qb9Cun2u0JZOyJaOc78zHl/lUHkCgYEA1+x0reNoBeePVRX98CCVJRqUMYVgXK+b
+          SqFRaGD6HtgFY3Nynm26Vq5V8a1H4i5vtJ3LwMeybYZZvpM02gw+h8gpw1lG5sYB
+          41WMH24bws9UXWDCyplmu8xXIRF4kXFK+KYN0hAFCUIcuB0GiXi0F3OG7Q5dyXnk
+          7rahAZ8N/bMCgYBiTaDhy56t91+6eZW9Y/6qm2hbD/4e00zzxbU8Ajn2S0WaOebS
+          DXesZ7W7dDFaxnV7Xb2jNeJfzAwtmESTfVhOnEzPvtgAHooVzsQpNNuq6S+YiE6s
+          AyXu31Bzv+7QTdYGObFz/i1IgdTILe+X5jFHUEvsDZXchH89K5Wr9nA0wQKBgQCt
+          /7IW3oZZG7z5R/uWoesON1jsfxqkFi8B+PVtM5jbeiD9f28CFFJwv5QqaQTgU6NY
+          3T/wXfx/HiD73gxdGjjZmodtEGh+V1n2JF4CheyBFCpcBTlzoiKTe5tK3pVWPwG3
+          VbkVaitkxo32IA3AgjA+Ja65ITaawUumwi0E7XOM2QKBgQDS+GDBGLCiFTaZQqMf
+          2kPUyfR+wvOab/dPhU4MLcIWr9ePfimyRROcLebpTDSIbVXw5IkaU5C6qaWTSkTv
+          6yg8s9tM+dLp14SMGHmcNmIHJdLfW666CN+EMV2HviTU81iuC4oXJ5Ayko0XtzcE
+          xSCNdkDqDQ0dlrd0dTd4ODt4qQ==
+          -----END PRIVATE KEY-----
     vhosts:
       disabled_postfix: .disabled # a postfix appended to files when doing non-symlink disabling
       symlink_opts: {} # partially exposes file.symlink params when symlinking enabled sites
