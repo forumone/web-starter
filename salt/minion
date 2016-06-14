@@ -424,6 +424,7 @@ file_roots:
     - /srv/salt/formulas/php-formula
     - /srv/salt/formulas/solr-formula
     - /srv/salt/formulas/mailhog-formula
+    - /srv/salt/formulas/java-formula
 #   dev:
 #     - /srv/salt/dev/services
 #     - /srv/salt/dev/states
