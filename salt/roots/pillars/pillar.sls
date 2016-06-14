@@ -10,6 +10,10 @@ node:
 #varnish:
 #  vcl: salt://custom/varnish/
 
+# TODO
+#solr:
+#  sonf: salt://custom/solr-conf
+
 mysql:
   mysql_version: mysql56u
   database:
@@ -24,7 +28,7 @@ mysql:
 
 php:
   ng:
-    php_version: php55u
+    php_version: php56u
 
 drush:
   version: '8.x'
