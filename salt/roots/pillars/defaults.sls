@@ -1,3 +1,8 @@
+# Extra packages
+extra_packages:
+  - gcc
+  - gcc-c++
+
 # Default memcached settings.
 memcached:
   user: memcached
