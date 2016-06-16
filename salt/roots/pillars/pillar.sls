@@ -21,7 +21,7 @@ mysql:
   user:
     web:
       password: 'web'
-      host: localhost
+      host: '%'
       databases:
         - database: web
           grants: ['all privileges']
