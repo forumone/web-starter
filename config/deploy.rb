@@ -37,7 +37,7 @@ set :ssh_options, {
 }
 
 # Platform
-set :platform, "drupal"
+set :platform, "drupal8"
 
 # rsync settings
 set :rsync_options, %w[--recursive --chmod=Dug=rwx,Do=rx --perms --delete --delete-excluded --exclude=.git* --exclude=node_modules]
