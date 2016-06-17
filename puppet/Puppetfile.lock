@@ -1,0 +1,70 @@
+FORGE
+  remote: https://forge.puppet.com
+  specs:
+    alup-rbenv (1.2.0)
+    fsalum-redis (0.0.11)
+      thias-sysctl (= 0.3.0)
+    maestrodev-wget (1.7.3)
+    puppetlabs-apache (1.0.1)
+      puppetlabs-concat (>= 1.0.0)
+      puppetlabs-stdlib (>= 2.4.0)
+    puppetlabs-apt (1.1.1)
+      puppetlabs-stdlib (>= 2.2.1)
+    puppetlabs-concat (1.0.4)
+    puppetlabs-firewall (0.4.2)
+    puppetlabs-ruby (0.4.0)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs-stdlib (4.12.0)
+    stahnma-epel (0.0.5)
+    thias-memcached (0.1.0)
+    thias-php (0.3.12)
+    thias-sysctl (0.3.0)
+    willdurand-nodejs (1.8.6)
+      maestrodev-wget (>= 1.2.0)
+      puppetlabs-stdlib (>= 3.2.1)
+
+GIT
+  remote: https://github.com/arioch/puppet-percona.git
+  ref: master
+  sha: 1a0fe2191c318ebb046c2a78f984ab387d5060d9
+  specs:
+    arioch-percona (0.0.1)
+
+GIT
+  remote: https://github.com/forumone/puppet-forumone.git
+  ref: 1.1.46
+  sha: 66600a4e7dbf0fee8bf34159d7e88072a67c57f7
+  specs:
+    forumone-forumone (1.1.46)
+      alup-rbenv (~> 1.2.0)
+      fsalum-redis (= 0.0.11)
+      puppetlabs-apache (= 1.0.1)
+      puppetlabs-apt (~> 1.1.0)
+      puppetlabs-concat (~> 1.0.0)
+      puppetlabs-firewall (~> 0.4.0)
+      puppetlabs-ruby (~> 0.4.0)
+      stahnma-epel (= 0.0.5)
+      thias-memcached (~> 0.1.0)
+      thias-php (~> 0.3.0)
+      willdurand-nodejs (~> 1.8.0)
+
+GIT
+  remote: https://github.com/puppetlabs/puppetlabs-mysql.git
+  ref: 0.9.0
+  sha: 11ab036fed3b252492f5400bf8fd69698d510482
+  specs:
+    puppetlabs-mysql (0.0.1)
+
+GIT
+  remote: https://github.com/thias/puppet-nginx.git
+  ref: master
+  sha: 3cb3acc1defc2e8e5f23ce9680a16777b4a7a8f8
+  specs:
+    thias-nginx (1.0.9)
+
+DEPENDENCIES
+  arioch-percona (>= 0)
+  forumone-forumone (>= 0)
+  puppetlabs-mysql (>= 0)
+  thias-nginx (>= 0)
+

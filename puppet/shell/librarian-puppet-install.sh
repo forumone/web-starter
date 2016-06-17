@@ -7,6 +7,7 @@ CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/puppet/shell/os-detect.sh" CODENAME
 # Directory in which librarian-puppet should manage its modules directory
 PUPPET_DIR=/etc/puppet/
 OPT_DIR=/opt/puppet
+RUBY_VERSION=2.3.0
 
 $(which git > /dev/null 2>&1)
 FOUND_GIT=$?
@@ -44,6 +45,7 @@ if [[ ! -d "${PUPPET_DIR}" ]]; then
 fi
 
 cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile" "${PUPPET_DIR}"
+cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile.lock" "${PUPPET_DIR}"
 
 echo "Copied Puppetfile"
 
@@ -77,28 +79,25 @@ if [ "${OS}" == 'ubuntu' ]; then
     fi
 fi
 
-if [[ ! -f "${OPT_DIR}/librarian-puppet-installed" ]]; then
-    if [ "${FOUND_YUM}" -eq '0' ]; then
-      yum install -q -y ruby-devel sqlite sql sqlite-devel
-    fi
-    gem install bundler
-    cp "${VAGRANT_CORE_FOLDER}/puppet/shell/Gemfile" "${PUPPET_DIR}"
-    echo 'Installing librarian-puppet'
-    cd "${PUPPET_DIR}" && bundle install
-    echo 'Finished installing librarian-puppet'
-
-    echo 'Running initial librarian-puppet'
-    cd "${PUPPET_DIR}" && bundle exec librarian-puppet install --clean >/dev/null
-    echo 'Finished running initial librarian-puppet'
-
-    if [ $? -eq 0 ]; then
-        touch "${OPT_DIR}/librarian-puppet-installed"
-    fi
-else
-    echo 'Running update librarian-puppet'
-    cd "${PUPPET_DIR}" && bundle exec librarian-puppet update >/dev/null
-    echo 'Finished running update librarian-puppet'
+if [[ ! -d "${OPT_DIR}/ruby-${RUBY_VERSION}" ]]; then
+    echo "Installing ruby ${RUBY_VERSION}"
+    mkdir "${OPT_DIR}/ruby-${RUBY_VERSION}"
+    wget --directory-prefix="${OPT_DIR}/" "https://s3.amazonaws.com/pkgr-buildpack-ruby/current/centos-6/ruby-${RUBY_VERSION}.tgz" >/dev/null
+    tar -xzvf "${OPT_DIR}/ruby-${RUBY_VERSION}.tgz" -C "${OPT_DIR}/ruby-${RUBY_VERSION}" >/dev/null
+    ln -s "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/ruby" /usr/local/bin/ruby
+    ln -s "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/gem" /usr/local/bin/gem
 fi
+
+if [ "${FOUND_YUM}" -eq '0' ]; then
+    yum install -q -y ruby-devel sqlite sql sqlite-devel
+fi
+echo 'Installing librarian-puppet'
+/usr/local/bin/gem install librarian-puppet puppet
+echo 'Finished installing librarian-puppet'
+
+echo 'Running initial librarian-puppet'
+cd "${PUPPET_DIR}" && "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/librarian-puppet" install
+echo 'Finished running initial librarian-puppet'
 
 
 
