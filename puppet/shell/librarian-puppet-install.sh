@@ -45,7 +45,6 @@ if [[ ! -d "${PUPPET_DIR}" ]]; then
 fi
 
 cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile" "${PUPPET_DIR}"
-cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile.lock" "${PUPPET_DIR}"
 
 echo "Copied Puppetfile"
 
@@ -91,13 +90,17 @@ fi
 if [ "${FOUND_YUM}" -eq '0' ]; then
     yum install -q -y ruby-devel sqlite sql sqlite-devel
 fi
+
 echo 'Installing librarian-puppet'
 /usr/local/bin/gem install librarian-puppet puppet
 echo 'Finished installing librarian-puppet'
 
-echo 'Running initial librarian-puppet'
-cd "${PUPPET_DIR}" && "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/librarian-puppet" install
-echo 'Finished running initial librarian-puppet'
-
+if [[ -f /etc/puppet/Puppetfile.lock ]]; then
+    cd "${PUPPET_DIR}" && "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/librarian-puppet" update >/dev/null
+else
+    echo 'Running initial librarian-puppet'
+    cd "${PUPPET_DIR}" && "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/librarian-puppet" install >/dev/null
+    echo 'Finished running initial librarian-puppet'
+fi
 
 
