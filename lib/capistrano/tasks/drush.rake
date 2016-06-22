@@ -5,7 +5,7 @@
 # - :sqlsync: Copies a database from a remote Drupal site, assumes ENV['source'] provided which is a drush alias
 # - :rsync: Copies files from a remote Drupal site, assumes ENV['source'] provided which is a drush alias
 # - :sqldump: Dumps the database to the current revision's file system
-# - :cc: Clears the entire Drupal cache
+# - :cr: Rebuilds the entire Drupal cache
 # - :update: Runs all pending updates, including DB updates, Features and Configuration -- if set to use those
 # - :updatedb: Runs update hooks
 # - :features:revert: Reverts Features, which may be all Features or just Features in particular directories
@@ -128,11 +128,11 @@ namespace :drush do
   end
 
   desc "Clears the Drupal cache"
-  task :cc do
+  task :cr do
     on roles(:db) do
       within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
         fetch(:site_url).each do |site|
-          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'cc all'
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{site}", 'cr'
         end
       end
     end
@@ -145,7 +145,7 @@ namespace :drush do
       invoke 'drush:updatedb'
     end
     
-    invoke 'drush:cc'
+    invoke 'drush:cr'
 	
     # If we're using Features revert Features
     if fetch(:drupal_features)
@@ -167,7 +167,7 @@ namespace :drush do
         end
       end
       
-      invoke 'drush:cc'
+      invoke 'drush:cr'
     end
   end
   
@@ -198,7 +198,7 @@ namespace :drush do
         end
       end
       
-      invoke 'drush:cc'
+      invoke 'drush:cr'
     end
   end
 
@@ -225,7 +225,7 @@ namespace :drush do
         end
       end
 
-      invoke 'drush:cc'
+      invoke 'drush:cr'
     end
   end
 end
