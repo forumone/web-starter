@@ -44,6 +44,14 @@ if [[ ! -d "${PUPPET_DIR}" ]]; then
     echo "Created directory ${PUPPET_DIR}"
 fi
 
+# Update Puppet
+if [[ ! -f /etc/yum.repos.d/puppetlabs.repo ]]; then
+    rpm -ivh https://yum.puppetlabs.com/el/6.5/products/x86_64/puppetlabs-release-6-10.noarch.rpm >/dev/null
+fi
+
+echo 'Updating Puppet'
+yum update puppet -y > /dev/null
+
 cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile" "${PUPPET_DIR}"
 
 echo "Copied Puppetfile"
@@ -85,6 +93,8 @@ if [[ ! -d "${OPT_DIR}/ruby-${RUBY_VERSION}" ]]; then
     tar -xzvf "${OPT_DIR}/ruby-${RUBY_VERSION}.tgz" -C "${OPT_DIR}/ruby-${RUBY_VERSION}" >/dev/null
     ln -s "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/ruby" /usr/local/bin/ruby
     ln -s "${OPT_DIR}/ruby-${RUBY_VERSION}/bin/gem" /usr/local/bin/gem
+
+    find "${OPT_DIR}/ruby-${RUBY_VERSION}" -type d | xargs chmod 777
 fi
 
 if [ "${FOUND_YUM}" -eq '0' ]; then
