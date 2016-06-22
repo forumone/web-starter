@@ -9,19 +9,17 @@
 # - :update: Runs all pending updates, including DB updates, Features and Configuration -- if set to use those
 # - :updatedb: Runs update hooks
 # - :features:revert: Reverts Features, which may be all Features or just Features in particular directories
-# - :configuration:sync: Synchronizes Configuration and loads it from the Data Store to the Active Store
+# - :configuration:import: Import Configuration into the database from the config management directory
 # - :sapi:reindex: Clear Search API indexes and reindex each
 #
 # Variables:
 # - :drupal_features: Whether the Features module is enabled -- defaults to TRUE
-# - :drupal_cmi: Whether the Configuration module is enabled -- defaults to FALSE
 # - :drupal_features_path: Path(s) to scan for Features modules, if empty reverts all Features -- defaults to empty
 # - :drupal_db_updates: Whether to run update hooks on deployment -- defaults to TRUE
 
 namespace :load do
   task :defaults do
     set :drupal_features, true
-    set :drupal_cmi, false
     set :drupal_features_path, %w[]
     set :drupal_db_updates, true
     set :settings_file_perms, '644'
@@ -146,24 +144,21 @@ namespace :drush do
     end
     
     invoke 'drush:cr'
+
+    invoke 'drush:configuration:import'
 	
     # If we're using Features revert Features
     if fetch(:drupal_features)
       invoke 'drush:features:revert'
     end
-    
-    # If we're using Drupal Configuration Management module synchronize the Configuration
-    if fetch(:drupal_cmi)
-      invoke 'drush:configuration:sync'
-    end
   end
   
   namespace :configuration do
-    desc "Load Configuration from the Data Store and apply it to the Active Store"
-    task :sync do
+    desc "Import Configuration into the database from the config management directory"
+    task :import do
       on roles(:db) do
         within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
-          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)}", 'config-sync'
+          execute :drush, "-y -p -r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)}", 'config-import'
         end
       end
       
