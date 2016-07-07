@@ -73,12 +73,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Salt provisioning
   config.vm.provision :salt do |salt|
-#    salt.bootstrap_options = "-X -p python-pygit2 -p GitPython -p git"
+    salt.bootstrap_options = "-p python-pygit2 -p git"
     salt.minion_config = "salt/minion"
     salt.masterless = true
     salt.verbose = true
     salt.colorize = true
-    salt.log_level = 'info'
+    #salt.log_level = 'info'
+    salt.log_level = 'all'
     salt.run_highstate = true
   end
 
