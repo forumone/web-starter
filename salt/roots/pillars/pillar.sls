@@ -10,9 +10,11 @@ node:
 #varnish:
 #  vcl: salt://custom/varnish/
 
-# TODO
+# Custom Solr config files
 #solr:
-#  sonf: salt://custom/solr-conf
+#  conf: salt://custom/solr-conf
+
+java: java-1.8.0-openjdk
 
 mysql:
   mysql_version: mysql56u
