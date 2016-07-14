@@ -19,5 +19,6 @@ base:
     - drush
     - solr.v4
     - mailhog
+    - elasticsearch
     - core.cleanup
 

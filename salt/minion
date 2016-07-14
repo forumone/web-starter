@@ -414,7 +414,7 @@ file_client: local
 file_roots:
   base:
     - /srv/salt/states
-    - /vagrant/config
+    - /vagrant/config/custom
 #    - /srv/salt/formulas/nginx-formula
 #    - /srv/salt/formulas/epel-formula
 #    - /srv/salt/formulas/memcached-formula
@@ -666,6 +666,7 @@ gitfs_remotes:
   - https://github.com/forumone/redis-formula.git
   - https://github.com/forumone/php-formula.git:
     - base: 20160215
+  - https://github.com/forumone/java-formula.git
   - https://github.com/forumone/solr-formula.git
   - https://github.com/forumone/mailhog-formula.git
-  - https://github.com/forumone/java-formula.git
+  - https://github.com/forumone/elasticsearch-formula.git
