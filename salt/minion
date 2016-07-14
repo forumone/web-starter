@@ -414,7 +414,7 @@ file_client: local
 file_roots:
   base:
     - /srv/salt/states
-    - /vagrant/config/salt_templates
+    - /vagrant/config
 #    - /srv/salt/formulas/nginx-formula
 #    - /srv/salt/formulas/epel-formula
 #    - /srv/salt/formulas/memcached-formula

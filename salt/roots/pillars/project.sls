@@ -17,3 +17,11 @@ extra_packages:
 # include Yeoman generated settings
 include:
   - generated
+
+php:
+  ng:
+    cli:
+      ini:
+        settings:
+          PHP:
+            memory_limit: 256M
