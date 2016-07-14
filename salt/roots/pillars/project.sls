@@ -3,13 +3,13 @@ extra_packages:
   - gcc
   - gcc-c++
 
-## Define custom VCL for project in config/custom/varnish/default.vcl, backends.vcl, secret, etc.
+## Define custom VCL for project in config/salt_templates/varnish/default.vcl, backends.vcl, secret, etc.
 #varnish:
-#  vcl: salt://custom/varnish/
+#  vcl: salt://varnish/
 
-# Custom Solr config files
+# Custom Solr config files - place in config/salt_templates/solr-conf
 #solr:
-#  conf: salt://custom/solr-conf
+#  conf: salt://solr-conf
 
 # Define nginx template
 {% include 'nginx/drupal.sls' %}
