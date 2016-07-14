@@ -1,3 +1,8 @@
+# Extra packages
+extra_packages:
+  - gcc
+  - gcc-c++
+
 node:
   version: 4.4.1
   install_from_binary: True

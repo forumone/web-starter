@@ -1,7 +1,6 @@
-# Extra packages
-extra_packages:
-  - gcc
-  - gcc-c++
+include:
+  - defaults.mysql
+  - defaults.phpng
 
 # Default memcached settings.
 memcached:
