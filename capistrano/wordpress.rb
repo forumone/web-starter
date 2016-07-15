@@ -40,6 +40,7 @@ namespace :wordpress do
   task :revert_database do
     on roles(:db) do
       within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
+        execute :gunzip, "#{release_path}/db.sql.gz"
         execute :wp, "db import", "#{release_path}/db.sql"
       end
     end

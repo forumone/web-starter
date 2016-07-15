@@ -609,3 +609,8 @@ $conf['search_cron_limit'] = 0;
  */
 $conf['file_temporary_path'] = '/tmp';
 
+
+// Allow optional settings.local.php file
+if (file_exists('./' . conf_path() . '/settings.local.php')) {
+  require './' . conf_path() . '/settings.local.php';
+}

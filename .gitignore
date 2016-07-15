@@ -1,9 +1,31 @@
+# IDE specific files
 .buildpath
 .project
 .settings
+.idea
+
+# Vagrant
 .vagrant
-node_modules
 Vagrantfile.local
+
+# NPM
+node_modules
+
+# Bower
+bower_components
+
+# tmp
+/tmp
+
+# Salt
+salt/roots/formulas/*
+
+# Misc
 .DS_Store
 /_site
-salt/roots/formulas/*
+
+# Local settings
+settings.local.php
+
+# SASS
+.sass-cache
