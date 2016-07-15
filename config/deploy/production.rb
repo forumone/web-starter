@@ -7,7 +7,7 @@ set :site_url, %w{example.com}
 # An array containing drupal sites to copy settings files in
 set :site_folder, %w{default}
 
-# The directory where the webroot 
+# The web root directory on the server
 set :webroot, 'public'
 
 # The path to the project on the server
@@ -32,8 +32,8 @@ role :db,  %w{deploy@example.com}
 # ======================
 # This can be used to drop a more detailed server
 # definition into the server list. The second argument
-# something that quacks like a has can be used to set
-# extended properties on the server.
+# is something that quacks like a hash and can be used
+# to set extended properties on the server.
 # server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
 
 # you can set custom ssh options

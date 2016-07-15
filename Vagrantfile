@@ -2,8 +2,6 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  #config.vm.box = "forumone/centos66-64-salt"
-  #config.vm.box = "forumone/centos64-64"
   config.vm.box = "bento/centos-6.7"
 
   if Vagrant.has_plugin?("vagrant-cachier")
@@ -37,6 +35,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 3306, host: 13306
   # MailHog
   config.vm.network :forwarded_port, guest: 8025, host: 8025
+  # Selenium
+  config.vm.network :forwarded_port, guest: 4444, host: 4444
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -44,12 +44,35 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Add NFS
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
-    config.vm.synced_folder ".", "/vagrant", :nfs => { :mount_options => ["dmode=777","fmode=666"] }
+    synched_opts = { nfs: true, nfs_udp: false }
+    nfs_exports = ["rw", "async", "insecure", "no_subtree_check"]
+  
+    if (RUBY_PLATFORM =~ /darwin/)
+      nfs_exports += ["noac", "actimeo=0", "intr", "noacl", "lookupcache=none"]
+      synched_opts[:bsd__nfs_options] = nfs_exports
+    elsif (RUBY_PLATFORM =~ /linux/)
+      nfs_exports += ["all_squash"]
+      synched_opts[:linux__nfs_options] = nfs_exports
+    end
+  	
+    config.vm.synced_folder ".", "/vagrant", synched_opts
     config.vm.synced_folder "./salt/roots/", "/srv/salt", :nfs => { }
+
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   else
-    config.vm.synced_folder ".", "/vagrant", :mount_options => [ "dmode=777","fmode=666" ]
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+  	
+    # Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
+    config.vm.provider "virtualbox" do |v|
+      v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
+      v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
+    end
+    
+    # Finally, mount the shared folder on the guest system during provision
+    config.vm.provision :shell, inline: "mkdir -p /vagrant", run: "always"
+    config.vm.provision :shell, inline: "mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant", run: "always"
+    
     config.vm.synced_folder "./salt/roots/", "/srv/salt", :mount_options => [ "dmode=777","fmode=666" ]
     config.nfs.map_uid = 501
     config.nfs.map_gid = 20
@@ -68,6 +91,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.forward_agent = true
 
+  # CentOS machines with Software Collections scripts (scl enable foo) have a misbehaving sudo that doesn't recognize flags.
+  # Override them to prevent cryptic errors about "line 8: -E: command not found"
+  config.ssh.sudo_command = "sudo %c"
+  
   # Run any custom scripts before provisioning
   config.vm.provision :shell, :path => "puppet/shell/pre-provision.sh"
 
@@ -88,7 +115,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Run any custom scripts after provisioning
   config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
-
+  config.vm.provision :shell, :path => "puppet/shell/post-provision.unprivileged.sh", privileged: false
+  
   # https://github.com/mitchellh/vagrant/issues/5001
   config.vm.box_download_insecure = true
 
