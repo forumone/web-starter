@@ -662,14 +662,20 @@ gitfs_remotes:
     - base: 20160216
   - https://github.com/forumone/drush-formula.git:
     - base: 20160506
-  - https://github.com/forumone/node-formula.git
-  - https://github.com/forumone/redis-formula.git
+  - https://github.com/forumone/node-formula.git:
+    - base: 20160719
+  - https://github.com/forumone/redis-formula.git:
+    - base: 20160719
   - https://github.com/forumone/php-formula.git:
     - base: 20160215
-  - https://github.com/forumone/java-formula.git
-  - https://github.com/forumone/solr-formula.git
-  - https://github.com/forumone/mailhog-formula.git
-  - https://github.com/forumone/elasticsearch-formula.git
+  - https://github.com/forumone/java-formula.git:
+    - base: 20160719
+  - https://github.com/forumone/solr-formula.git:
+    - base: 20160719
+  - https://github.com/forumone/mailhog-formula.git:
+    - base: 20160719
+  - https://github.com/forumone/elasticsearch-formula.git:
+    - base: 20160719
   - https://github.com/forumone/composer-formula.git:
     - base: 20160719
   - https://github.com/forumone/ruby-formula.git:
