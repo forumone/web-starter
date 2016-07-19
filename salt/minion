@@ -670,3 +670,6 @@ gitfs_remotes:
   - https://github.com/forumone/solr-formula.git
   - https://github.com/forumone/mailhog-formula.git
   - https://github.com/forumone/elasticsearch-formula.git
+  - https://github.com/forumone/composer-formula:
+    - base: 20160719
+  
