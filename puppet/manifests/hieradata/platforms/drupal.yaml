@@ -34,6 +34,7 @@ forumone::php::settings:
   xdebug.remote_handler: "dbgp"
   opcache.memory_consumption: "128M"
   date.timezone: "UTC"
+  always_populate_raw_post_data: -1
 
 percona::conf:
   max_allowed_packets:
