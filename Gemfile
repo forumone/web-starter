@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'capistrano', '3.4'
+gem 'capistrano', '~>3.4'
 gem 'net-ssh', '~>2.9.2'
 gem 'rake'
 gem 'i18n', '0.6'
