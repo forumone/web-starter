@@ -106,7 +106,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     salt.verbose = true
     salt.colorize = true
     #salt.log_level = 'info'
-    salt.log_level = 'all'
+    #salt.log_level = 'all'
     salt.run_highstate = true
   end
 
