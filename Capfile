@@ -2,8 +2,11 @@
 require 'capistrano/setup'
 require 'json'
 
+set :deploy_config_path, 'config/capistrano/deploy.rb'
+set :stage_config_path, 'config/capistrano/deploy'
+
 # Includes default deployment tasks
-require 'capistrano/deploy'
+require 'capistrano/setup'
 
 # Includes tasks from other gems included in your Gemfile
 #
