@@ -680,3 +680,4 @@ gitfs_remotes:
     - base: 20160719
   - https://github.com/forumone/ruby-formula.git:
     - base: 20160719
+  - https://github.com/forumone/varnish-formula.git
