@@ -96,7 +96,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.sudo_command = "sudo %c"
   
   # Run any custom scripts before provisioning
-  config.vm.provision :shell, :path => "puppet/shell/pre-provision.sh"
+  config.vm.provision :shell, :path => "config/shell/pre-provision.sh"
 
   # Salt provisioning
   config.vm.provision :salt do |salt|
@@ -106,16 +106,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     salt.verbose = true
     salt.colorize = true
     #salt.log_level = 'info'
-    salt.log_level = 'all'
+    #salt.log_level = 'all'
     salt.run_highstate = true
   end
 
-#  config.vm.provision "shell",
-#    inline: "sudo cp /vagrant/salt/minion /etc/salt/minion && sudo salt-call state.sls jinja26 && sudo bash -c 'export PYTHONPATH=/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg:$PYTHONPATH; salt-call state.highstate && sudo yum -y update'"
-
   # Run any custom scripts after provisioning
-  config.vm.provision :shell, :path => "puppet/shell/post-provision.sh"
-  config.vm.provision :shell, :path => "puppet/shell/post-provision.unprivileged.sh", privileged: false
+  config.vm.provision :shell, :path => "config/shell/post-provision.sh"
+  config.vm.provision :shell, :path => "config/shell/post-provision.unprivileged.sh", privileged: false
   
   # https://github.com/mitchellh/vagrant/issues/5001
   config.vm.box_download_insecure = true
