@@ -653,30 +653,30 @@ fileserver_backend:
 
 gitfs_remotes:
   - https://github.com/forumone/nginx-formula.git:
-    - base: 20160216
+    - base: 1.x
   - https://github.com/forumone/epel-formula.git:
-    - base: 20160216
+    - base: 1.x
   - https://github.com/forumone/memcached-formula.git:
-    - base: 20160216
+    - base: 1.x
   - https://github.com/forumone/mysql-formula.git:
-    - base: 20160216
+    - base: 1.x
   - https://github.com/forumone/drush-formula.git:
-    - base: 20160506
+    - base: 1.x
   - https://github.com/forumone/node-formula.git:
-    - base: 20160719
+    - base: 1.x
   - https://github.com/forumone/redis-formula.git:
-    - base: 20160719
+    - base: 1.x
   - https://github.com/forumone/php-formula.git:
-    - base: 20160215
+    - base: 1.x
   - https://github.com/forumone/java-formula.git:
-    - base: 20160719
+    - base: 1.x
   - https://github.com/forumone/solr-formula.git:
-    - base: 20160719
+    - base: 1.x
   - https://github.com/forumone/mailhog-formula.git:
-    - base: 20160719
+    - base: 1.x
   - https://github.com/forumone/elasticsearch-formula.git:
-    - base: 20160719
+    - base: 1.x
   - https://github.com/forumone/composer-formula.git:
-    - base: 20160719
+    - base: 1.x
   - https://github.com/forumone/ruby-formula.git:
-    - base: 20160719
+    - base: 1.x
