@@ -6,7 +6,6 @@ VAGRANT_CORE_FOLDER="/vagrant"
 
 if [[ -f "${VAGRANT_CORE_FOLDER}/Gemfile" ]]; then
   echo 'Installing bundler gems'
-  cd ${VAGRANT_CORE_FOLDER} && gem install bundler
   cd ${VAGRANT_CORE_FOLDER} && bundle install
 fi
 
@@ -20,7 +19,11 @@ if [[ -f "${VAGRANT_CORE_FOLDER}/bower.json" ]]; then
   cd ${VAGRANT_CORE_FOLDER} && bower install
 fi
 
-if [[ -f "${VAGRANT_CORE_FOLDER}/puppet/shell/custom/post-provision.unprivileged.sh" ]]; then
-  source ${VAGRANT_CORE_FOLDER}/puppet/shell/custom/post-provision.unprivileged.sh
+if [[ -f "${VAGRANT_CORE_FOLDER}/config/shell/custom/post-provision.unprivileged.sh" ]]; then
+  source ${VAGRANT_CORE_FOLDER}/config/shell/custom/post-provision.unprivileged.sh
 fi;
 
+if [[ -f "${VAGRANT_CORE_FOLDER}/public/composer.json" ]]; then
+  echo 'Installing compooser'
+  cd ${VAGRANT_CORE_FOLDER}/public && composer install
+fi

@@ -14,6 +14,6 @@ if [[ -f "${VAGRANT_CORE_FOLDER}/bower.json" ]]; then
   /usr/local/bin/npm install bower -g
 fi
 
-if [[ -f "${VAGRANT_CORE_FOLDER}/puppet/shell/custom/post-provision.sh" ]]; then
-    source ${VAGRANT_CORE_FOLDER}/puppet/shell/custom/post-provision.sh
+if [[ -f "${VAGRANT_CORE_FOLDER}/config/shell/custom/post-provision.sh" ]]; then
+    source ${VAGRANT_CORE_FOLDER}/config/shell/custom/post-provision.sh
 fi;
