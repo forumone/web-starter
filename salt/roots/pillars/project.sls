@@ -3,6 +3,7 @@ extra_packages:
   - gcc
   - gcc-c++
 
+# SCL packages available from: http://mirror.centos.org/centos/6/sclo/x86_64/
 scl_packages:
   - devtoolset-3-gcc
   - devtoolset-3-gcc-c++
