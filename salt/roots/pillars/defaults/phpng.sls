@@ -18,5 +18,6 @@ php:
           - {{php_base}}-common
           - {{php_base}}-opcache
           - {{php_base}}-pecl-xdebug
+          - {{php_base}}-bcmath
         fpm:
           - {{php_base}}-fpm
