@@ -8,6 +8,11 @@ scl_packages:
   - devtoolset-3-gcc
   - devtoolset-3-gcc-c++
 
+#node:
+#  global_npm:
+#    - grunt
+#    - grunt@0.3 # specify a version
+
 ## Define custom VCL for project in config/salt_templates/varnish/default.vcl, backends.vcl, secret, etc.
 #varnish:
 #  vcl: salt://salt_templates/varnish/

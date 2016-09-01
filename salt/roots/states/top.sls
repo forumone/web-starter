@@ -4,6 +4,7 @@ base:
     - epel
     - jinja26
     - node
+    - node.npm-install
     - ruby
 #    Load mysql.client first to avoid getting mysql-libs from base repo
     - mysql.client
