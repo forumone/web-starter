@@ -3,6 +3,10 @@ extra_packages:
   - gcc
   - gcc-c++
 
+scl_packages:
+  - devtoolset-3-gcc
+  - devtoolset-3-gcc-c++
+
 ## Define custom VCL for project in config/salt_templates/varnish/default.vcl, backends.vcl, secret, etc.
 #varnish:
 #  vcl: salt://salt_templates/varnish/
