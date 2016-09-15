@@ -20,7 +20,7 @@ To Do:
     - /bin/sed -i -e 's/#master: salt/master: saltmaster.forumone.com/g' /etc/salt/minion
     - start salt-minion
 
-  - TEST TEST TEST
+  - TEST TEST 
 
 
 Sample AWS CLI:
