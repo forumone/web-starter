@@ -23,3 +23,7 @@ To Do:
   - TEST TEST TEST
 
 
+Sample AWS CLI:
+aws cloudformation --region=us-east-1 create-stack --stack-name VPCTEST13 --template-body file:////home//gwilson//git//web-starter//config//aws//f1-aws-cf-ec2.template --capabilities CAPABILITY_IAM --parameters  ParameterKey="KeyName",ParameterValue="MyEC2Key2" ParameterKey="InstanceType",ParameterValue="t1.micro" ParameterKey="InstanceHostname",ParameterValue="vpctest13.byf1.io" --tags Key=client,Value=f1test13
+
+Note: my default aws cli account is a test account, and I am specifying my own KeyName in the --parameters. 
