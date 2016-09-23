@@ -42,6 +42,10 @@ set :drupal_db_updates, true
 set :linked_dirs, %w[{{app_webroot}}/sites/default/files]
 {{/is_drupal}}
 
+{{#is_wordpress}}
+set :linked_dirs, %w[{{app_webroot}}/wp-content/uploads {{app_webroot}}/wp-content/wflogs {{app_webroot}}/wp-content/upgrade] 
+{{/is_wordpress}}
+
 # rsync settings
 set :rsync_options, %w[--recursive --chmod=Dug=rwx,Do=rx --perms --delete --delete-excluded --exclude=.git* --exclude=node_modules]
 set :rsync_copy, "rsync --archive --acls --xattrs"

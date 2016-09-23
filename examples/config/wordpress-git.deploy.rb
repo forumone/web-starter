@@ -26,7 +26,7 @@ set :user_sudo, false
 set :pty, true
 
 # Array of folders to share
-set :linked_dirs, %w{public/wp-content/uploads}
+set :linked_dirs, %w{public/wp-content/uploads public/wp-content/wflogs}
 
 # Sets platform to WordPress
 set :platform, "wordpress"
