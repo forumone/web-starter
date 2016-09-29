@@ -92,6 +92,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.ssh.forward_agent = true
+  # Workaround for authentication failure, retrying bug in vagrant 1.8.5
+  config.ssh.insert_key = false
 
   # CentOS machines with Software Collections scripts (scl enable foo) have a misbehaving sudo that doesn't recognize flags.
   # Override them to prevent cryptic errors about "line 8: -E: command not found"
