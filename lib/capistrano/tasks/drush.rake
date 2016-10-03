@@ -105,8 +105,8 @@ namespace :drush do
       unless test " [ -f #{release_path}/db.sql.gz ]"
         within "#{release_path}/#{fetch(:app_webroot, 'public')}" do
           # Capture the output from drush status
-          status = JSON.parse(capture(:drush, '-p', 'status'))
-          
+          status = JSON.parse(capture(:drush, "-p -r #{current_path}/#{fetch(:webroot, 'public')}", 'status')) 
+
           # Ensure that we are connected to the database and were able to bootstrap Drupal
           if ('Connected' == status['db-status'] && 'Successful' == status['bootstrap'])
             execute :drush, "-r #{current_path}/#{fetch(:webroot, 'public')} -l #{fetch(:site_url)[0]} sql-dump -y --gzip --result-file=#{release_path}/db.sql"
