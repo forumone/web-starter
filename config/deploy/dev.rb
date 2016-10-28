@@ -1,7 +1,7 @@
 # The stage to use
 set :stage, :dev
 
-# An array containing site URL, used for Varnish bans
+# An array containing site URL, used for Varnish bans and Drush operations
 set :site_url, %w{example.com}
 
 # An array containing drupal sites to copy settings files in
