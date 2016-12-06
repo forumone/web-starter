@@ -91,6 +91,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
+  config.vm.hostname = 'vagrant.byf1.io'
+
   config.ssh.forward_agent = true
   # Workaround for authentication failure, retrying bug in vagrant 1.8.5
   config.ssh.insert_key = false
