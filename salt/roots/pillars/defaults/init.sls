@@ -84,7 +84,7 @@ nginx:
           worker_connections: 1024
         http:
           # General Global settings
-          sendfile: 'on'
+          sendfile: 'off'
           tcp_nopush: 'on'
           tcp_nodelay: 'on'
           keepalive_timeout: 65
