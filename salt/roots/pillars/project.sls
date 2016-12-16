@@ -21,9 +21,16 @@ scl_packages:
 #solr:
 #  conf: salt://salt_templates/solr-conf
 
-# Define nginx template
-{% include 'nginx/drupal.sls' %}
+# Custom nginx server variables
+#nginx:
+#  server:
+#    config:
+#      http:
+#        sendfile: 'off'
 
+# Define nginx template
+include:
+  - nginx.drupal
 
 # To override or add php settings, uncomment/add values below
 #php:
