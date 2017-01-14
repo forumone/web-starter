@@ -31,6 +31,9 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 1080, host: 1080
   config.vm.network :forwarded_port, guest: 9200, host: 9200
   config.vm.network :forwarded_port, guest: 4444, host: 4444
+  config.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true
+  config.vm.network :forwarded_port, guest: 3001, host: 3001, auto_correct: true
+  config.vm.network :forwarded_port, guest: 3002, host: 3002, auto_correct: true
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -40,7 +43,7 @@ Vagrant.configure("2") do |config|
   if (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
     synched_opts = { nfs: true, nfs_udp: false }
     nfs_exports = ["rw", "async", "insecure", "no_subtree_check"]
-  
+
     if (RUBY_PLATFORM =~ /darwin/)
       nfs_exports += ["noac", "actimeo=0", "intr", "noacl", "lookupcache=none"]
       synched_opts[:bsd__nfs_options] = nfs_exports
@@ -48,24 +51,24 @@ Vagrant.configure("2") do |config|
       nfs_exports += ["all_squash"]
       synched_opts[:linux__nfs_options] = nfs_exports
     end
-  	
+
     config.vm.synced_folder ".", "/vagrant", synched_opts
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   else
     # First, disable default vagrant share
     config.vm.synced_folder ".", "/vagrant", disabled: true
-  	
+
     # Next, setup the shared Vagrant folder manually, bypassing Windows 260 character path limit
     config.vm.provider "virtualbox" do |v|
       v.customize ["sharedfolder", "add", :id, "--name", "vagrant", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
       v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
-    
+
     # Finally, mount the shared folder on the guest system during provision
     config.vm.provision :shell, inline: "mkdir -p /vagrant", run: "always"
     config.vm.provision :shell, inline: "mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant", run: "always"
-    
+
     config.nfs.map_uid = 501
     config.nfs.map_gid = 20
   end
@@ -109,11 +112,11 @@ Vagrant.configure("2") do |config|
   # the file centos64-64.pp in the manifests_path directory.
   config.vm.provision :puppet do |puppet|
     puppet.options = "--verbose"
-    puppet.facter = { 
-      "host_uid" => config.nfs.map_uid, 
-      "host_gid" => config.nfs.map_gid, 
+    puppet.facter = {
+      "host_uid" => config.nfs.map_uid,
+      "host_gid" => config.nfs.map_gid,
       "vagrant_user" => ENV['USER'] }
-    
+
     puppet.manifests_path = "puppet/manifests"
     puppet.manifest_file = "init.pp"
     puppet.hiera_config_path = "puppet/manifests/hiera.yaml"
