@@ -42,6 +42,7 @@ PERMLOG="/tmp/permission-problems.txt"
 MYUSER=$UID
 MYHOME=$HOME
 
+echo -e "----------------"
 if [[ "$PERMPROBS" == "" ]]
 then
   echo -e "No permissions problems detected. \n"
