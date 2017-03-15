@@ -19,7 +19,7 @@ nginx:
               - location /:
                 - try_files:
                   - $uri
-                  - $uri/index.html
+                  - $uri/
                   - '@rewrite'
               - location @rewrite:
                 - rewrite:
