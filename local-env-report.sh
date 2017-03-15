@@ -23,7 +23,7 @@ platform="unknown"
 if [[ "$OSTYPE" == "linux-gnu" ]]
 then
   platform='linux'
-elif [[ "$OSTYPE" == "darwin*" ]]
+elif [[ "$OSTYPE" == "darwin"* ]]
 then
   platform='osx'
 fi
