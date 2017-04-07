@@ -12,6 +12,7 @@ nginx:
                 - default_server
               - listen:
                 - 443 ssl default_server
+              - index index.php index.html
               - ssl_certificate: ssl/vagrant.crt
               - ssl_certificate_key: ssl/vagrant.key
               - root: /vagrant/public
