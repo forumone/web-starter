@@ -39,6 +39,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 4444, host: 4444
   # ElasticSearch
   config.vm.network :forwarded_port, guest: 9200, host: 9200
+  # BrowserSync
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
