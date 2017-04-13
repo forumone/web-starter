@@ -675,7 +675,7 @@ gitfs_remotes:
   - https://github.com/forumone/mailhog-formula.git:
     - base: 1.0.x
   - https://github.com/forumone/elasticsearch-formula.git:
-    - base: 1.0.x
+    - base: 2.0.x
   - https://github.com/forumone/composer-formula.git:
     - base: 1.0.x
   - https://github.com/forumone/ruby-formula.git:
