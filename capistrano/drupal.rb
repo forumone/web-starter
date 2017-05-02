@@ -60,7 +60,6 @@ namespace :drupal do
       last_release = capture(:ls, '-xr', releases_path).split.first
       last_release_path = releases_path.join(last_release)
       
-      within "#{last_release_path}/public" do
       within "#{last_release_path}/#{fetch(:app_webroot, 'public')}" do
         execute :gunzip, "#{last_release_path}/db.sql.gz"
       	execute :drush, "-y sql-drop -l #{fetch(:site_url)[0]} &&", %{$(drush sql-connect -l #{fetch(:site_url)[0]}) < #{last_release_path}/db.sql}
