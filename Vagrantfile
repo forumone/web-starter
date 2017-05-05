@@ -29,6 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 80, host: 8080
   # Nginx / Apache
   config.vm.network :forwarded_port, guest: 8080, host: 8081
+  config.vm.network :forwarded_port, guest: 8443, host: 443
   # Solr
   config.vm.network :forwarded_port, guest: 8983, host: 18983
   # MySQL
