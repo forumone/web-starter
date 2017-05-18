@@ -12,15 +12,13 @@ nginx:
                 - default_server
               - listen:
                 - 443 ssl default_server
-              - index index.php index.html
+              - index: index.php index.html
               - ssl_certificate: ssl/vagrant.crt
               - ssl_certificate_key: ssl/vagrant.key
-              - root: /vagrant/public
+              - root: {{ document_root }}
               - access_log: /var/log/nginx/vagrant.log
               - location /:
                 - try_files: $uri $uri/ @rewrite
-              - location ~ \..*/.*\.php$:
-                - return: 403
               - location @rewrite:
                 - rewrite: ^/(.*)$ /index.php?q=$1
               - location ~ \.php$:
@@ -30,9 +28,5 @@ nginx:
                 - include: fastcgi_params
                 - fastcgi_intercept_errors: 'on'
                 - fastcgi_pass: unix:/var/run/php-fpm/vagrant.sock
-                - fastcgi_read_timeout: 1200
               - location ~ ^/sites/.*/files/(imagecache|styles)/:
                 - try_files: $uri @rewrite
-              - location ~* \.(js|css|png|jpg|jpeg|gif|ico|woff)$:
-                - expires: max
-

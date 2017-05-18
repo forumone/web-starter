@@ -12,25 +12,16 @@ nginx:
                 - default_server
               - listen:
                 - 443 ssl default_server
-              - index index.php index.html
+              - index: index.php index.html
               - ssl_certificate: ssl/vagrant.crt
               - ssl_certificate_key: ssl/vagrant.key
-              - root: /vagrant/public
+              - root: {{ document_root }}
+              - port_in_redirect: 'off'
               - access_log: /var/log/nginx/vagrant.log
               - location /:
-                - try_files:
-                  - $uri
-                  - $uri/
-                  - '@rewrite'
+                - try_files: $uri $uri/ @rewrite
               - location @rewrite:
-                - rewrite:
-                  - ^/(.*)$
-                  - /index.php?q=$1
-              - location ~ ^/sites/.*/files/(css|js|styles)/:
-                - expires: max
-                - try_files: $uri @rewrite
-              - location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff)$:
-                - expires: 1h
+                - rewrite: ^/(.*)$ /index.php?q=$uri&$args
               - location ~ \.php$:
                 - fastcgi_split_path_info: ^(.+\.php)(/.+)$
                 - include: fastcgi_params

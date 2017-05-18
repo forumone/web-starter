@@ -1,4 +1,10 @@
-# Extra packages
+# Define nginx template
+include:
+  - nginx.drupal8:
+      defaults:
+        document_root: /vagrant/public
+  
+# Extra packages to install
 extra_packages:
   - gcc
   - gcc-c++
@@ -28,11 +34,7 @@ scl_packages:
 #      http:
 #        sendfile: 'off'
 
-# Define nginx template
-include:
-  - nginx.drupal
-
-# To override or add php settings, uncomment/add values below
+# To modify php.ini settings, uncomment section and add values below
 #php:
 #  ng:
 #    cli:
