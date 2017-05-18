@@ -42,3 +42,37 @@ scl_packages:
 #        settings:
 #          PHP:
 #            memory_limit: 256M
+
+# Elasticsearch config example for version 5.2.2
+#elasticsearch:
+#  version: 5.2.2
+#  config:
+#    http.cors.enabled: true
+#    network.bind_host: 0.0.0.0
+#    bootstrap.system_call_filter: false
+#  sysconfig:
+#    JAVA_HOME: /usr/lib/java
+#    MAX_OPEN_FILES: 65536
+#  jvm_opts:
+## Set Smaller memory footprint, followed by defaults
+#    - -Xms512m
+#    - -Xms512m
+#    - -XX:ParallelGCThreads=1
+#    - -Dfile.encoding=UTF-8
+#    - -Dio.netty.noKeySetOptimization=true
+#    - -Dio.netty.noUnsafe=true
+#    - -Dio.netty.recycler.maxCapacityPerThread=0
+#    - -Djava.awt.headless=true
+#    - -Djdk.io.permissionsUseCanonicalPath=true
+#    - -Djna.nosys=true
+#    - -Dlog4j2.disable.jmx=true
+#    - -Dlog4j.shutdownHookEnabled=false
+#    - -Dlog4j.skipJansi=true
+#    - -server
+#    - -Xss1m
+#    - -XX:+AlwaysPreTouch
+#    - -XX:CMSInitiatingOccupancyFraction=75
+#    - -XX:+DisableExplicitGC
+#    - -XX:+HeapDumpOnOutOfMemoryError
+#    - -XX:+UseCMSInitiatingOccupancyOnly
+#    - -XX:+UseConcMarkSweepGC
