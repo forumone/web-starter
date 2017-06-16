@@ -16,7 +16,7 @@ Starting from within the root of your project (an existing project which already
   * If you get an error re-provision the VM by running "vagrant provision" to see if this resolves the issue
 2. SSH into VM by running "vagrant ssh"
 3. Navigate to VM docroot by running "cd /vagrant/public"
-4. Install Drupal using custom install profile by running "drush si [profile] -y" and following prompts. Alterntatively, use drush aliases to synch to a development instance of a site database. 
+4. Install Drupal using custom install profile by running "drush si [profile] -y" and following prompts. Alterntatively, use drush aliases to sync to a development instance of a site database. 
 
 ## Troubleshooting
 
